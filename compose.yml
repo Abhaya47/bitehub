@@ -1,0 +1,32 @@
+#version: "3"
+
+networks:
+  bitehub:
+    external: false
+services:
+  bitehub:
+    build: 
+      context: ./infrastructure/app
+    container_name: bitehub
+    ports:
+      - 8555:80
+    volumes:
+      - ./:/var/www/html/:rw
+    networks:
+      bitehub:
+        aliases:
+          - bitehub
+
+  bitehubmysql:
+    image: mysql:8.0.42-debian
+    restart: always
+    ports:
+      - 33224:3306
+    volumes:
+      - ./infrastructure/database/data/:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+      bitehub:
+        aliases:
+          - bitehubmysql
