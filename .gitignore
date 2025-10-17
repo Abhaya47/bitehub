@@ -22,5 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/infrastructure/database/data
+/infrastructure/database/data/*
 /infrastructure/database/initdb.d
+infrastructure/database/data/#innodb_redo/#ib_redo10_tmp
+infrastructure/database/data/#innodb_redo/#ib_redo10_tmp
