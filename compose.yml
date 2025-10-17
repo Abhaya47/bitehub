@@ -5,11 +5,13 @@ networks:
     external: false
 services:
   bitehub:
-    build: 
+    build:
       context: ./infrastructure/app
     container_name: bitehub
     ports:
       - 8555:80
+      - 8000:8000
+      - 5173:5173
     volumes:
       - ./:/var/www/html/:rw
     networks:

@@ -56,4 +56,5 @@ RUN chmod u+w /var/www/html
 #run the rest as docker
 USER docker
 
-ENTRYPOINT ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html/public"]
+#ENTRYPOINT ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html/public"]
+ENTRYPOINT ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
