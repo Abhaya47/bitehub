@@ -29,6 +29,14 @@ RUN apk add --no-cache icu-dev libzip-dev\
 
 RUN composer require filament/filament:"^4.0"
 RUN composer require livewire/flux
+
+
+##installing npm
+RUN apk add --update nodejs npm
+RUN apk add --update npm
+RUN npm install tailwindcss @tailwindcss/vite
+
+
 #create docker user because using root is ☠️
 RUN addgroup --gid $HOST_GID docker && \
     adduser \
