@@ -12,11 +12,11 @@ class Message extends Model
     use HasFactory;
 
     protected $table = 'messages';
-    protected array $foreignKey = ['restaurantId','userId'];
+//    protected array $foreignKey = ['restaurantId','userId'];
 
-    protected array $dates = ['createdAt', 'updatedAt'];
+//    protected array $dates = ['createdAt', 'updatedAt'];
 
-    protected $primaryKey = ['id'];
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
