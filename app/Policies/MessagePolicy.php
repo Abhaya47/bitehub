@@ -13,7 +13,7 @@ class MessagePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message): bool
     {
-        return false;
+        return true;
     }
 
     /**

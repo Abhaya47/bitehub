@@ -22,9 +22,11 @@ class RestaurantForm
                     ->required()
                     ->numeric(),
                 DatePicker::make('established_date')
-                    ->required(),
+                    ->required()
+                    ->before('today'),
                 TextInput::make('owner_id')
                     ->nullable()
+                    ->exists(column: 'owner_id')
                     ->numeric(),
             ]);
     }
