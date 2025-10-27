@@ -91,13 +91,13 @@
                         Home
                     </a>
                     <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
-                        About
+                        Reels
                     </a>
                     <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
-                        Service
+                        Chat    
                     </a>
                     <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
-                        Contact
+                        About US
                     </a>
                 </div>
             </div>
