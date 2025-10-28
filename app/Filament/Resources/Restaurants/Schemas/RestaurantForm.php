@@ -6,6 +6,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Auth;
 
 class RestaurantForm
 {
@@ -25,8 +26,9 @@ class RestaurantForm
                     ->required()
                     ->before('today'),
                 TextInput::make('owner_id')
+                    ->default(fn()=>Auth::user()->id)
+                    ->readonly()
                     ->nullable()
-                    ->exists(column: 'owner_id')
                     ->numeric(),
             ]);
     }

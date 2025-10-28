@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\Panel;
+use App\Services\UserService;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Filament\Panel;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -24,6 +26,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -59,14 +62,34 @@ class User extends Authenticatable implements FilamentUser
         };
     }
 
-    //These are the helper methods for roles
-    public function isAdmin(): bool
+    public function restaurant()
     {
-        return $this->role === 'admin';
+        return $this->hasMany('App\Models\Restaurant');
     }
 
-    public function isRestaurantOwner(): bool
-    {
-        return $this->role === 'restaurant_owner';
+    protected function isAdmin(): bool{
+        $user=Auth::user();
+        if(($user->role)=="admin"){
+            return true;
+        }
+        return false;
     }
+
+    protected function isOwner(): bool{
+        $user=Auth::user();
+        if(($user->role)=="owner"){
+            return true;
+        }
+        return false;
+    }
+
+    protected function isUser(): bool{
+        $user=Auth::user();
+        if(($user->role)=="user"){
+            return true;
+        }
+        return false;
+    }
+
+
 }
