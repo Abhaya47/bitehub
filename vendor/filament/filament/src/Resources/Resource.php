@@ -126,3 +126,6 @@ abstract class Resource
         return static::$isDiscovered;
     }
 }
+
+
+
