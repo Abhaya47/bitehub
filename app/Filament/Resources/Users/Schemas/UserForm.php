@@ -23,9 +23,9 @@ class UserForm
                 TextInput::make('password')
                     ->password()
                     ->required(),
-                Select::make('role')
+                TextInput::make('role')
                     ->label('Role')
-                    ->options(['user','admin', 'owner'])
+                    ->hint("['user' , 'admin' , 'owner']")
                     ->required()
                     ->default('user'),
             ]);

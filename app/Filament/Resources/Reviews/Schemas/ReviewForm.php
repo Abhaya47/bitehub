@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Reviews\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewForm
 {
@@ -20,6 +21,8 @@ class ReviewForm
                     ->required()
                     ->numeric(),
                 TextInput::make('user_id')
+                    ->default(fn()=>Auth::user()->id)
+                    ->readonly()
                     ->required()
                     ->numeric(),
             ]);

@@ -2,35 +2,31 @@
 
 namespace App\Policies;
 
-use App\Models\Message;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class MessagePolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return true;
-//            User::isAdmin();
-
+        return User::isAdmin();
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Message $message): bool
+    public function view(User $user, User $model): bool
     {
         if (User::isAdmin()){
             return true;
         }
-        if($user->id==$message->user_id){
+        if($user->id == $model->id){
             return true;
         }
         return false;
-
     }
 
     /**
@@ -38,15 +34,18 @@ class MessagePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return User::isAdmin();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Message $message): bool
+    public function update(User $user, User $model): bool
     {
-        if($user->id==$message->user_id){
+        if (User::isAdmin()){
+            return true;
+        }
+        if($user->id == $model->id){
             return true;
         }
         return false;
@@ -55,24 +54,30 @@ class MessagePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Message $message): bool
+    public function delete(User $user, User $model): bool
     {
-        return true;
+        if (User::isAdmin()){
+            return true;
+        }
+        if($user->id == $model->id){
+            return true;
+        }
+        return false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Message $message): bool
+    public function restore(User $user, User $model): bool
     {
-        return true;
+        return User::isAdmin();
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Message $message): bool
+    public function forceDelete(User $user, User $model): bool
     {
-        return true;
+        return User::isAdmin();
     }
 }

@@ -11,7 +11,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(): bool
     {
         return true;
     }
@@ -21,6 +21,9 @@ class ReviewPolicy
      */
     public function view(User $user, Review $review): bool
     {
+        if(User::isAdmin()){
+            return true;
+        }
         return true;
     }
 
@@ -29,7 +32,7 @@ class ReviewPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+       return User::isAdmin();
     }
 
     /**
@@ -37,7 +40,7 @@ class ReviewPolicy
      */
     public function update(User $user, Review $review): bool
     {
-        return true;
+       return User::isAdmin();
     }
 
     /**
@@ -45,7 +48,7 @@ class ReviewPolicy
      */
     public function delete(User $user, Review $review): bool
     {
-        return true;
+       return User::isAdmin();
     }
 
     /**
@@ -53,7 +56,7 @@ class ReviewPolicy
      */
     public function restore(User $user, Review $review): bool
     {
-        return true;
+       return User::isAdmin();
     }
 
     /**
@@ -61,6 +64,6 @@ class ReviewPolicy
      */
     public function forceDelete(User $user, Review $review): bool
     {
-        return true;
+       return User::isAdmin();
     }
 }

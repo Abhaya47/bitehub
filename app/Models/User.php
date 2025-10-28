@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -44,5 +47,34 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function restaurant()
+    {
+        return $this->hasMany('App\Models\Restaurant');
+    }
+
+    protected function isAdmin(): bool{
+        $user=Auth::user();
+        if(($user->role)=="admin"){
+            return true;
+        }
+        return false;
+    }
+
+    protected function isOwner(): bool{
+        $user=Auth::user();
+        if(($user->role)=="owner"){
+            return true;
+        }
+        return false;
+    }
+
+    protected function isUser(): bool{
+        $user=Auth::user();
+        if($user->role=="user"){
+            return true;
+        }
+        return false;
     }
 }

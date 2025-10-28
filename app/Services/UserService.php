@@ -4,10 +4,12 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+
     /**
      * @param string $name
      * @param string $email
@@ -46,5 +48,9 @@ class UserService
         return true;
     }
 
+    public function getRole(): User
+    {
+        return(Auth::user());
+    }
 
 }

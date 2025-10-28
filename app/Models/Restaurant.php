@@ -21,6 +21,7 @@ class Restaurant extends Model
         'address',
         'pan_number',
         'established_date',
+        'owner_id'
     ];
 
     protected $hidden = [
@@ -35,9 +36,9 @@ class Restaurant extends Model
         'owner_id'=>'integer',
     ];
 
-//    public function owner(){
-//        return $this->belongsTo('App\Models\');
-//    }
+    public function owner(){
+        return $this->belongsTo('App\Models\User', 'owner_id');
+    }
 
     //serialize data
     /**
