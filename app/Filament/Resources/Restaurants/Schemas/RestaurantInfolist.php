@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Filament\Resources\Restaurants\Schemas;
-
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -22,8 +21,9 @@ class RestaurantInfolist
                     ->numeric(),
                 TextEntry::make('established_date')
                     ->date(),
-                TextEntry::make('owner_id')
-                    ->numeric(),
+                TextColumn::make('owner.email')
+                    ->label('Email')
+                    ->searchable()
             ]);
     }
 }

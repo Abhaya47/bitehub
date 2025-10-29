@@ -62,9 +62,17 @@ class User extends Authenticatable implements FilamentUser
         };
     }
 
-    public function restaurant()
+    public function restaurants()
     {
         return $this->hasMany('App\Models\Restaurant');
+    }
+
+    public function review(){
+        return $this->hasMany('App\Models\Review');
+    }
+
+    public function messages(){
+        return $this->hasMany('App\Models\Message');
     }
 
     protected function isAdmin(): bool{
