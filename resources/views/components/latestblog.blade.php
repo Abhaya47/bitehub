@@ -1,10 +1,10 @@
-<section class = "py-20 bg-[#1a1a1a] ">
+<section class = "py-20 bg-[#ffffff] ">
     {{-- This is the main content  wrapper --}}
     <div class = "max-w-7xl mx-auto px-4"> {{-- The content won't stretch wider than this. --}}
         <p class = "text-[#F6433F] uppercase font-semibold text-[16px] mb-4 tracking-wide">
             OUR BLOG
         </p>
-        <p class = "text-white font-semibold text-[24px] md:text-[28px] leading-tight mb-4">
+        <p class = "text-black font-semibold text-[24px] md:text-[28px] leading-tight mb-4">
             Latest Post Blog
         </p>
         <div class = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">

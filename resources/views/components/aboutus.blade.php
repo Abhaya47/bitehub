@@ -16,13 +16,13 @@
                 </span>
                 
                 <div class="relative inline-block mb-8">
-                    <h2 class="text-4xl md:text-5xl text-white leading-tight">
+                    <h2 class="text-4xl md:text-5xl text-black leading-tight">
                         Here are some top restaurants where <b> you can either dine in or take away! </b>
                     </h2>
                     <div class="absolute -bottom-4 left-0 w-20 h-1 bg-primary"></div>
                 </div>
                 
-                <p class="text-white text-lg leading-relaxed mb-8 mt-12">
+                <p class="text-black text-lg leading-relaxed mb-8 mt-12">
                     We provide the most trending local places, restaurant places out there nearby
                 </p>
                 
@@ -32,7 +32,7 @@
                         <img src="{{ asset('images/no_avatar.jpg') }}" alt="Founder" class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <h3 class="text-white font-bold text-lg">Monkey King</h3>
+                        <h3 class="text-bold font-bold text-lg">Monkey King</h3>
                         <p class="text-primary text-xs font-semibold tracking-wider uppercase text-red-500">Founder</p>
                     </div>
                 </div>

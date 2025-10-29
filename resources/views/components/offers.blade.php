@@ -1,4 +1,4 @@
-<section class="py-20 bg-[#1a1a1a]">
+<section class="py-20 bg-[#ffffff]">
     <div class="max-w-7xl mx-auto px-4">
         <div class="relative w-full h-[431px] bg-[black] rounded-[20px] shadow-lg overflow-hidden">
             

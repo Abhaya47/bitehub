@@ -3,10 +3,10 @@
 @section('title', 'BiteHub - Discover Restaurants and Delicious Food')
 
 @section('content')
-    <div class="relative w-full min-h-screen bg-[#313131]">
+    <div class="relative w-full min-h-screen bg-[#ffffff]">
 
         <!-- Header Component -->
-        @include('components.header')
+        {{-- @include('components.header') --}}
 
         <!-- Hero Section Component -->
         @include('components.hero')
