@@ -31,9 +31,13 @@ class Review extends Model
         'updated_at'=>'datetime',
     ];
 
-    public function owner(){
+    public function restaurant(){
         return $this->belongsTo(Restaurant::class,'restaurant_id','id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+}
 
     /*
      * Serialize date

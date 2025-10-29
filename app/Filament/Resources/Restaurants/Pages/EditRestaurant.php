@@ -3,9 +3,11 @@
 namespace App\Filament\Resources\Restaurants\Pages;
 
 use App\Filament\Resources\Restaurants\RestaurantResource;
+use App\Models\User;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Auth;
 
 class EditRestaurant extends EditRecord
 {
@@ -17,5 +19,21 @@ class EditRestaurant extends EditRecord
             ViewAction::make(),
             DeleteAction::make(),
         ];
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $user = User::where('email', $data['email'])->first();
+        $data['owner_id'] = $user->id;
+        unset($data['email']);
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $user= User::where('id',$data['owner_id'])->first();
+        $data['email'] =$user->email;
+        unset($data['owner_id']);
+        return $data;
     }
 }

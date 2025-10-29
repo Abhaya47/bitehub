@@ -25,9 +25,7 @@ class RestaurantsTable
                 TextColumn::make('established_date')
                     ->date()
                     ->sortable(),
-                TextColumn::make('owner_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('owner.email')->label('Owner Email')->searchable(),
             ])
             ->filters([
                 //
