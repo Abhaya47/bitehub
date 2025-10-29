@@ -31,9 +31,7 @@ class ReviewsTable
                 TextColumn::make('restaurant_id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('user.email')->label('User Email')->searchable(),
             ])
             ->filters([
                 //

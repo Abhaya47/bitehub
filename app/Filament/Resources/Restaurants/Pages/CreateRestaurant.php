@@ -13,8 +13,11 @@ class CreateRestaurant extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $user = User::where('email', $data['email'])->first();
-        $data['owner_id'] = $user->id;
         unset($data['email']);
+        if($user==null){
+            return $data;
+        }
+        $data['owner_id'] = $user->id;
         return $data;
     }
 }

@@ -29,7 +29,6 @@ class RestaurantForm
                     TextInput::make('email')
                         ->label('Owner Email')
                         ->default(fn()=>Auth::user()->email)
-                        ->nullable()
                         ->string()
                 ]);
     }

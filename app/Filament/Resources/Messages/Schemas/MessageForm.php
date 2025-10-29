@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Messages\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class MessageForm
 {
@@ -16,9 +17,10 @@ class MessageForm
                 TextInput::make('restaurant_id')
                     ->required()
                     ->numeric(),
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+                TextInput::make('email')
+                    ->label('User Email')
+                    ->default(fn()=>Auth::user()->email)
+                    ->string()
             ]);
     }
 }

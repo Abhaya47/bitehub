@@ -20,10 +20,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        if (User::isAdmin()){
-            return true;
-        }
-        if($user->id == $model->id){
+        if (User::isAdmin() || $user->id == $model->id){
             return true;
         }
         return false;
@@ -42,10 +39,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        if (User::isAdmin()){
-            return true;
-        }
-        if($user->id == $model->id){
+        if (User::isAdmin() || $user->id == $model->id){
             return true;
         }
         return false;
@@ -56,10 +50,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        if (User::isAdmin()){
-            return true;
-        }
-        if($user->id == $model->id){
+        if (User::isAdmin() || $user->id == $model->id){
             return true;
         }
         return false;

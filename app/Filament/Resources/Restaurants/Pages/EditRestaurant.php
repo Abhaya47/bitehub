@@ -24,16 +24,22 @@ class EditRestaurant extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $user = User::where('email', $data['email'])->first();
-        $data['owner_id'] = $user->id;
         unset($data['email']);
+        if($user== null){
+            return $data;
+        }
+        $data['owner_id'] = $user->id;
         return $data;
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
         $user= User::where('id',$data['owner_id'])->first();
-        $data['email'] =$user->email;
         unset($data['owner_id']);
+        if($user== null){
+            return $data;
+        }
+        $data['email'] =$user->email;
         return $data;
     }
 }

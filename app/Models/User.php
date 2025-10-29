@@ -4,9 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Filament\Panel;
-use App\Services\UserService;
+use App\Enums\UserType;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,6 +39,10 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+//    protected $casts = [
+//        'role' => UserType::class,
+//    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -64,7 +68,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function restaurants()
     {
-        return $this->hasMany('App\Models\Restaurant');
+        return $this->hasMany('App\Models\Restaurant', 'owner_id');
     }
 
     public function review(){
@@ -77,7 +81,7 @@ class User extends Authenticatable implements FilamentUser
 
     protected function isAdmin(): bool{
         $user=Auth::user();
-        if(($user->role)=="admin"){
+        if(($user->role)===UserType::Admin->value){
             return true;
         }
         return false;
@@ -85,7 +89,7 @@ class User extends Authenticatable implements FilamentUser
 
     protected function isOwner(): bool{
         $user=Auth::user();
-        if(($user->role)=="owner"){
+        if(($user->role)===UserType::Owner->value){
             return true;
         }
         return false;
@@ -93,7 +97,7 @@ class User extends Authenticatable implements FilamentUser
 
     protected function isUser(): bool{
         $user=Auth::user();
-        if(($user->role)=="user"){
+        if(($user->role)===UserType::User->value){
             return true;
         }
         return false;

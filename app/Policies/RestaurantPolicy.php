@@ -14,7 +14,6 @@ class RestaurantPolicy
     public function viewAny(User $user): bool
     {
         return true;
-
     }
 
     /**
@@ -28,7 +27,7 @@ class RestaurantPolicy
         if($user->id == $restaurant->owner_id){
             return true;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -45,10 +44,7 @@ class RestaurantPolicy
     public function update(User $user, Restaurant $restaurant): bool
     {
 //        or
-        if (User::isAdmin()){
-            return true;
-        }
-        if($user->id == $restaurant->owner_id){
+        if (User::isAdmin() || $user->id == $restaurant->owner_id){
             return true;
         }
         return false;
@@ -59,10 +55,7 @@ class RestaurantPolicy
      */
     public function delete(User $user, Restaurant $restaurant): bool
     {
-        if (User::isAdmin()){
-            return true;
-        }
-        if($user->id == $restaurant->owner_id){
+        if (User::isAdmin() || $user->id == $restaurant->owner_id){
             return true;
         }
         return false;

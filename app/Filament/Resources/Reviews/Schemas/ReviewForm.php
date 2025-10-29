@@ -20,11 +20,10 @@ class ReviewForm
                 TextInput::make('restaurant_id')
                     ->required()
                     ->numeric(),
-                TextInput::make('user_id')
-                    ->default(fn()=>Auth::user()->id)
-                    ->readonly()
-                    ->required()
-                    ->numeric(),
+                TextInput::make('email')
+                    ->label('User Email')
+                    ->default(fn()=>Auth::user()->email)
+                    ->string()
             ]);
     }
 }

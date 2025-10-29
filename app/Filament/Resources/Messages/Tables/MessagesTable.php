@@ -20,9 +20,7 @@ class MessagesTable
                 TextColumn::make('restaurant_id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('user.email')->label('user Email')->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

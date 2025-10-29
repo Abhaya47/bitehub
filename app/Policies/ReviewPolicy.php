@@ -21,9 +21,6 @@ class ReviewPolicy
      */
     public function view(User $user, Review $review): bool
     {
-        if(User::isAdmin()){
-            return true;
-        }
         return true;
     }
 
@@ -32,7 +29,10 @@ class ReviewPolicy
      */
     public function create(User $user): bool
     {
-       return User::isAdmin();
+        if(User::isOwner()){
+            return false;
+        }
+       return true;
     }
 
     /**
@@ -40,7 +40,10 @@ class ReviewPolicy
      */
     public function update(User $user, Review $review): bool
     {
-       return User::isAdmin();
+        if (User::isAdmin() || $user->id == $review->user_id){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -48,7 +51,10 @@ class ReviewPolicy
      */
     public function delete(User $user, Review $review): bool
     {
-       return User::isAdmin();
+        if (User::isAdmin() || $user->id == $review->user_id){
+            return true;
+        }
+        return false;
     }
 
     /**
