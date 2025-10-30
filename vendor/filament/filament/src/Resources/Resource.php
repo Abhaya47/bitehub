@@ -69,27 +69,7 @@ abstract class Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $query = static::getModel()::query();
-        $modelClass = $query->getModel()::class;
-
-        if (User::isAdmin()) {
-            return $query;
-        }
-//to see restaurants
-        if($query->getModel()::class=="App\Models\Restaurant"){
-            return $query->where('owner_id', Auth::id());
-        }
-
-//        messages and reviews
-        if(User::isOwner()){
-            $restaurantIds=Restaurant::where('owner_id',Auth::id())->pluck('id');
-
-            if(in_array($modelClass,[\App\Models\Message::class, \App\Models\Review::class])){
-                return $query->whereIn('restaurant_id', $restaurantIds);
-            }
-        }
-
-        return $query->where('user_id', auth()->id());
+        return static::getModel()::query();
     }
 
     /**

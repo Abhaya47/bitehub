@@ -10,15 +10,14 @@ use App\Filament\Resources\Restaurants\Schemas\RestaurantForm;
 use App\Filament\Resources\Restaurants\Schemas\RestaurantInfolist;
 use App\Filament\Resources\Restaurants\Tables\RestaurantsTable;
 use App\Models\Restaurant;
+use App\Models\User;
 use BackedEnum;
-use Filament\Actions\Action;
-use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class RestaurantResource extends Resource
 {
@@ -59,5 +58,14 @@ class RestaurantResource extends Resource
             'edit' => EditRestaurant::route('/{record}/edit'),
         ];
     }
+    public static function getEloquentQuery(): Builder
+    {
+        $query = static::getModel()::query();
 
+        if (User::isAdmin()) {
+            return $query;
+        }
+
+        return $query->where('owner_id', Auth::id());
+    }
 }
