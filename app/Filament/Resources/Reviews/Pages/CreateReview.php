@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Reviews\Pages;
 
 use App\Filament\Resources\Reviews\ReviewResource;
-use App\Models\User;
+use App\Services\FilamentMessageReviewLogic;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateReview extends CreateRecord
@@ -12,9 +12,6 @@ class CreateReview extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $user = User::where('email', $data['email'])->first();
-        $data['user_id'] = $user->id;
-        unset($data['email']);
-        return $data;
+        return FilamentMessageReviewLogic::handleSave($data);
     }
 }

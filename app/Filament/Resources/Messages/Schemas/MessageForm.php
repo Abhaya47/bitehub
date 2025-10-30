@@ -14,9 +14,9 @@ class MessageForm
             ->components([
                 TextInput::make('message')
                     ->required(),
-                TextInput::make('restaurant_id')
-                    ->required()
-                    ->numeric(),
+                TextInput::make('restaurant')
+                    ->hint("name|address include '|'")
+                    ->required(),
                 TextInput::make('email')
                     ->label('User Email')
                     ->default(fn()=>Auth::user()->email)

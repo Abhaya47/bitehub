@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Messages\Pages;
 
 use App\Filament\Resources\Messages\MessageResource;
 use App\Models\User;
+use App\Services\FilamentMessageReviewLogic;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
@@ -22,10 +23,7 @@ class EditMessage extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $user = User::where('email', $data['email'])->first();
-        $data['user_id'] = $user->id;
-        unset($data['email']);
-        return $data;
+        return FilamentMessageReviewLogic::handleSave($data);
     }
 
     protected function mutateFormDataBeforeFill(array $data): array

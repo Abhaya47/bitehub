@@ -19,7 +19,7 @@ class ReviewInfolist
                     ->dateTime(),
                 TextEntry::make('updated_at')
                     ->dateTime(),
-                TextEntry::make('restaurant_id')
+                TextEntry::make('restaurant.name')
                     ->numeric(),
                 TextColumn::make('User.email')
                     ->label('User Email')

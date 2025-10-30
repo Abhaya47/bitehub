@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unique_of_two_columns', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        //
+        Schema::table('restaurants', function (Blueprint $table) {
+            $table->unique(['name','address']);
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unique_of_two_columns');
+        //
     }
 };

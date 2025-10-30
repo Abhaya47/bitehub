@@ -28,9 +28,12 @@ class ReviewsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('restaurant_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make("restaurant.name" )
+                    ->label('Restaurant')
+                    ->formatStateUsing(function ($state, $record) {
+                        return "{$record->restaurant->name} ({$record->restaurant->address})";
+                    })
+                    ->searchable('restaurant.name'=='restaurant.name'),
                 TextColumn::make('user.email')->label('User Email')->searchable(),
             ])
             ->filters([

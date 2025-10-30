@@ -14,7 +14,7 @@ class MessageInfolist
         return $schema
             ->components([
                 TextEntry::make('message'),
-                TextEntry::make('restaurant_id')
+                TextEntry::make('restaurant.name')
                     ->numeric(),
                 TextColumn::make('user.email')
                     ->label('User Email')
