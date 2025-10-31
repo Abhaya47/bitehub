@@ -7,5 +7,8 @@ Route::get('/', function () {
     return view('landing');
 });
 
-Route::get('/login', Login::class)->name('login');
+Route::get('/home',function(){
+    return view('home');
+});
 
+Route::get('/login', Login::class)->name('login');
