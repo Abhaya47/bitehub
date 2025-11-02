@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="font-raleway">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{{ $title ?? 'BiteHub - Discover Restaurants and Delicious Food' }}</title>
-
+    <title>@yield('title', 'BiteHub - Discover Restaurants and Delicious Food')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Import Lato and Raleway fonts -->
@@ -13,37 +13,48 @@
         rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
 
     <style>
-        html, body, #app { height: 100%; }
+        html,
+        body,
+        #app {
+            height: 100%;
+        }
 
+        /* Sets Raleway as default body font */
         body {
             font-family: 'Raleway', sans-serif;
         }
 
+        /* Class for Lato (headings) */
         .font-lato {
             font-family: 'Lato', sans-serif;
         }
 
+        /* Class for Raleway (body text) */
         .font-raleway {
             font-family: 'Raleway', sans-serif;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        /* This automatically applies Lato to all headings */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Lato', sans-serif;
         }
     </style>
 </head>
 
 <body class="bg-[#ffffff] overflow-x-hidden min-h-screen flex flex-col"
-      style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
+    style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
     <div id="app" class="flex-1 flex flex-col">
         <main class="flex-1 w-full">
             {{ $slot }}
         </main>
     </div>
-
-    @livewireScripts
 </body>
+
 </html>
