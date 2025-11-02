@@ -43,17 +43,16 @@ class Login extends Component
             return;
         }
         Auth::login($user, $this->remember);
-        return redirect('/')
+        return redirect('/home')
             ->with('status', 'Logged in successfully');
     }
 
-//    public function mount()
-//    {
-//        if (auth()->check()) {
-//            return redirect('/');
-//        }
-//    }
-// ...
+    public function mount()
+    {
+        if (auth()->check()) {
+            return redirect('/home');
+        }
+    }
     public function render()
     {
         return view('livewire.login')->layout('layouts.layout');

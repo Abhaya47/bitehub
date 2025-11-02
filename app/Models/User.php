@@ -66,6 +66,7 @@ class User extends Authenticatable implements FilamentUser
         };
     }
 
+
     public function restaurants()
     {
         return $this->hasMany('App\Models\Restaurant', 'owner_id');
@@ -79,7 +80,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany('App\Models\Message');
     }
 
-    protected function isAdmin(): bool{
+    public static function isAdmin(): bool{
         $user=Auth::user();
         if(($user->role)===UserType::Admin->value){
             return true;
@@ -87,7 +88,7 @@ class User extends Authenticatable implements FilamentUser
         return false;
     }
 
-    protected function isOwner(): bool{
+    public static function isOwner(): bool{
         $user=Auth::user();
         if(($user->role)===UserType::Owner->value){
             return true;
@@ -95,7 +96,7 @@ class User extends Authenticatable implements FilamentUser
         return false;
     }
 
-    protected function isUser(): bool{
+    public static  function isUser(): bool{
         $user=Auth::user();
         if(($user->role)===UserType::User->value){
             return true;

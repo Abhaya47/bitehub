@@ -49,8 +49,14 @@ class Register extends Component
             return;
         }
         Auth::login($user);
-        return redirect()->to('/');
+        return redirect()->to('/home');
+    }
 
+    public function mount()
+    {
+        if (auth()->check()) {
+            return redirect('/home');
+        }
     }
 
     public function render()
