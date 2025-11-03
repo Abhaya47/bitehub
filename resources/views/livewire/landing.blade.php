@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
 @section('title', 'BiteHub - Discover Restaurants and Delicious Food')
 
-@section('content')
     <div class="relative w-full min-h-screen bg-[#ffffff]">
 
         <!-- Header Component -->
@@ -26,4 +23,4 @@
         <!-- Footer Section Component -->
         @include('landing_components.footer')
     </div>
-@endsection
+
