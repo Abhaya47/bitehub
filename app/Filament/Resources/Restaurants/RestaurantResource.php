@@ -11,9 +11,13 @@ use App\Filament\Resources\Restaurants\Schemas\RestaurantInfolist;
 use App\Filament\Resources\Restaurants\Tables\RestaurantsTable;
 use App\Models\Restaurant;
 use BackedEnum;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class RestaurantResource extends Resource
@@ -55,4 +59,5 @@ class RestaurantResource extends Resource
             'edit' => EditRestaurant::route('/{record}/edit'),
         ];
     }
+
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Restaurant extends Model
 {
@@ -21,11 +23,12 @@ class Restaurant extends Model
         'address',
         'pan_number',
         'established_date',
+        'owner_id'
     ];
 
-    protected $hidden = [
-        'pan_number'
-    ];
+//    protected $hidden = [
+//        'pan_number'
+//    ];
 
     protected $casts = [
         'name' => 'string',
@@ -35,9 +38,21 @@ class Restaurant extends Model
         'owner_id'=>'integer',
     ];
 
-//    public function owner(){
-//        return $this->belongsTo('App\Models\');
-//    }
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\User', 'owner_id');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class,'restaurant_id');
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class,'restaurant_id');
+    }
+
 
     //serialize data
     /**

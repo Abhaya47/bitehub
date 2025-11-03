@@ -1,23 +1,23 @@
 <section class="relative h-screen w-full bg-cover bg-center bg-no-repeat py-5 overflow-hidden"
     style="background-image: url('{{ asset('images/wave_grey_background.png') }}');">
     <div class="container mx-auto relative h-full px-6 lg:px-12">
-        <div class="flex flex-col lg:flex-row items-center justify-between min-h-screen">
+        <div class="flex flex-col lg:flex-row items-center justify-between min-h-[0px]">
             
             <!-- Hero Text Content -->
             <div class="text-center lg:text-left max-w-full lg:max-w-[600px] z-10 py-12 lg:py-0">
 
                 <!-- Welcome Text -->
-                <h3 class="font-light text-sm md:text-base lg:text-[19.27px] leading-none tracking-[1.71px] uppercase text-[#F9443D] mb-4">
+                <h3 class="font-bold text-sm md:text-base lg:text-[19.27px] leading-none tracking-[1.71px] uppercase text-[#F9443D] mb-4">
                     WELCOME TO BITEHUB
                 </h3>
 
                 <!-- Main Heading -->
-                <h1 class="font-normal text-3xl md:text-5xl lg:text-[55.83px] leading-snug lg:leading-[79px] text-[#FEFDF8] mb-5">
+                <h1 class="font-normal text-3xl md:text-5xl lg:text-[55.83px] leading-snug lg:leading-[79px] text-[#000000] mb-5">
                     Discover Restaurants and <span class="text-[#F9443D]">Delicious Food.</span>
                 </h1>
 
                 <!-- Description -->
-                <p class="font-normal text-sm md:text-base lg:text-[16px] leading-relaxed lg:leading-[20px] tracking-[0.03em] text-[#FEFDF8] mb-8">
+                <p class="font-normal text-sm md:text-base lg:text-[16px] leading-relaxed lg:leading-[20px] tracking-[0.03em] text-[#000000] mb-8">
                     Explore the latest food hotspots in your city through curated videos by top influencers and bloggers.
                     Bite Hub brings all the buzz from social media directly to your fingertips!
                 </p>
@@ -26,7 +26,7 @@
                 <div class="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6">
                     <!-- About Us Button -->
                     <button class="flex items-center justify-center gap-2 w-[140px] md:w-[159px] h-[48px] bg-[#F9443D] rounded-full shadow-md hover:bg-[#d93a34] transition-colors">
-                        <span class="font-semibold text-sm md:text-base text-white">About Us</span>
+                        <span class="font-semibold text-sm md:text-base text-white">Register Now</span>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M3.5 7H12.125" stroke="white" stroke-width="1.5" />
                             <path d="M9.41 3.29L13.125 7L9.41 10.71" stroke="white" stroke-width="1.5" />

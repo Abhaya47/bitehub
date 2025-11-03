@@ -3,11 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserType;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -21,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -32,6 +38,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+//    protected $casts = [
+//        'role' => UserType::class,
+//    ];
 
     /**
      * Get the attributes that should be cast.
@@ -45,4 +55,53 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return match ($panel->getId()) {
+            'admin' => $this->role === 'admin',
+            'owner' => $this->role === 'owner',
+            default => false
+        };
+    }
+
+    public function restaurants()
+    {
+        return $this->hasMany('App\Models\Restaurant', 'owner_id');
+    }
+
+    public function review(){
+        return $this->hasMany('App\Models\Review');
+    }
+
+    public function messages(){
+        return $this->hasMany('App\Models\Message');
+    }
+
+    protected function isAdmin(): bool{
+        $user=Auth::user();
+        if(($user->role)===UserType::Admin->value){
+            return true;
+        }
+        return false;
+    }
+
+    protected function isOwner(): bool{
+        $user=Auth::user();
+        if(($user->role)===UserType::Owner->value){
+            return true;
+        }
+        return false;
+    }
+
+    protected function isUser(): bool{
+        $user=Auth::user();
+        if(($user->role)===UserType::User->value){
+            return true;
+        }
+        return false;
+    }
+
+
 }

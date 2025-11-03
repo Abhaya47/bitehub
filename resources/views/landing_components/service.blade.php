@@ -1,11 +1,11 @@
 {{-- Padding on top and bottom --}}
-<section class="py-20 bg-[#1a1a1a]">
+<section class="py-20 bg-[#ffffff]">
     {{-- Header text --}}
     <div class="text-center mb-20">
         <p class="text-[#ff4444] text-sm font-semibold tracking-wider uppercase mb-2">
             OUR SERVICE
         </p>
-        <h2 class="text-white text-3xl md:text-4xl font-bold">
+        <h2 class="text-black text-3xl md:text-4xl font-bold">
             WE ARE TRYING TO CREATE FOODIE<br />COMMUNITY
         </h2>
     </div>

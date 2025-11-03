@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Message;
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -21,7 +22,17 @@ class MessagePolicy
      */
     public function view(User $user, Message $message): bool
     {
-        return true;
+        if (User::isAdmin() || $user->id==$message->user_id){
+            return true;
+        }
+        if(User::isOwner()){
+            $restaurants= Restaurant::where('owner_id',$user->id)->pluck('id')->toArray();
+            if(in_array($message->restaurant_id, $restaurants)){
+                return true;
+            }
+        }
+        return false;
+
     }
 
     /**
@@ -37,6 +48,15 @@ class MessagePolicy
      */
     public function update(User $user, Message $message): bool
     {
+        if($user->id==$message->user_id){
+            return true;
+        }
+        if(User::isOwner()){
+            $restaurants= Restaurant::where('owner_id',$user->id)->pluck('id')->toArray();
+            if(in_array($message->restaurant_id, $restaurants)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -45,7 +65,16 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message): bool
     {
-        return true;
+        if (User::isAdmin() || $user->id==$message->user_id){
+            return true;
+        }
+        if(User::isOwner()){
+            $restaurants= Restaurant::where('owner_id',$user->id)->pluck('id')->toArray();
+            if(in_array($message->restaurant_id, $restaurants)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -53,7 +82,10 @@ class MessagePolicy
      */
     public function restore(User $user, Message $message): bool
     {
-        return true;
+        if (User::isAdmin()){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -61,6 +93,9 @@ class MessagePolicy
      */
     public function forceDelete(User $user, Message $message): bool
     {
-        return true;
+        if (User::isAdmin()){
+            return true;
+        }
+        return false;
     }
 }

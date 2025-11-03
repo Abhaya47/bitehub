@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Restaurants\Pages;
 
 use App\Filament\Resources\Restaurants\RestaurantResource;
+use App\Models\User;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -16,4 +17,6 @@ class ViewRestaurant extends ViewRecord
             EditAction::make(),
         ];
     }
+
+
 }

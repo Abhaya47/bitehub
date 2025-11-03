@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Reviews\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 
 class ReviewInfolist
 {
@@ -18,10 +19,11 @@ class ReviewInfolist
                     ->dateTime(),
                 TextEntry::make('updated_at')
                     ->dateTime(),
-                TextEntry::make('restaurant_id')
+                TextEntry::make('restaurant.name')
                     ->numeric(),
-                TextEntry::make('user_id')
-                    ->numeric(),
+                TextColumn::make('User.email')
+                    ->label('User Email')
+                    ->searchable()
             ]);
     }
 }

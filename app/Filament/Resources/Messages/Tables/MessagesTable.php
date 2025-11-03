@@ -17,12 +17,13 @@ class MessagesTable
             ->columns([
                 TextColumn::make('message')
                     ->searchable(),
-                TextColumn::make('restaurant_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make("restaurant.name" )
+                    ->label('Restaurant')
+                    ->formatStateUsing(function ($state, $record) {
+                        return "{$record->restaurant->name} ({$record->restaurant->address})";
+                    })
+                    ->searchable('restaurant.name'=='restaurant.name'),
+                TextColumn::make('user.email')->label('user Email')->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
