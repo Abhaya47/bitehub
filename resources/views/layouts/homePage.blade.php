@@ -34,7 +34,7 @@
             font-family: 'Raleway', sans-serif;
         }
 
-        /* This automatically applies Lato to all headings */
+        /* Automatically applies Lato to all headings */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Lato', sans-serif;
         }
@@ -45,7 +45,7 @@
     style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
     <div id="app" class="flex-1 flex flex-col">
         <main class="flex-1 w-full">
-            @yield('content')
+            {{ $slot }}
         </main>
     </div>
 </body>
