@@ -2,25 +2,64 @@
 
 namespace App\Filament\Resources\Messages\Schemas;
 
+use App\Models\Message;
+use App\Models\Restaurant;
+use App\Models\User;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Auth;
 
 class MessageForm
 {
+    public string $restaurant;
+    public string $address;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('message')
                     ->required(),
-                TextInput::make('restaurant')
-                    ->hint("name|address include '|'")
-                    ->required(),
-                TextInput::make('email')
-                    ->label('User Email')
-                    ->default(fn()=>Auth::user()->email)
-                    ->string()
+                Select::make('name')
+                    ->label('Name')
+                    ->live(true)
+                    ->options( function() {
+                        $user=Auth::user();
+                        if(User::isAdmin()){
+                            return Restaurant::query()->pluck('name', 'name');
+                        }
+                        return $user->restaurants()->pluck('name', 'name');
+                    })
+                    ->afterStateUpdated(function (Select $component,string $state) {
+                        $component->state($state);
+                    })
+                    ->loadingMessage('Loading Restaurants...')
+                    ->searchable(),
+                Select::make('address')
+                    ->label('Address')
+                    ->reactive()
+                    ->options(function (Get $get) {
+                        $restaurantName = $get('name');
+                        return Restaurant::where('name', $restaurantName)
+                            ->pluck('address', 'address') // address => address
+                            ->toArray();
+                    })
+                    ->searchable()
+                    ->loadingMessage('Loading Addresses...'),
+
+                Select::make('email')
+                    ->label('User email')
+                    ->options(function(){
+                        if(User::isAdmin()){
+                            return User::query()->pluck('email', 'email');
+                        }
+                        return User::query()->where('id',Auth::user()->id)->pluck('email', 'email');
+                    })
+                    ->default(fn () => Auth::user()->email)
+                    ->searchable()
             ]);
     }
 }

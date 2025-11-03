@@ -33,16 +33,20 @@ class Login extends Component
 
     public function login(){
         $validated=$this->validate($this->rules);
-        $user=User::where('email', $this->email)->first();
-        if($user==null){
-            session()->flash('message', 'Invalid email or password.');
-            return;
-        }
-        if ( ! Hash::check($validated['password'], $user->password) ){
-            session()->flash('message', 'Invalid email or password.');
-            return;
-        }
-        Auth::login($user, $this->remember);
+//        $user=User::where('email', $this->email)->first();
+//        Auth attempt
+        Auth::attempt(['email' => $this->email, 'password' => $this->password]);
+
+//        if($user==null){
+//            session()->flash('message', 'Invalid email or password.');
+//            return;
+//        }
+//        if ( ! Hash::check($validated['password'], $user->password) ){
+//            session()->flash('message', 'Invalid email or password.');
+//            return;
+//        }
+        Auth::login($validated['email'], $validated['password'], $this->remember);
+//        Auth::login([''], $this->remember);
         return redirect('/home')
             ->with('status', 'Logged in successfully');
     }
