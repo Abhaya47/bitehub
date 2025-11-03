@@ -3,13 +3,21 @@
 namespace App\Livewire;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts.layout')]
 class Login extends Component
 {
 
-    private $email;
-    private $password;
+    public $email;
+    public $password;
+    public bool $remember= false;
 
     protected $rules = [
             'email' => 'required|email',
@@ -23,21 +31,31 @@ class Login extends Component
 //            'password.min' => 'Password must be at least 6 characters.'
         ];
 
-    public function login(LoginRequest $validatedRequest){
-        $this->validate();
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            session()->flash('error', 'Invalid email or password.');
+    public function login(){
+        $validated=$this->validate($this->rules);
+        $user=User::where('email', $this->email)->first();
+        if($user==null){
+            session()->flash('message', 'Invalid email or password.');
             return;
         }
-        $token = Auth::user()->createToken('my-app-token')->plainTextToken;
-
-        return redirect('/')
-            ->withCookie(cookie('token', $token, 1440))
+        if ( ! Hash::check($validated['password'], $user->password) ){
+            session()->flash('message', 'Invalid email or password.');
+            return;
+        }
+        Auth::login($user, $this->remember);
+        return redirect('/home')
             ->with('status', 'Logged in successfully');
     }
 
+    public function mount()
+    {
+        if (auth()->check()) {
+            return redirect('/home');
+        }
+    }
     public function render()
     {
         return view('livewire.login')->layout('layouts.layout');
     }
 }
+

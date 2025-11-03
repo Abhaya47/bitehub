@@ -8,15 +8,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Import Lato and Raleway fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
     <style>
-        html, body, #app { height: 100%; }
+        html,
+        body,
+        #app {
+            height: 100%;
+        }
+
+        /* Sets Raleway as default body font */
 
         body {
             font-family: 'Raleway', sans-serif;
@@ -41,9 +46,9 @@
     <div id="app" class="flex-1 flex flex-col">
         <main class="flex-1 w-full">
             {{ $slot }}
+            @vite('resources/js/app.js')
+            @livewireScripts
         </main>
     </div>
-
-    @livewireScripts
 </body>
 </html>
