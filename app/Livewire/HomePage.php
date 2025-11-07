@@ -12,7 +12,6 @@ use Livewire\Attributes\Layout;
 class HomePage extends Component
 {
 
-
     public string $category;
     public string $search = '';
     public array $restaurant=[];
@@ -21,7 +20,6 @@ class HomePage extends Component
 
     public function render()
     {
-        return view('livewire.home-page');
         $this->name=Auth::user()->name;
         if($this->search==null){
             return view('livewire.home-page',[

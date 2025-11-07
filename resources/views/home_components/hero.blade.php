@@ -5,7 +5,7 @@
         <div class="flex-shrink-0 max-w-md">
             {{-- Greeting --}}
             <h1 class="font-inter text-5xl lg:text-6xl font-bold text-[#234F68] leading-tight mb-2">
-                Hey, <span class="text-[#F9423C]">Sahil!</span>
+                Hey, <span class="text-[#F9423C]">{{$name}}</span>
             </h1>
 
             {{-- Subheading --}}
@@ -20,15 +20,26 @@
 
                     {{-- Search Icon --}}
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-3 flex-shrink-0"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
 
                     {{-- Input Field --}}
-                    <input type="text" placeholder="Search foods, restaurants and trending places"
-                        class="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 text-sm">
+                                <input wire:model.live="search" type="search"
+                                       placeholder="Search foods, restaurants and trending places"
+                                       class="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 text-sm">
                 </div>
+                @if($search!=='')
+                    <div
+                        class="flex flex-col items-center  rounded-lg px-6 py-4 shadow-sm hover:shadow-md transition-shadow">
+                        @foreach ($restaurants as $restaurant)
+                            <div class="m-2">
+                                <button>{{ $restaurant->name }}</button>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -38,17 +49,18 @@
 
                 {{-- Burger Image (Top Left) --}}
                 <img src="{{ asset('images/Burger.png') }}" alt="Hamburger" draggable="false"
-                    class="absolute left-[70px] w-[366px] object-contain animate-float" style="animation-delay: 0s;">
+                     class="absolute left-[70px] w-[366px] object-contain animate-float"
+                     style="animation-delay: 0s;">
 
                 {{-- Pizza Image (Bottom Center) --}}
                 <img src="{{ asset('images/Pizza.png') }}" alt="Pizza" draggable="false"
-                    class="absolute top-75 left-[300px] w-[366px] object-contain animate-float"
-                    style="animation-delay: 0.5s;">
+                     class="absolute top-75 left-[300px] w-[366px] object-contain animate-float"
+                     style="animation-delay: 0.5s;">
 
                 {{-- Croissant Image (Top Right) --}}
                 <img src="{{ asset('images/Croissant.png') }}" alt="Croissant" draggable="false"
-                    class="absolute top-10 left-[410px] w-[366px] object-contain animate-float"
-                    style="animation-delay: 1s;">
+                     class="absolute top-10 left-[410px] w-[366px] object-contain animate-float"
+                     style="animation-delay: 1s;">
             </div>
         </div>
     </div>
@@ -57,6 +69,7 @@
 {{-- ---------------- FLOATING ANIMATION ---------------- --}}
 <style>
     @keyframes float {
+
         0%,
         100% {
             transform: translateY(0);
