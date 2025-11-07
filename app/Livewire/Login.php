@@ -31,35 +31,20 @@ class Login extends Component
 //            'password.min' => 'Password must be at least 6 characters.'
         ];
 
-    public function login(){
-        $validated=$this->validate($this->rules);
-//        $user=User::where('email', $this->email)->first();
-//        Auth attempt
-        Auth::attempt(['email' => $this->email, 'password' => $this->password]);
-
-//        if($user==null){
-//            session()->flash('message', 'Invalid email or password.');
-//            return;
-//        }
-//        if ( ! Hash::check($validated['password'], $user->password) ){
-//            session()->flash('message', 'Invalid email or password.');
-//            return;
-//        }
-        Auth::login($validated['email'], $validated['password'], $this->remember);
-//        Auth::login([''], $this->remember);
-        return redirect('/home')
-            ->with('status', 'Logged in successfully');
-    }
-
-    public function mount()
+    public function login()
     {
-        if (auth()->check()) {
-            return redirect('/home');
+        $validated = $this->validate($this->rules);
+        if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $this->remember)) {
+            return redirect('/home')
+                ->with('status', 'Logged in successfully');
+        }
+        else {
+            return session()->flash('error', 'Failed to login, please try again.');
         }
     }
+
     public function render()
     {
         return view('livewire.login')->layout('layouts.layout');
     }
 }
-

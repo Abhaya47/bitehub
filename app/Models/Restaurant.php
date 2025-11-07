@@ -53,6 +53,11 @@ class Restaurant extends Model
         return $this->hasMany(Message::class,'restaurant_id');
     }
 
+    public function tags(): HasMany
+    {
+        return $this->hasMany(RestaurantTag::class,'restaurant_id');
+    }
+
 
     //serialize data
     /**
