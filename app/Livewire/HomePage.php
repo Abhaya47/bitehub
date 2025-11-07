@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Food;
 use App\Models\Restaurant;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -12,7 +14,7 @@ use Livewire\Attributes\Layout;
 class HomePage extends Component
 {
 
-    public string $category;
+    public string $category='restaurant';
     public string $search = '';
     public array $restaurant=[];
     public string $name;
@@ -26,13 +28,20 @@ class HomePage extends Component
                 'restaurants' => []
             ]);
         }
-
         $this->search=trim($this->search);
-        $restaurants= Restaurant::query()->where('name', 'like', '%'.$this->search.'%')->limit(7)->get();
-
+        $response= $this->getModel()::query()->where('name', 'like', '%'.$this->search.'%')->limit(7)->get();
         return view('livewire.home-page', [
-            'restaurants' => $restaurants,
-
+            'responses' => $response,
         ]);
+    }
+
+    public function getModel(){
+        if($this->category=='restaurant'){
+            return Restaurant::class;
+        }
+        elseif($this->category=='food'){
+            return Food::class;
+        }
+        return Tag::class;
     }
 }

@@ -33,9 +33,9 @@
                 @if($search!=='')
                     <div
                         class="flex flex-col items-center  rounded-lg px-6 py-4 shadow-sm hover:shadow-md transition-shadow">
-                        @foreach ($restaurants as $restaurant)
+                        @foreach ($responses as $response)
                             <div class="m-2">
-                                <button>{{ $restaurant->name }}</button>
+                                <button>{{ $response->name }}</button>
                             </div>
                         @endforeach
                     </div>
