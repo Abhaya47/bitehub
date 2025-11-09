@@ -2,12 +2,12 @@
 
 <div class = "relative w-full min-h-screen bg-[#ffffff]">
     <!--Header Component-->
-    @include('home_components.header')
+    @include('livewire.home_components.header')
 
     <!-- Hero Section Component -->
-    @include('home_components.hero')
+    @include('livewire.home_components.hero')
 
     <!-- Card Slider Secction -->
-    @include('home_components.slider')
+    @include('livewire.home_components.slider')
 </div>
 

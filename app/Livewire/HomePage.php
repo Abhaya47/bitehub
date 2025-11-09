@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\Layout;
 
 
-#[Layout('layouts.homePage')]
+#[Layout('layouts.app')]
 class HomePage extends Component
 {
     

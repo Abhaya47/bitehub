@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.layout')]
+#[Layout('layouts.app')]
 class Register extends Component
 {
 
