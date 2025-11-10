@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\ReviewObserver;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([ReviewObserver::class])]
 class Review extends Model
 {
     //
@@ -30,6 +33,7 @@ class Review extends Model
         'created_at'=>'datetime',
         'updated_at'=>'datetime',
     ];
+
 
     public function restaurant(){
         return $this->belongsTo(Restaurant::class,'restaurant_id','id');

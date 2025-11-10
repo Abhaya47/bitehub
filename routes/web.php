@@ -1,11 +1,11 @@
 <?php
 
-use App\Livewire\ForgotPassword;
-use App\Livewire\HomePage;
+use App\Livewire\Auth\ForgotPassword;
+use App\Livewire\Auth\Login;
+use App\Livewire\Auth\Register;
+use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Home\HomePage;
 use App\Livewire\Landing;
-use App\Livewire\Login;
-use App\Livewire\Register;
-use App\Livewire\ResetPassword;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Landing::class)->name('landing');
