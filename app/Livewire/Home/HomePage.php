@@ -2,43 +2,36 @@
 
 namespace App\Livewire\Home;
 
-use App\Models\Food;
 use App\Models\Restaurant;
-use App\Models\Tag;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 
-#[Layout('layouts.homePage')]
+#[Layout('layouts.app')]
 class HomePage extends Component
 {
-
-
-    public string $background="bg-red-500";
-
-    public array $restaurant=[];
+    public $restaurants;
     public string $name;
 
     public function mount()
     {
         if(!Auth::check()){
-            return redirect()->route('/login');
+            return redirect()->route('login');
         }
         $this->name=Auth::user()->name;
+        $this->restaurants = Restaurant::with('reviews')->get()->map(function ($restaurant) {
+            $restaurant->averageRating = $restaurant->reviews->count() > 0
+                ? round($restaurant->reviews->avg('rating'), 1)
+                : 0;
+            $restaurant->totalReviews = $restaurant->reviews->count();
+            return $restaurant;
+        });
     }
-
-
 
     public function render()
     {
-//        if ($this->search == null) {
-//            return view('livewire.home-page', [
-//                'responses' => []
-//            ]);
-//        }
-//        $response = $this->getModelQuery();
         return view('livewire.home-page');
     }
+
 }

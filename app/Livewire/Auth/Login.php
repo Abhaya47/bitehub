@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.layout')]
+#[Layout('layouts.app')]
 class Login extends Component
 {
 
@@ -40,6 +40,6 @@ class Login extends Component
 
     public function render()
     {
-        return view('livewire.login')->layout('layouts.layout');
+        return view('livewire.login');
     }
 }
