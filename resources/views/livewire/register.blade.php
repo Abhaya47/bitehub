@@ -1,5 +1,5 @@
 <div>
-    <section class="bg-gray-50 bg-[url(images/wave_grey_background.png)] bg-cover bg-invert rotate-180">
+    <section class="bg-gray-50 bg-[url({{ asset('images/wave_grey_background.png') }})] bg-cover bg-invert rotate-180">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 rotate-180">
             <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white tracking-wider">
                 BiteHUB
