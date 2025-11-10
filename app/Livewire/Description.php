@@ -11,7 +11,7 @@ class Description extends Component
 {
     public $restaurant;
     public $reviews;
-    public $averageRating ;
+    public $averageRating;
     public $totalReviews;
 
     public function mount(Restaurant $restaurant)
@@ -21,7 +21,7 @@ class Description extends Component
         // Load reviews with user relationship
         $this->reviews = $restaurant->reviews()->with('user')->get();
 
-        // // Calculate average rating and total reviews
+        // Calculate average rating and total reviews
         // $this->totalReviews = $this->reviews->count();
         // $this->averageRating = $this->totalReviews > 0
         //     ? round($this->reviews->avg('rating'), 1)

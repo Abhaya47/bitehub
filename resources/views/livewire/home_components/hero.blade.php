@@ -5,7 +5,7 @@
             <div class="flex-shrink-0 max-w-md">
                 {{-- Greeting --}}
                 <h1 class="font-inter text-5xl lg:text-6xl font-bold text-[#234F68] leading-tight mb-2">
-                    Hey, <span class="text-[#F9423C]">Sahil!</span>
+                    Hey, <span class="text-[#F9423C]"></span>
                 </h1>
 
                 {{-- Subheading --}}

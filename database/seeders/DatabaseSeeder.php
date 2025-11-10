@@ -49,9 +49,23 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Review::create([
             'user_id' => 1,
+            'restaurant_id' => 1,
+            'review' => 'Delicious momos, will come again!',
+            'rating' => 5.0,
+        ]);
+
+        \App\Models\Review::create([
+            'user_id' => 1,
             'restaurant_id' => 2,
             'review' => 'Amazing sekuwa, highly recommended!',
             'rating' => 4.2,
+        ]);
+
+        \App\Models\Review::create([
+            'user_id' => 1,
+            'restaurant_id' => 2,
+            'review' => 'Good place for Nepali cuisine!',
+            'rating' => 4.0,
         ]);
     }
 }
