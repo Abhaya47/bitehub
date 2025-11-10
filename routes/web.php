@@ -16,10 +16,9 @@ Route::middleware(['web'])->group(function () {
     Route::get('/register', Register::class)->name('register');
 });
 Route::get('/home', HomePage::class)->name('home');
-Route::get('/forgot-password', ForgotPassword::class)
+Route::get('/forgot-password',ForgotPassword::class )
     ->middleware('guest')
     ->name('password.email');
-
 Route::get('/reset-password/{token}', ResetPassword::class)
     ->middleware('guest')
     ->name('password.reset');

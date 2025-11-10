@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Observers\RestaurantObserver;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy([RestaurantObserver::class])]
 class Restaurant extends Model
 {
     //
@@ -51,6 +54,11 @@ class Restaurant extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class,'restaurant_id');
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(RestaurantTag::class,'restaurant_id');
     }
 
 

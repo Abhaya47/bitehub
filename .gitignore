@@ -24,3 +24,6 @@ Homestead.yaml
 Thumbs.db
 /infrastructure/database/data/
 /infrastructure/database/initdb.d/
+/vendor/*
+
+
