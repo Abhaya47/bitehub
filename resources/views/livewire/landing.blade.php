@@ -6,21 +6,21 @@
         {{-- @include('components.header') --}}
 
         <!-- Hero Section Component -->
-        @include('landing_components.hero')
+        @include('livewire.landing_components.hero')
 
         <!-- About Us Section Component -->
-        @include('landing_components.aboutus')
+        @include('livewire.landing_components.aboutus')
 
         <!--Service Section Component -->
-        @include('landing_components.service')
+        @include('livewire.landing_components.service')
 
         <!--Offers Section Component-->
-        @include('landing_components.offers')
+        @include('livewire.landing_components.offers')
 
         <!-- Latest Blog Section Component -->
-        @include('landing_components.latestblog')
+        @include('livewire.landing_components.latestblog')
 
         <!-- Footer Section Component -->
-        @include('landing_components.footer')
+        @include('livewire.landing_components.footer')
     </div>
 

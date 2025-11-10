@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Auth;
 
 use App\Models\User;
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.layout')]
+#[Layout('layouts.app')]
 class Register extends Component
 {
 

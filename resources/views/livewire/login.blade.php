@@ -21,9 +21,9 @@
                             <input type="password" name="password" id="password" wire:model="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-[#FEDAD8] dark:text-gray-200 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
                         </div>
                         <div>
-                            @if (session()->has('message'))
+                            @if (session()->has('error'))
                                 <div id="toast-simple" class="flex items-center w-full max-w-xs p-2 space-x-4 rtl:space-x-reverse text-red-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow-sm dark:text-red-500 dark:accent-red-500 dark:bg-[#C4C4C4]border-2 border-red-700" role="alert">
-                                    <div class="ps-4 text-sm font-bold tracking-wider ">{{session('message')}}</div>
+                                    <div class="ps-4 text-sm font-bold tracking-wider ">{{session('error')}}</div>
                                 </div>
                             @endif
                         </div>
