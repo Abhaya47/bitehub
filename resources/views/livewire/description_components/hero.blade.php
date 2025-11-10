@@ -38,14 +38,14 @@
         {{-- Header with Title and Rating --}}
         <div class="flex justify-between items-center mb-5">
             <h1 class="text-[32px] font-medium leading-[28px] text-[#004225]">
-                Hotel Ultra Max
+                {{ $restaurant->name }}
             </h1>
             <div class="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.4417 2.86667L12.9917 5.98333C13.2084 6.425 13.7667 6.85 14.2584 6.93333L17.0667 7.41667C18.8334 7.70833 19.2584 8.99167 17.9417 10.3L15.8084 12.4333C15.4251 12.8167 15.2167 13.525 15.3334 14.0583L15.9751 16.7667C16.4501 18.8833 15.3417 19.7083 13.5001 18.6167L10.8667 17.05C10.3751 16.7667 9.63341 16.7667 9.13341 17.05L6.50008 18.6167C4.66675 19.7083 3.55008 18.875 4.02508 16.7667L4.66675 14.0583C4.78341 13.525 4.57508 12.8167 4.19175 12.4333L2.05841 10.3C0.750081 8.99167 1.16675 7.70833 2.93341 7.41667L5.74175 6.93333C6.22508 6.85 6.78341 6.425 7.00008 5.98333L8.55008 2.86667C9.37508 1.2 10.6251 1.2 11.4417 2.86667Z" stroke="#202020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <span class="text-base font-medium text-[#202020]">
-                    4.5 Stars | 450 Reviews
+                    {{ $averageRating }} Stars | {{ $totalReviews }} Reviews
                 </span>
             </div>
         </div>
@@ -76,7 +76,7 @@
                         <path d="M3.62001 8.49C5.59001 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.39001 20.54C5.63001 17.88 2.47001 13.57 3.62001 8.49Z" stroke="#202020" stroke-width="1.5"/>
                     </svg>
                     <span class="text-base font-normal text-[#202020]" style="letter-spacing: 0.5px;">
-                        Kathmandu, Nepal
+                        {{ $restaurant->address }}
                     </span>
                 </div>
             </div>

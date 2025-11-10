@@ -147,6 +147,7 @@
                 style="scrollbar-width: none; -ms-overflow-style: none;">
 
                 {{-- Card 1 - Aambo Momo --}}
+                <a href="{{ route('description', ['restaurant' => 1]) }}" class="block">
                 <div
                     class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer">
                     {{-- Image Section --}}
@@ -221,8 +222,10 @@
                             to 10% Off</span>
                     </div>
                 </div>
+                </a>
 
                 {{-- Card 2 - Jamuna Sekuwa --}}
+                <a href="{{ route('description', ['restaurant' => 2]) }}" class="block">
                 <div
                     class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer">
                     {{-- Image Section --}}
@@ -298,6 +301,7 @@
                             to 20% Off</span>
                     </div>
                 </div>
+                </a>
 
                 {{-- Additional duplicate cards would follow the same pattern --}}
             </div>

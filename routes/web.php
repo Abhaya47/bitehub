@@ -24,8 +24,5 @@ Route::get('/reset-password/{token}', ResetPassword::class)
     ->middleware('guest')
     ->name('password.reset');
 
-// Route::get('/description/{restaurant}', Description::class)
-//     ->name('description');
-
-Route::get('/description', Description::class)
+Route::get('/description/{restaurant}', Description::class)
     ->name('description');
