@@ -6,6 +6,7 @@
     @include('livewire.description_components.available_offers')
     @include('livewire.description_components.restaurant_menu')
     @include('livewire.description_components.reviews')
-    @include('livewire.description_components.latest_reviews')
+    <livewire:latest_reviews :restaurant="$restaurant"/>
+{{--    @include('livewire.description_components.latest_reviews' {{restaurants}})--}}
     @include('livewire.description_components.footer')
-</div>          
+</div>
