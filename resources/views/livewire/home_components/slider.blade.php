@@ -154,7 +154,7 @@
                             {{-- Image Section --}}
                             <div
                                 class="absolute left-2 top-2 w-[130px] md:w-[150px] lg:w-[170px] h-[140px] md:h-[160px] lg:h-[180px]">
-                                <img src="{{ $restaurant->id == 1 ? asset('images/ambo.png') : asset('images/jamuna.png') }}"
+                                <img src="{{asset('images/jamuna.png') }}"
                                     alt="{{ $restaurant->name }}" class="w-full h-full object-cover rounded-[25px]"
                                     draggable="false" />
 
@@ -189,6 +189,7 @@
                                 <div class="flex flex-col gap-2">
                                     {{-- Rating --}}
                                     <div class="flex items-center gap-0.5">
+                                        {{$restaurant->rating}}
                                         <svg class="w-[9px] md:w-[10px] lg:w-[11px] h-[9px] md:h-[10px] lg:h-[11px]"
                                             viewBox="0 0 9 9" fill="none">
                                             <path
@@ -312,7 +313,6 @@
                 scrollbar-width: none;
             }
 
-            @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
 
             .font-raleway {
                 font-family: 'Raleway', sans-serif;

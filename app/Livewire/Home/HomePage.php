@@ -20,16 +20,11 @@ class HomePage extends Component
             return redirect()->route('login');
         }
         $this->name=Auth::user()->name;
-        $this->restaurants = Restaurant::with('reviews')->get()->map(function ($restaurant) {
-            $restaurant->averageRating = $restaurant->reviews->count() > 0
-                ? round($restaurant->reviews->avg('rating'), 1)
-                : 0;
-            $restaurant->totalReviews = $restaurant->reviews->count();
-            return $restaurant;
-        });
+          $this->restaurants=Restaurant::query()->join('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')->select('restaurants.*','ratings.rating')->orderBy('ratings.rating','desc')->limit(7)->get();
+            return $this->restaurants;
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('livewire.home-page');
     }
