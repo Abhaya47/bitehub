@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class Logout extends Component
+class ShowFood extends Component
 {
     public function render()
     {
-        return view('livewire.logout');
+        return view('livewire.show-food');
     }
 }
