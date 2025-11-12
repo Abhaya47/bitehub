@@ -13,17 +13,15 @@
                             <div class="flex items-center gap-4">
                                 {{-- Profile Image --}}
                                 <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
-                                    <img src="{{ "hero" ?? asset('images/no_avatar.jpg') }}"
-                                         alt="Hero" class="w-full h-full object-cover">
+                                    <img src="{{ $review['user']['name'] ?? asset('images/no_avatar.jpg') }}"
+                                         alt={{$review['user']['name']}} class="w-full h-full object-cover">
                                 </div>
                                 {{-- Name and Reviews Count --}}
                                 <div>
                                     <h3 class="text-sm font-medium leading-4 text-[#202020] mb-1">
-                                        {{--                                        {{ $review->user->name }}--}}
-                                        Hero
+                                        {{$review['user']['name']}}
                                     </h3>
                                     <p class="text-xs font-normal leading-[14px] text-[#7E7E7E]">
-                                        {{--                                        Reviewed {{ $review->user->review->count() }} restaurants--}}
                                     </p>
                                 </div>
                             </div>
@@ -202,12 +200,12 @@
                                 {{-- Profile Image --}}
                                 <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
                                     <img src="{{ $review->user->profile_image ?? asset('images/no_avatar.jpg') }}"
-                                         alt="{{ $review->user->name ?? "Hero" }}" class="w-full h-full object-cover">
+                                    alt="{{ $review['user']['name'] }}" class="w-full h-full object-cover">
                                 </div>
                                 {{-- Name and Reviews Count --}}
                                 <div>
                                     <h3 class="text-sm font-medium leading-4 text-[#202020] mb-1">
-                                        {{ $review['user']->name ?? "Hero" }}
+                                        {{ $review['user']['name'] }}
                                     </h3>
                                     <p class="text-xs font-normal leading-[14px] text-[#7E7E7E]">
                                         Reviewed {{ 45 }} restaurants
