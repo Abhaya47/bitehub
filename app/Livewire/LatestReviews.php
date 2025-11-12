@@ -3,18 +3,23 @@
 namespace App\Livewire;
 
 use App\Models\Restaurant;
+use App\Models\Review;
+use App\Models\User;
 use Livewire\Component;
 
 class LatestReviews extends Component
 {
 
-    public $restaurant;
+    public $reviews;
 
-    public function mount(Restaurant $restaurant){
-         $this->restaurant= Restaurant::with(['reviews' => function($query){
-            $query->orderBy('created_at', 'desc');
-        }])->find($restaurant->id);
-         return $this->restaurant;
+
+    public function mount($reviews): \Illuminate\Support\Collection
+    {
+
+        $user= Review::with('user')->find($reviews[0]['id']);
+        $reviews[0]['user'] = "potato";
+        $this->reviews = collect($reviews);
+        return $this->reviews;
     }
 
     public function render()
