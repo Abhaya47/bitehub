@@ -77,40 +77,40 @@
 </header>
 
 {{-- Mobile menu overlay (separate from header to prevent breaking the rounded design) --}}
-<div id="mobile-menu"
-    class="hidden fixed top-32 left-6 right-6 bg-black/5 backdrop-blur-md shadow-md rounded-3xl z-40 md:hidden">
-    <div class="py-4 px-6">
-        <div class="space-y-2">
-            <a href="#"
-                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Home</a>
-            <a href="#"
-                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Reels</a>
-            <a href="#"
-                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Chat</a>
-            <a href="#"
-                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">About
-                us</a>
+{{--<div id="mobile-menu"--}}
+{{--    class="hidden fixed top-32 left-6 right-6 bg-black/5 backdrop-blur-md shadow-md rounded-3xl z-40 md:hidden">--}}
+{{--    <div class="py-4 px-6">--}}
+{{--        <div class="space-y-2">--}}
+{{--            <a href="#"--}}
+{{--                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Home</a>--}}
+{{--            <a href="#"--}}
+{{--                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Reels</a>--}}
+{{--            <a href="#"--}}
+{{--                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Chat</a>--}}
+{{--            <a href="#"--}}
+{{--                class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">About--}}
+{{--                us</a>--}}
 
-            {{-- Location in mobile menu --}}
-            <div
-                class="flex items-center gap-2 text-gray-700 border-2 border-gray-300 rounded-full px-4 py-3 mt-4 cursor-pointer hover:shadow-lg transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clip-rule="evenodd" />
-                </svg>
-                <span class="text-sm font-bold">Las Vegas</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd" />
-                </svg>
-            </div>
-        </div>
-    </div>
-</div>
+{{--            --}}{{-- Location in mobile menu --}}
+{{--            <div--}}
+{{--                class="flex items-center gap-2 text-gray-700 border-2 border-gray-300 rounded-full px-4 py-3 mt-4 cursor-pointer hover:shadow-lg transition-all">--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20"--}}
+{{--                    fill="currentColor">--}}
+{{--                    <path fill-rule="evenodd"--}}
+{{--                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"--}}
+{{--                        clip-rule="evenodd" />--}}
+{{--                </svg>--}}
+{{--                <span class="text-sm font-bold">Las Vegas</span>--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20"--}}
+{{--                    fill="currentColor">--}}
+{{--                    <path fill-rule="evenodd"--}}
+{{--                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"--}}
+{{--                        clip-rule="evenodd" />--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 {{-- JavaScript for menu toggle --}}
 <script>

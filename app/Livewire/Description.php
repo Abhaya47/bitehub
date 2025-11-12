@@ -16,8 +16,12 @@ class Description extends Component
 
     public function mount(Restaurant $restaurant)
     {
-        $this->restaurant = $restaurant;
-        $this->reviews = $restaurant->reviews()->with('user')->latest()->take(4)->get();
+        $this->restaurant->loadCount('reviews')
+            ->load(['reviews' => function ($query) {
+                $query->with('user')->latest()->take(4);
+            }]);
+        $this->totalReviews = $restaurant->reviews_count;
+        $this->reviews = $this->restaurant->reviews;
     }
 
     public function render()
