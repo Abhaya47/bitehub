@@ -27,7 +27,7 @@
 
         {{-- Navigation links centered (desktop only) --}}
         <nav class="hidden md:flex gap-10 absolute left-1/2 -translate-x-1/2">
-            <a href="#"
+            <a href="{{url('home')}}"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Home</a>
             <a href="#"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Reels</a>

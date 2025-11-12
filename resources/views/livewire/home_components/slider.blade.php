@@ -1,6 +1,27 @@
-    <section class="px-5 lg:px-20 py-20">
+    <section class="px-5 max-w-full lg:px-20 py-20">
         {{-- Card Slider Component --}}
-        <div class="select-none relative">
+        <div class="select-none relative group">
+            {{-- Left Arrow Button --}}
+            <button
+                class="carousel-btn-prev absolute left-[30.23px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                data-slider="card-slider">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 13.28L5.65333 8.93333C5.14 8.42 5.14 7.58 5.65333 7.06667L10 2.72" stroke="#004225"
+                        stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+
+            {{-- Right Arrow Button --}}
+            <button
+                class="carousel-btn-next absolute right-[36.56px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                data-slider="card-slider">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2.72L10.3467 7.06667C10.86 7.58 10.86 8.42 10.3467 8.93333L6 13.28" stroke="#004225"
+                        stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+
             {{-- Scrollable Container --}}
             <div id="card-slider"
                 class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[180px] md:h-[200px] lg:h-[220px] scroll-smooth scrollbar-hide"
@@ -147,7 +168,6 @@
                 style="scrollbar-width: none; -ms-overflow-style: none;">
 
                 @foreach ($restaurants as $restaurant)
-                    {{-- Dynamic Restaurant Card --}}
                     <a href="{{ route('description', ['restaurant' => $restaurant->id]) }}" class="block">
                         <div
                             class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer">
@@ -298,6 +318,27 @@
 
                     slider.style.cursor = 'grab';
                 });
+
+                // Carousel button functionality
+                const prevBtn = document.querySelector('.carousel-btn-prev');
+                const nextBtn = document.querySelector('.carousel-btn-next');
+                const cardSlider = document.getElementById('card-slider');
+
+                if (prevBtn && nextBtn && cardSlider) {
+                    prevBtn.addEventListener('click', () => {
+                        cardSlider.scrollBy({
+                            left: -350,
+                            behavior: 'smooth'
+                        });
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        cardSlider.scrollBy({
+                            left: 350,
+                            behavior: 'smooth'
+                        });
+                    });
+                }
             });
         </script>
 
