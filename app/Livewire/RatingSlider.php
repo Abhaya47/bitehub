@@ -6,8 +6,15 @@ use Livewire\Component;
 
 class RatingSlider extends Component
 {
+
+    public array $stars=[];
+
+    public function mount($reviews){
+        dd($reviews[0]['rating']);
+    }
+
     public function render()
     {
-        return view('livewire.rating-slider');
+        return view('livewire.description_components.rating-slider');
     }
 }

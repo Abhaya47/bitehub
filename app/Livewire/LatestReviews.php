@@ -11,7 +11,13 @@ class LatestReviews extends Component
     public $reviews;
 
     public function mount($reviews){
-        $this->reviews = collect($reviews);
+//        $this->reviews = collect($reviews);
+        dd($reviews[0]['rating']);
+
+        foreach($reviews as $review){
+        }
+//        dd($reviews);
+
         return $this->reviews;
     }
 
