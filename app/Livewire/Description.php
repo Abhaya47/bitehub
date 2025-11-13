@@ -3,10 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\Restaurant;
+use App\Services\LocationService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use Stevebauman\Location\Request;
-use Stevebauman\Location\Facades\Location;
 
 #[Layout('layouts.app')]
 class Description extends Component
@@ -17,14 +18,20 @@ class Description extends Component
     public $totalReviews;
     public $position;
 
-    public function mount(Restaurant $restaurant)
+    public function mount(Request $request, Restaurant $restaurant)
     {
-        $this->restaurant->loadCount('reviews')
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        $this->restaurant = $restaurant->loadCount('reviews')
             ->load(['reviews' => function ($query) {
                 $query->with('user')->latest()->take(4);
             }]);
         $this->totalReviews = $restaurant->reviews_count;
         $this->reviews = $this->restaurant->reviews;
+
+        $ip = $request->ip();
+        $this->position = LocationService::getLocationFromIP($ip);
     }
 
     public function render()

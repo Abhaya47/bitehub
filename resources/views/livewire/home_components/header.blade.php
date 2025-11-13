@@ -39,7 +39,7 @@
 
         {{-- Right section (location, notification & profile) --}}
         <div class="flex items-center gap-4 z-10">
-          
+
             {{-- Location dropdown (hidden on mobile) --}}
             <div
                 class="hidden md:flex items-center gap-2 text-gray-700 border-2 border-gray-300 rounded-full px-4 py-4 hover:shadow-lg cursor-pointer transition-all">
@@ -64,13 +64,33 @@
             </button>
 
             {{-- Profile button --}}
-
-
-            <div class=" z-10">
+            <div class="relative z-10 group">
                 <button
                     class="border border-gray-200 rounded-full overflow-hidden hover:shadow-lg w-12 h-12 transition-all">
                     <img src="{{ asset('images/profile_pic.png') }}" alt="Profile" class="w-full h-full object-cover">
                 </button>
+                {{-- Dropdown menu --}}
+                <div
+                    class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
+                    <div class="py-1">
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            Profile
+                        </a>
+                        <button wire:click="logout"
+                            class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                </path>
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
             </div>
 
         </div>
