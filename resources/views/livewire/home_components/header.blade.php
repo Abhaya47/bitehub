@@ -64,10 +64,15 @@
             </button>
 
             {{-- Profile button --}}
-            <button
-                class="border border-gray-200 rounded-full overflow-hidden hover:shadow-lg w-12 h-12 transition-all">
-                <img src="{{ asset('images/profile_pic.png') }}" alt="Profile" class="w-full h-full object-cover">
-            </button>
+
+
+            <div class=" z-10">
+                <button
+                    class="border border-gray-200 rounded-full overflow-hidden hover:shadow-lg w-12 h-12 transition-all">
+                    <img src="{{ asset('images/profile_pic.png') }}" alt="Profile" class="w-full h-full object-cover">
+                </button>
+            </div>
+
         </div>
     </div>
 </header>

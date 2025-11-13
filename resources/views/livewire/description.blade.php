@@ -6,6 +6,7 @@
     @include('livewire.description_components.available_offers')
     @include('livewire.description_components.restaurant_menu')
     @include('livewire.description_components.reviews')
-    @include('livewire.description_components.latest_reviews')
+    <livewire:rating-slider :reviews="$reviews->toArray()"/>
+    <livewire:latest_reviews :reviews="$reviews->toArray()"/>
     @include('livewire.description_components.footer')
-</div>          
+</div>

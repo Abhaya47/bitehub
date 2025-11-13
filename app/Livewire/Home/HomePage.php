@@ -24,6 +24,7 @@ class HomePage extends Component
         }
         $this->name = Auth::user()->name;
         $ip = $request->ip();
+          $this->restaurants=Restaurant::query()->join('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')->select('restaurants.*','ratings.rating')->orderBy('ratings.rating','desc')->limit(7)->get();
 
         //For local testing
         if ($ip == '127.0.0.1' || $ip == '::1') {
@@ -36,16 +37,10 @@ class HomePage extends Component
         $cityName = $data['city'] ?? 'Unknown';
 
         $this->position = (object) ['cityName' => $cityName];
-        $this->restaurants = Restaurant::with('reviews')->get()->map(function ($restaurant) {
-            $restaurant->averageRating = $restaurant->reviews->count() > 0
-                ? round($restaurant->reviews->avg('rating'), 1)
-                : 0;
-            $restaurant->totalReviews = $restaurant->reviews->count();
-            return $restaurant;
-        });
+
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('livewire.home-page');
     }
