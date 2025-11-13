@@ -35,7 +35,8 @@
                             class="w-full h-full object-cover -scale-x-1000" draggable="false" />
                     </div>
                     <div
-                        class="absolute top-[29px] md:top-[35px] lg:top-[40px] left-[19px] md:left-[24px] lg:left-[28px]">
+                        class="absolute top-[29px] md:top-[35px] lg:top-[40px] le                       
+                    ft-[19px] md:left-[24px] lg:left-[28px]">
                         <h3
                             class="font-raleway font-bold text-[22px] md:text-[26px] lg:text-[30px] leading-[26px] md:leading-[30px] lg:leading-[35px] tracking-[0.03em] text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
                             Non Veg
@@ -361,4 +362,3 @@
         </style>
 
     </section>
-

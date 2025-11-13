@@ -27,7 +27,7 @@
 
         {{-- Navigation links centered (desktop only) --}}
         <nav class="hidden md:flex gap-10 absolute left-1/2 -translate-x-1/2">
-            <a href="{{url('home')}}"
+            <a href="{{ url('home') }}"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Home</a>
             <a href="#"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Reels</a>
@@ -39,6 +39,7 @@
 
         {{-- Right section (location, notification & profile) --}}
         <div class="flex items-center gap-4 z-10">
+          
             {{-- Location dropdown (hidden on mobile) --}}
             <div
                 class="hidden md:flex items-center gap-2 text-gray-700 border-2 border-gray-300 rounded-full px-4 py-4 hover:shadow-lg cursor-pointer transition-all">
@@ -48,7 +49,7 @@
                         d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                         clip-rule="evenodd" />
                 </svg>
-                <span class="text-sm">Las Vegas</span>
+                <span class="text-sm">{{ $position->cityName }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20"
                     fill="currentColor">
                     <path fill-rule="evenodd"
@@ -76,9 +77,9 @@
     class="hidden fixed top-32 left-6 right-6 bg-black/5 backdrop-blur-md shadow-md rounded-3xl z-40 md:hidden">
     <div class="py-4 px-6">
         <div class="space-y-2">
-            <a href="#"
+            <a href="{{ url('home') }}"
                 class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Home</a>
-            <a href="#"
+            <a href=""
                 class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Reels</a>
             <a href="#"
                 class="block rounded-full px-4 py-3 text-base font-bold text-[#234F68] hover:bg-white/20 hover:text-[#F9423C] transition-all">Chat</a>
@@ -95,7 +96,7 @@
                         d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                         clip-rule="evenodd" />
                 </svg>
-                <span class="text-sm font-bold">Las Vegas</span>
+                <span class="text-sm font-bold">{{ $position->cityName }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20"
                     fill="currentColor">
                     <path fill-rule="evenodd"
