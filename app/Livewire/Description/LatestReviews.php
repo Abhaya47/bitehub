@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Description;
 
-use App\Models\Restaurant;
 use Livewire\Component;
 
 class LatestReviews extends Component
@@ -11,13 +10,7 @@ class LatestReviews extends Component
     public $reviews;
 
     public function mount($reviews){
-//        $this->reviews = collect($reviews);
-        dd($reviews[0]['rating']);
-
-        foreach($reviews as $review){
-        }
-//        dd($reviews);
-
+        $this->reviews = collect($reviews);
         return $this->reviews;
     }
 

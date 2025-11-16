@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Home;
 
 use App\Models\Food;
 use App\Models\Restaurant;
@@ -29,7 +29,7 @@ class Search extends Component
 
     public function render()
     {
-        return view('livewire.search',[
+        return view('livewire.home_components.search',[
             'responses' => $this->responses,
         ]);
     }

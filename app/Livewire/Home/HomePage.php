@@ -38,6 +38,6 @@ class HomePage extends Component
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return view('livewire.home-page');
+        return view('livewire.home_components.home-page');
     }
 }
