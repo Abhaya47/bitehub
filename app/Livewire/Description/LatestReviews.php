@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Description;
 
-use App\Models\Restaurant;
 use Livewire\Component;
 
 class LatestReviews extends Component

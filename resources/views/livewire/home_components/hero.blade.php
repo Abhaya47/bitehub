@@ -14,7 +14,7 @@
             </p>
 
             {{-- Search Bar --}}
-            <livewire:search />
+            <livewire:Home.search/>
         </div>
 
         {{-- ---------------- RIGHT SIDE IMAGES ---------------- --}}
