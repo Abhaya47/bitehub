@@ -18,7 +18,7 @@
         </div>
 
         {{-- ---------------- RIGHT SIDE IMAGES ---------------- --}}
-        <div class="flex-1 flex items-center justify-around">
+        <div class="flex-1 flex items-center justify-around " >
             <div class="relative w-[600px] h-[300px]">
 
                 {{-- Burger Image (Top Left) --}}
