@@ -1,50 +1,83 @@
 <div>
-    <section class="bg-gray-50 bg-[url({{ asset('images/wave_grey_background.png') }})] bg-cover bg-invert rotate-180">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 rotate-180">
-            <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-gray-800 tracking-wider">
-                BiteHUB
+    <section class="min-h-screen flex items-center justify-center relative bg-gray-50 overflow-hidden">
+
+        <!-- background image -->
+        <img 
+            src="{{ asset('images/Background_Pattern.png') }}" 
+            alt="background image"
+            class="absolute inset-0 w-full h-full object-cover"
+        >
+
+        <!-- glass card -->
+        <div class="relative w-full max-w-md backdrop-blur-md bg-white/40 shadow-lg border border-white/30 rounded-xl p-8">
+            <a href="/" class="block text-center mb-6">
+                <img src="{{ asset('images/bitehublogo.png') }}" alt="BiteHUB Logo" class="h-16 w-auto mx-auto drop-shadow-md transition-transform duration-300 hover:scale-105">
             </a>
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-[#edc5c2] dark:border-gray-400">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-gray-800">
-                        Sign in to your account
-                    </h1>
 
-                    <form wire:submit.prevent="login" class="space-y-4 md:space-y-6" method="post">
+            <h1 class="text-xl font-semibold text-gray-800 mb-6 text-center">
+                Sign in to your account
+            </h1>
 
-                        <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-800">Your email</label>
-                            <input type="email" name="email" id="email" wire:model="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-[#FEDAD8] dark:text-gray-200 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
-                        </div>
-                        <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-800">Password</label>
-                            <input type="password" name="password" id="password" wire:model="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-[#FEDAD8] dark:text-gray-200 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <div>
-                            @if (session()->has('error'))
-                                <div id="toast-simple" class="flex items-center w-full max-w-xs p-2 space-x-4 rtl:space-x-reverse text-red-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow-sm dark:text-red-500 dark:accent-red-500 dark:bg-[#C4C4C4]border-2 border-red-700" role="alert">
-                                    <div class="ps-4 text-sm font-bold tracking-wider ">{{session('error')}}</div>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="remember" aria-describedby="remember" wire:model="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-[#C4C4C4] dark:text-gray-200 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="remember" class="text-gray-500 dark:text-gray-900">Remember me</label>
-                                </div>
-                            </div>
-                            <a href="/forgot-password" class="text-sm font-medium text-primary-600 hover:underline dark:text-gray-900-500">Forgot password?</a>
-                        </div>
-                        <button type="submit" class="w-full text-gray-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-200 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
-                        <p class="text-sm font-light text-gray-500 dark:text-gray-600">
-                            Don’t have an account yet? <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-gray-900">Sign up</a>
-                        </p>
-                    </form>
+            <form wire:submit.prevent="login" class="space-y-5">
+
+                <div>
+                    <label class="block mb-1 text-sm text-gray-700">Email</label>
+                    <input
+                        type="email"
+                        wire:model="email"
+                        class="w-full p-2.5 rounded-lg border border-gray-300 bg-white/60 text-gray-800 focus:ring-2 focus:ring-gray-400"
+                        placeholder="name@company.com"
+                        required
+                    >
                 </div>
-            </div>
+
+                <div>
+                    <label class="block mb-1 text-sm text-gray-700">Password</label>
+                    <input
+                        type="password"
+                        wire:model="password"
+                        class="w-full p-2.5 rounded-lg border border-gray-300 bg-white/60 text-gray-800 focus:ring-2 focus:ring-gray-400"
+                        placeholder="••••••••"
+                        required
+                    >
+                </div>
+
+                @if (session()->has('error'))
+                    <div class="p-3 rounded-lg bg-red-50 border border-red-300 text-red-600 text-sm font-medium">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center space-x-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            wire:model="remember"
+                            class="w-4 h-4 rounded border-gray-300 focus:ring-gray-400"
+                        >
+                        <span>Remember me</span>
+                    </label>
+
+                    <a href="/forgot-password" class="text-sm text-blue-600 hover:underline">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full py-2.5 rounded-lg bg-red-400 text-white font-medium hover:bg-red-500 transition"
+                >
+                    Sign in
+                </button>
+
+                <p class="text-sm text-gray-700 text-center">
+                    Don’t have an account?
+                    <a href="/register" class="text-blue-600 hover:underline">Sign up</a>
+                </p>
+
+            </form>
+
         </div>
+
     </section>
 </div>
