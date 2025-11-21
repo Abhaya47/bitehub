@@ -17,6 +17,7 @@ class Description extends Component
     public $averageRating;
     public $totalReviews;
     public $position;
+    public $menus;
 
     public function mount(Request $request, Restaurant $restaurant)
     {
@@ -24,11 +25,17 @@ class Description extends Component
             return redirect()->route('login');
         }
         $this->restaurant = $restaurant->loadCount('reviews')
-            ->load(['reviews' => function ($query) {
-                $query->with('user')->latest()->take(4);
-            }]);
+            ->load([
+                'reviews' => function ($query) {
+                    $query->with('user')->latest()->take(4);
+                },
+                'menus' => function ($query) {
+                    $query->orderBy('order', 'asc');
+                },
+            ]);
         $this->totalReviews = $restaurant->reviews_count;
         $this->reviews = $this->restaurant->reviews;
+        $this->menus = $this->restaurant->menus ?? collect();
 
         $ip = $request->ip();
         $this->position = LocationService::getLocationFromIP($ip);
