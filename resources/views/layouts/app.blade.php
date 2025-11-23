@@ -47,6 +47,8 @@
             font-family: 'Lato', sans-serif;
         }
     </style>
+
+    @stack('styles')
 </head>
 
 <body class="bg-[url('/images/background_pattern.png')] bg-cover bg-center overflow-x-hidden min-h-screen flex flex-col"
@@ -59,6 +61,8 @@
             @livewireScripts
         </main>
     </div>
+
+    @stack('scripts')
 </body>
 
 </html>

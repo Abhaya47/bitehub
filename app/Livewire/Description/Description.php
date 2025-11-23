@@ -19,6 +19,13 @@ class Description extends Component
     public $position;
     public $menus;
 
+    public $count = 0;
+    public $five = 0;
+    public $four = 0;
+    public $three = 0;
+    public $two = 0;
+    public $one = 0;
+
     public function mount(Request $request, Restaurant $restaurant)
     {
         if (!Auth::check()) {
@@ -36,6 +43,14 @@ class Description extends Component
         $this->totalReviews = $restaurant->reviews_count;
         $this->reviews = $this->restaurant->reviews;
         $this->menus = $this->restaurant->menus ?? collect();
+
+        // Calculate counts of each rating
+        $this->count = $this->reviews->count();
+        $this->five = $this->reviews->where('rating', 5)->count();
+        $this->four = $this->reviews->where('rating', 4)->count();
+        $this->three = $this->reviews->where('rating', 3)->count();
+        $this->two = $this->reviews->where('rating', 2)->count();
+        $this->one = $this->reviews->where('rating', 1)->count();
 
         $ip = $request->ip();
         $this->position = LocationService::getLocationFromIP($ip);

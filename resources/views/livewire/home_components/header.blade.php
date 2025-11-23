@@ -1,4 +1,4 @@
-<header class="fixed top-6 left-6 right-6 bg-black/5 backdrop-blur-md shadow-md rounded-full z-50">
+<header class="fixed top-2 left-6 right-6  bg-black/5 backdrop-blur-md shadow-md rounded-full z-50">
     <div class="flex items-center justify-between h-[90px] px-5">
 
         {{-- Mobile menu button (left side on mobile) --}}
@@ -173,6 +173,7 @@
 </div>
 
 {{-- JavaScript for menu toggle --}}
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const menuButton = document.getElementById('mobile-menu-button');
@@ -203,3 +204,4 @@
         });
     });
 </script>
+@endpush

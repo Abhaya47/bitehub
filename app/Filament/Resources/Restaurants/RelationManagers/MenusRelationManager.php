@@ -71,7 +71,7 @@ class MenusRelationManager extends RelationManager
                 ImageColumn::make('preview_path')
                     ->label('Preview')
                     ->disk('public')
-                    ->size(56),
+                    ->imageSize(56),
                 TextColumn::make('title')
                     ->label('Title')
                     ->searchable()
@@ -87,7 +87,7 @@ class MenusRelationManager extends RelationManager
             ->headerActions([
                 CreateAction::make(),
             ])
-            ->actions([
+            ->recordActions([
                 Action::make('view')
                     ->label('View')
                     ->icon('heroicon-o-eye')
