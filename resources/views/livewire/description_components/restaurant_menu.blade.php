@@ -177,15 +177,26 @@
 
         imageContainer.addEventListener('wheel', (e) => {
             e.preventDefault();
+            const rect = imageContainer.getBoundingClientRect();
+            const containerCenterX = rect.width / 2;
+            const containerCenterY = rect.height / 2;
+            
+            // Mouse position relative to container center
+            const mouseX = e.clientX - rect.left - containerCenterX;
+            const mouseY = e.clientY - rect.top - containerCenterY;
+
             const delta = e.deltaY > 0 ? -0.1 : 0.1;
             const newScale = Math.min(Math.max(1, scale + delta), 4);
             
-            // Adjust position to zoom towards mouse pointer could be complex, 
-            // for simplicity just center zoom or keep current position.
-            // If zooming out to 1, reset position.
             if (newScale === 1) {
                 pointX = 0;
                 pointY = 0;
+            } else {
+                // Zoom to cursor formula
+                // t_new = M * (1 - s_new/s) + t * (s_new/s)
+                const ratio = newScale / scale;
+                pointX = mouseX * (1 - ratio) + pointX * ratio;
+                pointY = mouseY * (1 - ratio) + pointY * ratio;
             }
             
             scale = newScale;
@@ -208,15 +219,36 @@
             updateTransform();
         });
 
-        window.addEventListener('mouseup', () => {
+        window.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
             isDragging = false;
             imageContainer.style.cursor = 'grab';
+
+            // Swipe Logic
+            if (scale === 1) {
+                // pointX is updated during move, so we just check pointX
+                // When scale is 1, pointX represents the drag distance
+                
+                if (Math.abs(pointX) > 50) {
+                    if (pointX > 0) {
+                        prevMenu();
+                    } else {
+                        nextMenu();
+                    }
+                } else {
+                    // Snap back
+                    pointX = 0;
+                    pointY = 0;
+                    updateTransform();
+                }
+            }
         });
         
         // Touch events for mobile
         imageContainer.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
                 isDragging = true;
+                // For swipe, we want to track from where we started
                 startX = e.touches[0].clientX - pointX;
                 startY = e.touches[0].clientY - pointY;
             }
@@ -233,7 +265,24 @@
         }, { passive: false });
 
         window.addEventListener('touchend', () => {
+            if (!isDragging) return;
             isDragging = false;
+
+            // Swipe Logic
+            if (scale === 1) {
+                if (Math.abs(pointX) > 50) {
+                    if (pointX > 0) {
+                        prevMenu();
+                    } else {
+                        nextMenu();
+                    }
+                } else {
+                    // Snap back
+                    pointX = 0;
+                    pointY = 0;
+                    updateTransform();
+                }
+            }
         });
 
         // Keyboard navigation
