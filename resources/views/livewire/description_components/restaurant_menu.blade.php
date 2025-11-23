@@ -15,33 +15,33 @@
             <hr class="border-t border-[rgba(197,197,197,0.5)] my-5">
 
             @if($menus->isEmpty())
-                <div class="text-center py-8">
-                    <p class="text-base text-[#666]">The owner hasn’t uploaded any menus yet. Please check back later.</p>
-                </div>
+            <div class="text-center py-8">
+                <p class="text-base text-[#666]">The owner hasn’t uploaded any menus yet. Please check back later.</p>
+            </div>
             @else
-                {{-- Menu Cards --}}
-                <div class="flex overflow-x-auto space-x-4 pb-4">
-                    @foreach($menus as $index => $menu)
-                        @php
-                            $preview = $menu->preview_url ?? asset('images/restaurant1.jpg');
-                        @endphp
-                        <button onclick="openMenuModal({{ $index }})"
-                                class="group relative rounded-xl overflow-hidden shadow-[0px_10px_34px_rgba(20,20,43,0.1)] hover:shadow-xl transition-all duration-200 bg-white flex-shrink-0 w-48 text-left">
-                            <img src="{{ $preview }}"
-                                 alt="{{ $menu->title }}"
-                                 class="w-full h-[160px] object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-3">
-                                <p class="text-white text-sm font-semibold leading-tight">
-                                    {{ $menu->title }}
-                                </p>
-                                <p class="text-white/80 text-xs">
-                                    {{ $menu->page_count ? $menu->page_count . ' pages' : 'View menu' }}
-                                </p>
-                            </div>
-                        </button>
-                    @endforeach
-                </div>
+            {{-- Menu Cards --}}
+            <div class="flex overflow-x-auto space-x-4 pb-4">
+                @foreach($menus as $index => $menu)
+                @php
+                $preview = $menu->preview_url ?? asset('images/restaurant1.jpg');
+                @endphp
+                <button onclick="openMenuModal({{ $index }})"
+                    class="group relative rounded-xl overflow-hidden shadow-[0px_10px_34px_rgba(20,20,43,0.1)] hover:shadow-xl transition-all duration-200 bg-white flex-shrink-0 w-48 text-left">
+                    <img src="{{ $preview }}"
+                        alt="{{ $menu->title }}"
+                        class="w-full h-[160px] object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3">
+                        <p class="text-white text-sm font-semibold leading-tight">
+                            {{ $menu->title }}
+                        </p>
+                        <p class="text-white/80 text-xs">
+                            {{ $menu->page_count ? $menu->page_count . ' pages' : 'View menu' }}
+                        </p>
+                    </div>
+                </button>
+                @endforeach
+            </div>
             @endif
         </div>
     </div>
@@ -64,7 +64,7 @@
         <div class="flex-1 flex items-center justify-center p-4 relative w-full h-full overflow-hidden">
             {{-- Prev Button --}}
             <button id="prevBtn" onclick="prevMenu()"
-                    class="absolute left-4 md:left-8 z-20 text-white/70 hover:text-white focus:outline-none p-2 transition-colors bg-black/20 hover:bg-black/40 rounded-full">
+                class="absolute left-4 md:left-8 z-20 text-white/70 hover:text-white focus:outline-none p-2 transition-colors bg-black/20 hover:bg-black/40 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -72,34 +72,34 @@
 
             {{-- Image Container --}}
             <div id="imageContainer" class="relative w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
-                 <img id="menuImage" src="" alt="Menu" draggable="false"
-                      class="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm select-none transition-transform duration-100 ease-out origin-center">
+                <img id="menuImage" src="" alt="Menu" draggable="false"
+                    class="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm select-none transition-transform duration-100 ease-out origin-center">
             </div>
 
             {{-- Next Button --}}
             <button id="nextBtn" onclick="nextMenu()"
-                    class="absolute right-4 md:right-8 z-20 text-white/70 hover:text-white focus:outline-none p-2 transition-colors bg-black/20 hover:bg-black/40 rounded-full">
+                class="absolute right-4 md:right-8 z-20 text-white/70 hover:text-white focus:outline-none p-2 transition-colors bg-black/20 hover:bg-black/40 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
             </button>
         </div>
-        
+
         {{-- Bottom Caption --}}
         <div class="absolute bottom-8 left-0 right-0 text-center text-white/90 pointer-events-none z-20">
-             <h3 id="menuTitle" class="text-xl font-medium"></h3>
+            <h3 id="menuTitle" class="text-xl font-medium"></h3>
         </div>
     </div>
 
     @push('scripts')
     @php
-        $menuJson = $menus->map(function($menu) {
-            return [
-                'file_url' => $menu->file_url,
-                'title' => $menu->title,
-                'preview_url' => $menu->preview_url ?? asset('images/restaurant1.jpg'),
-            ];
-        });
+    $menuJson = $menus->map(function($menu) {
+    return [
+    'file_url' => $menu->file_url,
+    'title' => $menu->title,
+    'preview_url' => $menu->preview_url ?? asset('images/restaurant1.jpg'),
+    ];
+    });
     @endphp
     <script>
         const menus = @json($menuJson);
@@ -146,7 +146,7 @@
             menuImage.src = menu.file_url;
             menuTitle.textContent = menu.title;
             menuCounter.textContent = `${currentIndex + 1} / ${menus.length}`;
-            
+
             prevBtn.style.display = menus.length > 1 ? 'block' : 'none';
             nextBtn.style.display = menus.length > 1 ? 'block' : 'none';
         }
@@ -180,14 +180,14 @@
             const rect = imageContainer.getBoundingClientRect();
             const containerCenterX = rect.width / 2;
             const containerCenterY = rect.height / 2;
-            
+
             // Mouse position relative to container center
             const mouseX = e.clientX - rect.left - containerCenterX;
             const mouseY = e.clientY - rect.top - containerCenterY;
 
             const delta = e.deltaY > 0 ? -0.1 : 0.1;
             const newScale = Math.min(Math.max(1, scale + delta), 4);
-            
+
             if (newScale === 1) {
                 pointX = 0;
                 pointY = 0;
@@ -198,7 +198,7 @@
                 pointX = mouseX * (1 - ratio) + pointX * ratio;
                 pointY = mouseY * (1 - ratio) + pointY * ratio;
             }
-            
+
             scale = newScale;
             updateTransform();
         });
@@ -228,7 +228,7 @@
             if (scale === 1) {
                 // pointX is updated during move, so we just check pointX
                 // When scale is 1, pointX represents the drag distance
-                
+
                 if (Math.abs(pointX) > 50) {
                     if (pointX > 0) {
                         prevMenu();
@@ -243,7 +243,7 @@
                 }
             }
         });
-        
+
         // Touch events for mobile
         imageContainer.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
@@ -257,12 +257,14 @@
         window.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             // Prevent scrolling page while dragging image
-            if (scale > 1 || Math.abs(pointX) > 10) e.preventDefault(); 
-            
+            if (scale > 1 || Math.abs(pointX) > 10) e.preventDefault();
+
             pointX = e.touches[0].clientX - startX;
             pointY = e.touches[0].clientY - startY;
             updateTransform();
-        }, { passive: false });
+        }, {
+            passive: false
+        });
 
         window.addEventListener('touchend', () => {
             if (!isDragging) return;
@@ -292,14 +294,13 @@
             if (e.key === 'ArrowRight') nextMenu();
             if (e.key === 'ArrowLeft') prevMenu();
         });
-        
+
         // Close on click outside image (if not dragging)
         modal.addEventListener('click', (e) => {
             if (e.target === modal || e.target === imageContainer) {
                 closeMenuModal();
             }
         });
-
     </script>
     @endpush
 </div>

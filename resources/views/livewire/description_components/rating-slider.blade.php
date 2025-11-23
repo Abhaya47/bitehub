@@ -29,24 +29,24 @@
                     @for($i=1;$i<=floor($averageRating);$i++)
 
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300"/>
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                            fill="#DFB300" />
                         </svg>
-                    @endfor
-                    {{-- Star - Half Filled --}}
+                        @endfor
+                        {{-- Star - Half Filled --}}
 
-                    @if(fmod($averageRating,1) != 0.00)
+                        @if(fmod($averageRating,1) != 0.00)
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#F2F2F2"/>
+                                fill="#F2F2F2" />
                             <path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557V0Z"
-                                  fill="rgba(0, 126, 71, 0.2)"/>
+                                fill="rgba(0, 126, 71, 0.2)" />
                         </svg>
-                    @endif
+                        @endif
                 </div>
 
                 {{-- Review Count --}}
@@ -68,18 +68,18 @@
                     <div class="flex items-center gap-1">
                         @for($i=1;$i<=5;$i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                fill="#DFB300" />
                             </svg>
-                        @endfor
+                            @endfor
                     </div>
 
                     {{-- Progress Bar --}}
                     <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{$count > 0 ? ($five/$count)*100 : 0}}%">
+                            style="width: {{$count > 0 ? ($five/$count)*100 : 0}}%">
                         </div>
                     </div>
 
@@ -100,12 +100,12 @@
                     <div class="flex items-center gap-1">
                         @for($i=1;$i<=4;$i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                fill="#DFB300" />
                             </svg>
-                        @endfor
+                            @endfor
                     </div>
 
                     {{-- Progress Bar --}}
@@ -131,12 +131,12 @@
                     <div class="flex items-center gap-1">
                         @for($i=1;$i<=3;$i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                fill="#DFB300" />
                             </svg>
-                        @endfor
+                            @endfor
                     </div>
 
                     {{-- Progress Bar --}}
@@ -163,12 +163,12 @@
                     <div class="flex items-center gap-1">
                         @for($i=1;$i<=2;$i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                fill="#DFB300" />
                             </svg>
-                        @endfor
+                            @endfor
                     </div>
 
                     {{-- Progress Bar --}}
@@ -194,12 +194,12 @@
                     <div class="flex items-center gap-1">
                         @for($i=1;$i<=2;$i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                fill="#DFB300" />
                             </svg>
-                        @endfor
+                            @endfor
                     </div>
 
                     {{-- Progress Bar --}}
