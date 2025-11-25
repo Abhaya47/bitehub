@@ -20,6 +20,9 @@ class OfferForm
                 ->label('Restaurant')
                 ->options(function () {
                     $user = Auth::user();
+                    if ($user->role === \App\Enums\UserType::Admin->value) {
+                        return \App\Models\Restaurant::pluck('name', 'id');
+                    }
                     return $user ? $user->restaurants()->pluck('name', 'id') : [];
                 })
                 ->required()

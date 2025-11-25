@@ -28,6 +28,10 @@ class OfferResource extends Resource
 
     public static function getModelQuery(): Builder
     {
+        $user = Auth::user();
+        if ($user->role === \App\Enums\UserType::Admin->value) {
+            return parent::getModelQuery();
+        }
         return parent::getModelQuery()
             ->whereHas('restaurant', fn($q) => $q->where('user_id', Auth::id()));
     }
