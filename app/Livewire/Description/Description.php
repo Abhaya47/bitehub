@@ -18,6 +18,7 @@ class Description extends Component
     public $totalReviews;
     public $position;
     public $menus;
+    public $offers;
 
     public $count = 0;
     public $five = 0;
@@ -43,6 +44,7 @@ class Description extends Component
         $this->totalReviews = $restaurant->reviews_count;
         $this->reviews = $this->restaurant->reviews;
         $this->menus = $this->restaurant->menus ?? collect();
+        $this->offers = $this->restaurant->offers()->get();
 
         // Calculate counts of each rating
         $this->count = $this->reviews->count();
