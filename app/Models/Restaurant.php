@@ -18,7 +18,7 @@ class Restaurant extends Model
 
     protected $primaryKey = 'id';
 
-     public $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'id',
@@ -29,16 +29,16 @@ class Restaurant extends Model
         'owner_id'
     ];
 
-//    protected $hidden = [
-//        'pan_number'
-//    ];
+    //    protected $hidden = [
+    //        'pan_number'
+    //    ];
 
     protected $casts = [
         'name' => 'string',
         'address' => 'string',
         'pan_number' => 'integer',
         'established_date' => 'date',
-        'owner_id'=>'integer',
+        'owner_id' => 'integer',
     ];
 
     public function owner()
@@ -48,22 +48,27 @@ class Restaurant extends Model
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class,'restaurant_id');
+        return $this->hasMany(Review::class, 'restaurant_id');
     }
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Message::class,'restaurant_id');
+        return $this->hasMany(Message::class, 'restaurant_id');
     }
 
     public function tags(): HasMany
     {
-        return $this->hasMany(RestaurantTag::class,'restaurant_id');
+        return $this->hasMany(RestaurantTag::class, 'restaurant_id');
     }
 
     public function menus(): HasMany
     {
         return $this->hasMany(RestaurantMenu::class);
+    }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'restaurant_id');
     }
 
 
@@ -72,7 +77,8 @@ class Restaurant extends Model
      * @param DateTimeInterface $date
      * @return string
      */
-    protected  function serializeDate(DateTimeInterface $date): string{
+    protected  function serializeDate(DateTimeInterface $date): string
+    {
         return $date->format('Y-m-d');
     }
 }
