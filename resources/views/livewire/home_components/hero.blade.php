@@ -5,7 +5,7 @@
         <div class="flex-shrink-0 max-w-md">
             {{-- Greeting --}}
             <h1 class="font-inter text-5xl lg:text-6xl font-bold text-[#234F68] leading-tight mb-2">
-                Hey, <span class="text-[#F9423C]">{{$name}}</span>
+                Hey, <span class="text-[#F9423C]">{{ $name }}</span>
             </h1>
 
             {{-- Subheading --}}
@@ -14,27 +14,26 @@
             </p>
 
             {{-- Search Bar --}}
-            <livewire:Home.search/>
+            <livewire:Home.search />
         </div>
 
         {{-- ---------------- RIGHT SIDE IMAGES ---------------- --}}
-        <div class="flex-1 flex items-center justify-around " >
+        <div class="flex-1 flex items-center justify-around ">
             <div class="relative w-[600px] h-[300px]">
 
                 {{-- Burger Image (Top Left) --}}
                 <img src="{{ asset('images/Burger.png') }}" alt="Hamburger" draggable="false"
-                     class="absolute left-[70px] w-[366px] object-contain animate-float"
-                     style="animation-delay: 0s;">
+                    class="absolute left-[70px] w-[366px] object-contain animate-float" style="animation-delay: 0s;">
 
                 {{-- Pizza Image (Bottom Center) --}}
                 <img src="{{ asset('images/Pizza.png') }}" alt="Pizza" draggable="false"
-                     class="absolute top-75 left-[300px] w-[366px] object-contain animate-float"
-                     style="animation-delay: 0.5s;">
+                    class="absolute top-75 left-[300px] w-[366px] object-contain animate-float"
+                    style="animation-delay: 0.5s;">
 
                 {{-- Croissant Image (Top Right) --}}
                 <img src="{{ asset('images/Croissant.png') }}" alt="Croissant" draggable="false"
-                     class="absolute top-10 left-[410px] w-[366px] object-contain animate-float"
-                     style="animation-delay: 1s;">
+                    class="absolute top-10 left-[410px] w-[366px] object-contain animate-float"
+                    style="animation-delay: 1s;">
             </div>
         </div>
     </div>

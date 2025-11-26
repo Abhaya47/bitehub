@@ -10,4 +10,3 @@
     <!-- Card Slider Secction -->
     @include('livewire.home_components.slider')
 </div>
-

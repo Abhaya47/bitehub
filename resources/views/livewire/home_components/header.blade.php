@@ -174,34 +174,34 @@
 
 {{-- JavaScript for menu toggle --}}
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const openIcon = document.getElementById('menu-open-icon');
-        const closeIcon = document.getElementById('menu-close-icon');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
 
-        menuButton.addEventListener('click', function(e) {
-            e.stopPropagation();
+            menuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
 
-            // Toggle mobile menu
-            mobileMenu.classList.toggle('hidden');
+                // Toggle mobile menu
+                mobileMenu.classList.toggle('hidden');
 
-            // Toggle icons
-            openIcon.classList.toggle('hidden');
-            closeIcon.classList.toggle('hidden');
-        });
+                // Toggle icons
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    openIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        openIcon.classList.remove('hidden');
+                        closeIcon.classList.add('hidden');
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
 @endpush

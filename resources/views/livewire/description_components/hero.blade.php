@@ -23,7 +23,7 @@
                     <div class="carousel-slide min-w-full h-full">
                         <img src="{{ asset('images/restaurant1.jpg') }}" alt="Hotel Restaurant View 1"
                             class="w-full h-full object-cover" draggable="false">
-                    </div>  
+                    </div>
                     <div class="carousel-slide min-w-full h-full">
                         <img src="{{ asset('images/restaurant2.jpg') }}" alt="Hotel Restaurant View 2"
                             class="w-full h-full object-cover" draggable="false">
@@ -38,7 +38,8 @@
             {{-- Left Arrow Button --}}
             <button
                 class="carousel-btn-prev absolute left-6 sm:left-9 top-1/2 -translate-y-1/2 w-12 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path d="M10 13.28L5.65333 8.93333C5.14 8.42 5.14 7.58 5.65333 7.06667L10 2.72" stroke="#004225"
                         stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -47,7 +48,8 @@
             {{-- Right Arrow Button --}}
             <button
                 class="carousel-btn-next absolute right-6 sm:right-9 top-1/2 -translate-y-1/2 w-12 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 2.72L10.3467 7.06667C10.86 7.58 10.86 8.42 10.3467 8.93333L6 13.28" stroke="#004225"
                         stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -145,102 +147,102 @@
     </div>
 
     @push('scripts')
-    {{-- Carousel JavaScript --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const track = document.querySelector('.carousel-track');
-            const slides = document.querySelectorAll('.carousel-slide');
-            const prevBtn = document.querySelector('.carousel-btn-prev');
-            const nextBtn = document.querySelector('.carousel-btn-next');
+        {{-- Carousel JavaScript --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const track = document.querySelector('.carousel-track');
+                const slides = document.querySelectorAll('.carousel-slide');
+                const prevBtn = document.querySelector('.carousel-btn-prev');
+                const nextBtn = document.querySelector('.carousel-btn-next');
 
-            let currentIndex = 0;
-            const totalSlides = 3; // Original slides count
-            const duplicatedSlides = slides.length; // Total including duplicates
-            let autoPlayInterval;
+                let currentIndex = 0;
+                const totalSlides = 3; // Original slides count
+                const duplicatedSlides = slides.length; // Total including duplicates
+                let autoPlayInterval;
 
-            // Function to update carousel position
-            function updateCarousel() {
-                const offset = -currentIndex * 100;
-                track.style.transform = `translateX(${offset}%)`;
-            }
-
-            // Function to go to next slide
-            function nextSlide() {
-                currentIndex++;
-                if (currentIndex >= duplicatedSlides) {
-                    currentIndex = 0;
-                    track.style.transition = 'none';
-                    updateCarousel();
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.5s ease-in-out';
-                    }, 50);
-                } else {
-                    updateCarousel();
+                // Function to update carousel position
+                function updateCarousel() {
+                    const offset = -currentIndex * 100;
+                    track.style.transform = `translateX(${offset}%)`;
                 }
-            }
 
-            // Function to go to previous slide
-            function prevSlide() {
-                currentIndex--;
-                if (currentIndex < 0) {
-                    currentIndex = duplicatedSlides - 1;
-                    track.style.transition = 'none';
-                    updateCarousel();
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.5s ease-in-out';
-                    }, 50);
-                } else {
-                    updateCarousel();
+                // Function to go to next slide
+                function nextSlide() {
+                    currentIndex++;
+                    if (currentIndex >= duplicatedSlides) {
+                        currentIndex = 0;
+                        track.style.transition = 'none';
+                        updateCarousel();
+                        setTimeout(() => {
+                            track.style.transition = 'transform 0.5s ease-in-out';
+                        }, 50);
+                    } else {
+                        updateCarousel();
+                    }
                 }
-            }
 
-            // Auto play functionality
-            function startAutoPlay() {
-                autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-            }
+                // Function to go to previous slide
+                function prevSlide() {
+                    currentIndex--;
+                    if (currentIndex < 0) {
+                        currentIndex = duplicatedSlides - 1;
+                        track.style.transition = 'none';
+                        updateCarousel();
+                        setTimeout(() => {
+                            track.style.transition = 'transform 0.5s ease-in-out';
+                        }, 50);
+                    } else {
+                        updateCarousel();
+                    }
+                }
 
-            function stopAutoPlay() {
-                clearInterval(autoPlayInterval);
-            }
+                // Auto play functionality
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+                }
 
-            // Event listeners for navigation buttons
-            nextBtn.addEventListener('click', function() {
-                stopAutoPlay();
-                nextSlide();
+                function stopAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                }
+
+                // Event listeners for navigation buttons
+                nextBtn.addEventListener('click', function() {
+                    stopAutoPlay();
+                    nextSlide();
+                    startAutoPlay();
+                });
+
+                prevBtn.addEventListener('click', function() {
+                    stopAutoPlay();
+                    nextSlide();
+                    startAutoPlay();
+                });
+
+                // Pause auto play on hover
+                const carouselContainer = document.querySelector('.carousel-container');
+                carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+                carouselContainer.addEventListener('mouseleave', startAutoPlay);
+
+                // Start auto play on page load
                 startAutoPlay();
             });
-
-            prevBtn.addEventListener('click', function() {
-                stopAutoPlay();
-                nextSlide();
-                startAutoPlay();
-            });
-
-            // Pause auto play on hover
-            const carouselContainer = document.querySelector('.carousel-container');
-            carouselContainer.addEventListener('mouseenter', stopAutoPlay);
-            carouselContainer.addEventListener('mouseleave', startAutoPlay);
-
-            // Start auto play on page load
-            startAutoPlay();
-        });
-    </script>
+        </script>
     @endpush
 
     @push('styles')
-    <style>
-        /* Import Roboto font if not already included in your app.blade.php */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+        <style>
+            /* Import Roboto font if not already included in your app.blade.php */
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-        /* Ensure smooth transitions */
-        .carousel-track {
-            will-change: transform;
-        }
+            /* Ensure smooth transitions */
+            .carousel-track {
+                will-change: transform;
+            }
 
-        /* Optional: Add fade effect for slides */
-        .carousel-slide {
-            flex-shrink: 0;
-        }
-    </style>
+            /* Optional: Add fade effect for slides */
+            .carousel-slide {
+                flex-shrink: 0;
+            }
+        </style>
     @endpush
 </div>
