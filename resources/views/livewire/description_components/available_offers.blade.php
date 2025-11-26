@@ -28,11 +28,15 @@
                     </div>
 
                     {{-- Time Text --}}
-                    <span
-                        class="text-[#004225] text-sm sm:text-base font-medium whitespace-nowrap tracking-[0.25px]">
-                        {{ \Carbon\Carbon::parse($offer->start_at)->format('D') }},
-                        {{ \Carbon\Carbon::parse($offer->start_at)->format('h:i A') }} -
-                        {{ \Carbon\Carbon::parse($offer->end_at)->format('h:i A') }}
+                    @php
+                    $start = \Carbon\Carbon::parse($offer->start_at);
+                    $end = \Carbon\Carbon::parse($offer->end_at);
+                    @endphp
+                    @if($start->isSameDay($end))
+                    {{ $start->format('D, h:i A') }} - {{ $end->format('h:i A') }}
+                    @else
+                    {{ $start->format('D h:i A') }} - {{ $end->format('D h:i A') }}
+                    @endif
                     </span>
                 </div>
 

@@ -20,24 +20,23 @@
 
                 {{-- Large Rating Number --}}
                 <div class="text-[57px] font-normal leading-[67px] text-[#F6433F] text-center mb-3">
-                    {{$averageRating}}
+                    {{ $averageRating }}
                 </div>
 
                 {{-- Stars --}}
                 <div class="flex items-center gap-1 mb-6">
                     {{-- Star 1 - Filled --}}
-                    @for($i=1;$i<=floor($averageRating);$i++)
-
+                    @for ($i = 1; $i <= floor($averageRating); $i++)
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                            fill="#DFB300" />
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                fill="#DFB300" />
                         </svg>
-                        @endfor
-                        {{-- Star - Half Filled --}}
+                    @endfor
+                    {{-- Star - Half Filled --}}
 
-                        @if(fmod($averageRating,1) != 0.00)
+                    @if (fmod($averageRating, 1) != 0.0)
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -46,18 +45,19 @@
                             <path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557V0Z"
                                 fill="rgba(0, 126, 71, 0.2)" />
                         </svg>
-                        @endif
+                    @endif
                 </div>
 
                 {{-- Review Count --}}
                 <p class="text-sm font-medium leading-4 text-[#5F5F5F] text-center">
-                    Based on {{$count}} reviews <a href="#" class="text-[#F6433F] hover:underline">Rate now</a>
+                    Based on {{ $count }} reviews <a href="#" class="text-[#F6433F] hover:underline">Rate
+                        now</a>
                 </p>
             </div>
 
             {{-- Right Side: Rating Bars --}}
             <div class="flex flex-col justify-center gap-8 flex-1 max-w-[985px]">
-                {{-- Rating Row 1 --}}
+                {{-- Rating Row 5 --}}
                 <div class="flex items-center gap-3">
                     {{-- Category Label --}}
                     <span class="text-xs font-normal leading-[14px] text-[#004225] w-[41px] text-center">
@@ -66,26 +66,27 @@
 
                     {{-- 5 Stars --}}
                     <div class="flex items-center gap-1">
-                        @for($i=1;$i<=5;$i++)
+                        @for ($i = 1; $i <= 5; $i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300" />
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                    fill="#DFB300" />
                             </svg>
-                            @endfor
+                        @endfor
                     </div>
 
                     {{-- Progress Bar --}}
-                    <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
+                    <div
+                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                            style="width: {{$count > 0 ? ($five/$count)*100 : 0}}%">
+                            style="width: {{ $count > 0 ? ($five / $count) * 100 : 0 }}%;">
                         </div>
                     </div>
 
                     {{-- Count --}}
                     <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$five}}
+                        {{ $five }}
                     </span>
                 </div>
 
@@ -98,25 +99,27 @@
 
                     {{-- Stars --}}
                     <div class="flex items-center gap-1">
-                        @for($i=1;$i<=4;$i++)
+                        @for ($i = 1; $i <= 4; $i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300" />
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                    fill="#DFB300" />
                             </svg>
-                            @endfor
+                        @endfor
                     </div>
 
                     {{-- Progress Bar --}}
-                    <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]" style="width: {{$count > 0 ? ($four/$count)*100 : 0}}%;">
+                    <div
+                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
+                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
+                            style="width: {{ $count > 0 ? ($four / $count) * 100 : 0 }}%;">
                         </div>
                     </div>
 
                     {{-- Count --}}
                     <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$four}}
+                        {{ $four }}
                     </span>
                 </div>
 
@@ -129,25 +132,27 @@
 
                     {{-- Stars --}}
                     <div class="flex items-center gap-1">
-                        @for($i=1;$i<=3;$i++)
+                        @for ($i = 1; $i <= 3; $i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300" />
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                    fill="#DFB300" />
                             </svg>
-                            @endfor
+                        @endfor
                     </div>
 
                     {{-- Progress Bar --}}
-                    <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]" style="width: {{$count > 0 ? ($three/$count)*100 : 0}}%;">
+                    <div
+                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
+                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
+                            style="width: {{ $count > 0 ? ($three / $count) * 100 : 0 }}%;">
                         </div>
                     </div>
 
                     {{-- Count --}}
                     <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$three}}
+                        {{ $three }}
                     </span>
                 </div>
 
@@ -161,25 +166,27 @@
 
                     {{-- Stars --}}
                     <div class="flex items-center gap-1">
-                        @for($i=1;$i<=2;$i++)
+                        @for ($i = 1; $i <= 2; $i++)
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300" />
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                    fill="#DFB300" />
                             </svg>
-                            @endfor
+                        @endfor
                     </div>
 
                     {{-- Progress Bar --}}
-                    <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]" style="width: {{$count > 0 ? ($two/$count)*100 : 0}}%;">
+                    <div
+                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
+                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
+                            style="width: {{ $count > 0 ? ($two / $count) * 100 : 0 }}%;">
                         </div>
                     </div>
 
                     {{-- Count --}}
                     <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$two}}
+                        {{ $two }}
                     </span>
                 </div>
 
@@ -192,25 +199,28 @@
 
                     {{-- Stars --}}
                     <div class="flex items-center gap-1">
-                        @for($i=1;$i<=2;$i++)
+                        @for ($i = 1; $i <= 1; $i++)
+                            {{-- Changed from $i<=2 to $i<=1 --}}
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300" />
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
+                                    fill="#DFB300" />
                             </svg>
-                            @endfor
+                        @endfor
                     </div>
 
                     {{-- Progress Bar --}}
-                    <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]" style="width: {{$count > 0 ? ($one/$count)*100 : 0}}%;">
+                    <div
+                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
+                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
+                            style="width: {{ $count > 0 ? ($one / $count) * 100 : 0 }}%;">
                         </div>
                     </div>
 
                     {{-- Count --}}
                     <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$one}}
+                        {{ $one }}
                     </span>
                 </div>
             </div>

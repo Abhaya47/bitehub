@@ -23,6 +23,11 @@ class Offer extends Model
         'availed_count',
     ];
 
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
+
     //Relationships
     public function restaurant()
     {

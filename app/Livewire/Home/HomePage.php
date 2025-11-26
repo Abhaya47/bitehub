@@ -24,10 +24,17 @@ class HomePage extends Component
         }
         $this->name = Auth::user()->name;
         $ip = $request->ip();
-        $this->restaurants = Restaurant::query()->join('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')->select('restaurants.*', 'ratings.rating')->orderBy('ratings.rating', 'desc')->limit(7)->get();
+        $this->restaurants = Restaurant::query()
+            ->with(['offers' => function ($query) {
+                $query->active();
+            }])
+            ->join('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')
+            ->select('restaurants.*', 'ratings.rating')
+            ->orderBy('ratings.rating', 'desc')
+            ->limit(7)
+            ->get();
 
         $this->position = LocationService::getLocationFromIP($ip);
-
     }
 
     public function logout()
