@@ -54,9 +54,10 @@
                         class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer">
                         {{-- Image Section --}}
                         <div
-                            class="absolute left-2 top-2 w-[130px] md:w-[150px] lg:w-[170px] h-[140px] md:h-[160px] lg:h-[180px]">
-                            <img src="{{ asset('images/jamuna.png') }}" alt="{{ $restaurant->name }}"
-                                class="w-full h-full object-cover rounded-[25px]" draggable="false" />
+                            class="absolute left-2 top-2 w-[130px] md:w-[150px] lg:w-[170px] h-[140px] md:h-[160px] lg:h-[180px] object-cover">
+                            <img src="{{ $restaurant->file_path ? asset('storage/' . $restaurant->file_path) : asset('images/image_not_found.png') }}"
+                                alt="{{ $restaurant->name }}" class="w-full h-full object-cover rounded-[25px]"
+                                draggable="false" />
 
                             {{-- Favorite Button --}}
                             <div

@@ -31,8 +31,10 @@ class ReviewForm
                         }
                         return $user->restaurants()->pluck('name', 'name');
                     })
-                    ->afterStateUpdated(function (Select $component, string $state) {
-                        $component->state($state);
+                    ->afterStateUpdated(function (Select $component, ?string $state) {
+                        if ($state !== null) {
+                            $component->state($state);
+                        }
                     })
                     ->loadingMessage('Loading Restaurants...')
                     ->searchable(),

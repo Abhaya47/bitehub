@@ -26,7 +26,8 @@ class Restaurant extends Model
         'address',
         'pan_number',
         'established_date',
-        'owner_id'
+        'owner_id',
+        'file_path'
     ];
 
     //    protected $hidden = [

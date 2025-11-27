@@ -69,6 +69,6 @@ class OfferForm
             TextInput::make('discount_value')
                 ->numeric()
                 ->required(),
-        ]);
+                ]);
     }
 }

@@ -21,7 +21,7 @@ class LocationService
 
         // For local testing
         if ($ip == '127.0.0.1' || $ip == '::1') {
-            $ip = '1.178.144.0'; // Kathmandu, Nepal
+            $ip = '124.41.204.21';
         }
 
         // Get location from IP
