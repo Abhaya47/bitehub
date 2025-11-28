@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{{ $title ?? 'BiteHub - Discover Restaurants and Delicious Food' }}</title>
+    <title>{{ $restaurant->name ?? 'BiteHub' }}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -52,7 +52,7 @@
 </head>
 
 <body class="bg-[url('/images/background_pattern.png')] bg-cover bg-center overflow-x-hidden min-h-screen flex flex-col"
-      style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
+    style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
 
     <div id="app" class="flex-1 flex flex-col">
         <main class="flex-1 w-full">

@@ -22,7 +22,10 @@
 
         {{-- Logo (centered on mobile, left on desktop) --}}
         <div class="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 w-[96px] h-[90px] z-10">
-            <img src="{{ asset('images/bitehublogo.png') }}" alt="BiteHub Logo" class="w-full h-full object-contain">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('images/bitehublogo.png') }}" alt="BiteHub Logo"
+                    class="w-full h-full object-contain">
+            </a>
         </div>
 
         {{-- Navigation links centered (desktop only) --}}

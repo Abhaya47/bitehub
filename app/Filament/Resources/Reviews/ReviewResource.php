@@ -68,11 +68,11 @@ class ReviewResource extends Resource
             return $query;
         }
 
-        if(User::isOwner()){
-            $restaurantIds=Restaurant::where('owner_id',Auth::id())->pluck('id');
+        if (User::isOwner()) {
+            $restaurantIds = Restaurant::where('owner_id', Auth::id())->pluck('id');
             return $query->whereIn('restaurant_id', $restaurantIds);
         }
 
-        return $query->where('user_id', auth()->id());
+        return $query->where('user_id', Auth::id());
     }
 }
