@@ -46,12 +46,12 @@
         {{-- Scrollable Container --}}
         <div id="featured-slider"
             class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[156px] md:h-[176px] lg:h-[196px] scroll-smooth"
-            style="scrollbar-width: none; -ms-overflow-style: none;">
+            style="scrollbar-width: none; -ms-overflow-style: none; ">
 
             @foreach ($restaurants as $restaurant)
                 <a href="{{ route('description', ['restaurant' => $restaurant->id]) }}" class="block">
                     <div
-                        class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer">
+                        class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer transition-transform duration-300">
                         {{-- Image Section --}}
                         <div
                             class="absolute left-2 top-2 w-[130px] md:w-[150px] lg:w-[170px] h-[140px] md:h-[160px] lg:h-[180px] object-cover">
@@ -61,17 +61,17 @@
 
                             {{-- Favorite Button --}}
                             <div
-                                class="absolute top-0 left-0 w-[25px] md:w-[28px] lg:w-[32px] h-[25px] md:h-[28px] lg:h-[32px] bg-[#F9443D] backdrop-blur-sm rounded-full flex items-center justify-center">
-                                <svg class="w-[11px] md:w-[13px] lg:w-[15px] h-[10px] md:h-[12px] lg:h-[14px]"
-                                    viewBox="0 0 11 10" fill="none">
+                                class="group absolute top-2 left-2 w-[25px] md:w-[28px] lg:w-[32px] h-[25px] md:h-[28px] lg:h-[32px] bg-white rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-red-600">
+                                <svg class="w-[11px] md:w-[13px] lg:w-[15px] h-[10px] md:h-[12px] lg:h-[14px] transition-colors duration-200 fill-red-600 stroke-red-600 group-hover:fill-white group-hover:stroke-white"
+                                    viewBox="0 0 11 10">
                                     <path
                                         d="M5.5 9.5L1.5 5.5C0.5 4.5 0.5 2.5 1.5 1.5C2.5 0.5 4.5 0.5 5.5 1.5C6.5 0.5 8.5 0.5 9.5 1.5C10.5 2.5 10.5 4.5 9.5 5.5L5.5 9.5Z"
-                                        fill="white" stroke="white" stroke-width="0.8" />
+                                        stroke-width="0.8" />
                                 </svg>
                             </div>
                             {{-- Restaurant Badge --}}
                             <div
-                                class="flex items-center absolute bottom-0 left-0 px-1 md:px-1.5 lg:px-2 py-2.5 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-lg">
+                                class="flex items-center absolute bottom-0 left-[290px] px-1 md:px-1.5 lg:px-2 py-2.5 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-xl">
                                 <span
                                     class="font-medium text-[8px] md:text-[9px] lg:text-[10px] leading-[9px] md:leading-[10px] lg:leading-[11px] tracking-wider text-white">Restaurant</span>
                             </div>
