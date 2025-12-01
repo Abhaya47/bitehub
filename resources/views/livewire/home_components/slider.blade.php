@@ -71,7 +71,7 @@
                             </div>
                             {{-- Restaurant Badge --}}
                             <div
-                                class="flex items-center absolute bottom-0 left-[290px] px-1 md:px-1.5 lg:px-2 py-2.5 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-xl">
+                                class="flex items-center absolute bottom-0 left-[270px] px-1 md:px-1.5 lg:px-2 py-2.5 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-xl">
                                 <span
                                     class="font-medium text-[8px] md:text-[9px] lg:text-[10px] leading-[9px] md:leading-[10px] lg:leading-[11px] tracking-wider text-white">Restaurant</span>
                             </div>
@@ -222,7 +222,7 @@
                 nextBtn.addEventListener('click', () => {
                     cardSlider.scrollBy({
                         left: 350,
-                        behavior: 'smooth'
+                        behavior: 'smooth' 
                     });
                 });
             }

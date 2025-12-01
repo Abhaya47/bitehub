@@ -39,6 +39,8 @@ Route::get('/menus/{menu}/view', RestaurantMenuController::class)
 Route::get('/description/{restaurant}', Description::class)
     ->name('description');
 
+Route::get('/settings', \App\Livewire\Settings::class)->name('settings');
+
 
 Route::get('/home', HomePage::class)->name('home');
 
