@@ -78,7 +78,7 @@
             focus:outline-none focus:ring-4 focus:ring-[#F9423C]
         "
                     aria-label="User Profile Menu">
-                    <img src="{{ asset('images/profile_pic.png') }}" alt="User Profile Picture"
+                    <img src="{{ Auth::user()->file_path ? Storage::url(Auth::user()->file_path) : asset('images/profile_pic.png') }}" alt="User Profile Picture"
                         class="w-full h-full object-cover">
                 </button>
 
@@ -102,7 +102,7 @@
                             My Profile
                         </a>
 
-                        <a href="{{ url('settings') }}"
+                        <a href="{{ url('profile-settings') }}"
                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150"
                             role="menuitem" tabindex="-1">
                             <svg class="w-4 h-4 mr-3 text-gray-400 group-hover:text-indigo-600 transition"
@@ -177,34 +177,34 @@
 
 {{-- JavaScript for menu toggle --}}
 @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const openIcon = document.getElementById('menu-open-icon');
-            const closeIcon = document.getElementById('menu-close-icon');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('menu-open-icon');
+        const closeIcon = document.getElementById('menu-close-icon');
 
-            menuButton.addEventListener('click', function(e) {
-                e.stopPropagation();
+        menuButton.addEventListener('click', function(e) {
+            e.stopPropagation();
 
-                // Toggle mobile menu
-                mobileMenu.classList.toggle('hidden');
+            // Toggle mobile menu
+            mobileMenu.classList.toggle('hidden');
 
-                // Toggle icons
-                openIcon.classList.toggle('hidden');
-                closeIcon.classList.toggle('hidden');
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        openIcon.classList.remove('hidden');
-                        closeIcon.classList.add('hidden');
-                    }
-                }
-            });
+            // Toggle icons
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
         });
-    </script>
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>
 @endpush

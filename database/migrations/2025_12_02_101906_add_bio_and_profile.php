@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->text('file_path')->nullable()->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('file_path')->nullable();
+            $table->string('bio', 500)->nullable();
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->string('file_path')->nullable()->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['file_path', 'bio']);
         });
     }
 };
