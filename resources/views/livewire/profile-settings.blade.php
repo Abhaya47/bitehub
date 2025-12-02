@@ -105,33 +105,29 @@
                                 @endif
                             </div>
                             <!-- Dropzone -->
-                            <div
-                                class="flex-1 p-6 bg-white border-2 border-dashed border-slate-300 rounded-[32px] relative">
-                                <div class="flex flex-col items-center gap-4">
-                                    <div
-                                        class="w-[48px] h-[48px] rounded-full bg-indigo-50 flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-[#F6433F]" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                            <div class="flex-1 p-8 bg-white border-2 border-dashed border-slate-300 rounded-[32px] relative cursor-pointer hover:border-[#F6433F] hover:bg-gray-50 transition-all duration-200">
+                                <input type="file" wire:model="photo" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                <div class="flex flex-col items-center justify-center gap-4 pointer-events-none">
+                                    <div class="w-[56px] h-[56px] rounded-full bg-indigo-50 flex items-center justify-center">
+                                        <svg class="w-7 h-7 text-[#F6433F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                         </svg>
                                     </div>
 
-                                    <div class="text-center relative">
-                                        <button class="font-bold text-[16px] text-[#F6433F]">Click here</button>
-                                        <input type="file" wire:model="photo" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                    <div class="text-center">
+                                        <div class="font-bold text-[17px] text-[#F6433F]">Click here</div>
                                         <div class="text-[16px] text-slate-600 mt-1">to upload your file or drag</div>
-                                        <div class="text-[14px] text-slate-400 mt-1">Supported Format: JPG, PNG (1mb
-                                            each)</div>
+                                        <div class="text-[14px] text-slate-400 mt-2">Supported Format: JPG, PNG</div>
                                     </div>
-                                    <div wire:loading wire:target="photo" class="text-sm text-gray-500">Uploading...</div>
-                                    @error('photo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                </div>
 
-                                <div class="absolute right-6 top-6">
-                                    <img src="{{ asset('images/drag.png') }}" alt="Pizza" alt="uploaded example"
-                                        class="w-[64px] h-72px] rounded-lg">
+                                    <div wire:loading wire:target="photo" class="text-sm text-gray-600 font-medium">Uploading...</div>
                                 </div>
+                                @error('photo')
+                                <div class="absolute bottom-4 left-0 right-0 text-center">
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
