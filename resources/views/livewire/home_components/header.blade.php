@@ -91,7 +91,7 @@
                             Signed in as {{ Auth::user()->name }}
                         </div>
 
-                        <a href="#"
+                        <a href="{{ url('profile') }}"
                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150"
                             role="menuitem" tabindex="-1">
                             <svg class="w-4 h-4 mr-3 text-gray-400 group-hover:text-indigo-600 transition"

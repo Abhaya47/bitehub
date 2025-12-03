@@ -9,6 +9,7 @@ use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Description\Description;
 use App\Livewire\Home\HomePage;
 use App\Livewire\Landing;
+use App\Livewire\Profile;
 use App\Livewire\ProfileSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,7 @@ Route::get('/menus/{menu}/view', RestaurantMenuController::class)
 Route::get('/description/{restaurant}', Description::class)
     ->name('description');
 
+Route::get('/profile', Profile::class)->name('profile');
 Route::get('/profile-settings', ProfileSettings::class)->name('profile.settings');
 
 
