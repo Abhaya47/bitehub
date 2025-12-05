@@ -28,8 +28,8 @@ class EditMessage extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $user= User::where('id',$data['user_id'])->first();
-        $data['email'] =$user->email;
+        $user = User::where('id', $data['user_id'])->first();
+        $data['email'] = $user->email;
         unset($data['user_id']);
         return $data;
     }

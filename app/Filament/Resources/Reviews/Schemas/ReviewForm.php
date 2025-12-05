@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources\Reviews\Schemas;
 
-use App\Models\Restaurant;
 use App\Models\User;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Utilities\Get;
+use App\Models\Restaurant;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Utilities\Get;
 
 class ReviewForm
 {
@@ -31,8 +32,10 @@ class ReviewForm
                         }
                         return $user->restaurants()->pluck('name', 'name');
                     })
-                    ->afterStateUpdated(function (Select $component, string $state) {
-                        $component->state($state);
+                    ->afterStateUpdated(function (Select $component, ?string $state) {
+                        if ($state !== null) {
+                            $component->state($state);
+                        }
                     })
                     ->loadingMessage('Loading Restaurants...')
                     ->searchable(),
@@ -57,7 +60,30 @@ class ReviewForm
                         return User::query()->where('id', Auth::user()->id)->pluck('email', 'email');
                     })
                     ->default(fn() => Auth::user()->email)
-                    ->searchable()
+                    ->searchable(),
+                FileUpload::make('file_path')
+                    ->label('Review Image')
+                    ->image()
+                    ->multiple()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->columnSpanFull()
+                    ->disk('public')
+                    ->acceptedFileTypes([
+                        'image/jpeg',
+                        'image/png',
+                    ])
+                    ->directory('review_images/files')
+                    ->visibility('public')
+                    ->downloadable()
+                    ->openable()
+                    ->deletable(true)
+                    ->helperText('You can upload an image related to your review.'),
+
             ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Livewire\Home;
 
 use App\Models\Restaurant;
+use App\Services\LocationService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -13,25 +15,36 @@ class HomePage extends Component
 {
     public $restaurants;
     public string $name;
+    public $position;
 
-    public function mount()
+    public function mount(Request $request)
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
-        $this->name=Auth::user()->name;
-        $this->restaurants = Restaurant::with('reviews')->get()->map(function ($restaurant) {
-            $restaurant->averageRating = $restaurant->reviews->count() > 0
-                ? round($restaurant->reviews->avg('rating'), 1)
-                : 0;
-            $restaurant->totalReviews = $restaurant->reviews->count();
-            return $restaurant;
-        });
+        $this->name = Auth::user()->name;
+        $ip = $request->ip();
+        $this->restaurants = Restaurant::query()
+            ->with(['offers' => function ($query) {
+                $query->active();
+            }])
+            ->join('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')
+            ->select('restaurants.*', 'ratings.rating')
+            ->orderBy('ratings.rating', 'desc')
+            ->limit(7)
+            ->get();
+
+        $this->position = LocationService::getLocationFromIP($ip);
     }
 
-    public function render()
+    public function logout()
     {
-        return view('livewire.home-page');
+        Auth::logout();
+        return redirect()->route('landing');
     }
 
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    {
+        return view('livewire.home_components.home-page');
+    }
 }

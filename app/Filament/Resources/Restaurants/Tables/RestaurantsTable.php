@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\Restaurants\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Support\Enums\ActionSize;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
 
 class RestaurantsTable
 {
@@ -31,8 +34,14 @@ class RestaurantsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
+                Action::make('view')
+                    ->label('View')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn($record) => route('description', ['restaurant' => $record->id]))
+                    ->openUrlInNewTab()
+                    ->visible(fn($record) => filled($record->id)),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
