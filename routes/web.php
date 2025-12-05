@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LocationController;
+//use App\Http\Controllers\LocationController;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
@@ -8,6 +8,7 @@ use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Description\Description;
 use App\Livewire\Home\HomePage;
 use App\Livewire\Landing;
+use App\Livewire\Tags;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Landing::class)->name('landing');
@@ -28,7 +29,8 @@ Route::get('/description/{restaurant}', Description::class)
 
 Route::get('/home', HomePage::class)->name('home');
 
+Route::get('/tags/{tag}', Tags::class)->name('tags');
 
 
 
-Route::get('/location', [LocationController::class, 'index']);
+//Route::get('/location', [LocationController::class, 'index']);

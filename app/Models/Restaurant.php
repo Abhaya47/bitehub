@@ -6,8 +6,8 @@ use App\Observers\RestaurantObserver;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[ObservedBy([RestaurantObserver::class])]
 class Restaurant extends Model
@@ -18,7 +18,7 @@ class Restaurant extends Model
 
     protected $primaryKey = 'id';
 
-     public $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'id',
@@ -38,7 +38,7 @@ class Restaurant extends Model
         'address' => 'string',
         'pan_number' => 'integer',
         'established_date' => 'date',
-        'owner_id'=>'integer',
+        'owner_id' => 'integer',
     ];
 
     public function owner()
@@ -48,26 +48,33 @@ class Restaurant extends Model
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class,'restaurant_id');
+        return $this->hasMany(Review::class, 'restaurant_id');
     }
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Message::class,'restaurant_id');
+        return $this->hasMany(Message::class, 'restaurant_id');
     }
 
     public function tags(): HasMany
     {
-        return $this->hasMany(RestaurantTag::class,'restaurant_id');
+        return $this->hasMany(RestaurantTag::class, 'restaurant_id');
+    }
+
+    public function rating(): HasOne
+    {
+        return $this->hasOne(Rating::class, 'restaurant_id');
     }
 
 
     //serialize data
+
     /**
      * @param DateTimeInterface $date
      * @return string
      */
-    protected  function serializeDate(DateTimeInterface $date): string{
+    protected function serializeDate(DateTimeInterface $date): string
+    {
         return $date->format('Y-m-d');
     }
 }

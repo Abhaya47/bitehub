@@ -2,7 +2,7 @@
      class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[180px] md:h-[200px] lg:h-[220px] scroll-smooth scrollbar-hide"
      style="scrollbar-width: none; -ms-overflow-style: none;">
     @foreach($tags as $tag)
-        <a href="{{ route('tag', ['tag' => $tag->id]) }}" class="block">
+        <a href="{{ route('tags', ['tag' => $tag->id]) }}" class="block">
             <div
                 class="relative flex-none w-[270px] md:w-[320px] lg:w-[350px] h-[180px] md:h-[200px] lg:h-[220px] rounded-[25px] overflow-hidden group cursor-pointer">
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/20">
