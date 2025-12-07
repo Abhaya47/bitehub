@@ -12,19 +12,26 @@ class Login extends Component
 
     public $email;
     public $password;
-    public bool $remember= false;
+    public bool $remember = false;
 
     protected $rules = [
-            'email' => 'required|email',
-            'password' => 'required'
-        ];
+        'email' => 'required|email',
+        'password' => 'required'
+    ];
 
-    public $messages= [
-            'email.required' => 'Please enter your email address.',
-            'email.email' => 'Please enter a valid email address.',
-            'password.required' => 'Password is required.',
-//            'password.min' => 'Password must be at least 6 characters.'
-        ];
+    public $messages = [
+        'email.required' => 'Please enter your email address.',
+        'email.email' => 'Please enter a valid email address.',
+        'password.required' => 'Password is required.',
+        //            'password.min' => 'Password must be at least 6 characters.'
+    ];
+
+    public function mount()
+    {
+        if (Auth::check()) {
+            return redirect('/home');
+        }
+    }
 
     public function login()
     {
@@ -32,8 +39,7 @@ class Login extends Component
         if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $this->remember)) {
             return redirect('/home')
                 ->with('status', 'Logged in successfully');
-        }
-        else {
+        } else {
             return session()->flash('error', 'Failed to login, please try again.');
         }
     }

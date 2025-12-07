@@ -29,7 +29,7 @@ class User extends Authenticatable implements FilamentUser
         'role',
         'file_path',
         'bio',
-      
+
     ];
 
     /**

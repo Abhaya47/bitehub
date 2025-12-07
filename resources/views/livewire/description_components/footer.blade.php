@@ -9,47 +9,16 @@
                 <h3 class="text-[20px] font-bold mb-4">
                     About Us
                 </h3>
-                <p class="text-[14px] leading-relaxed mb-6 text-white/90">
-                    Lorem ipsum dolor sit amet, consecte adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad mini veniam, quis nostrud.
+                <p class="text-[14px] leading-relaxed mb-6 text-white/90 text-justify">
+                    Explore the latest food hotspots in your city through curated videos by top influencers and
+                    vloggers. Bite Hub brings all the buzz from social media directly to your fingertips!
                 </p>
-                <button class="text-white font-bold text-[14px] uppercase tracking-wide hover:underline transition-all">
-                    READ MORE
-                </button>
-            </div>
-
-            {{-- Column 2: Navigation --}}
-            <div>
-                <h3 class="text-[20px] font-bold mb-4">
-                    Navigation
-                </h3>
-                <ul class="space-y-3">
-                    <li>
-                        <a href="#" class="text-[14px] hover:underline transition-all">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-[14px] hover:underline transition-all">
-                            Service
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-[14px] hover:underline transition-all">
-                            Our Team
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-[14px] hover:underline transition-all">
-                            Project
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-[14px] hover:underline transition-all">
-                            Blog
-                        </a>
-                    </li>
-                </ul>
+                <a href = "{{ route('landing') }}">
+                    <button
+                        class="text-white font-bold text-[14px] uppercase tracking-wide hover:underline transition-all">
+                        READ MORE
+                    </button>
+                </a>
             </div>
 
             {{-- Column 3: Get in Touch --}}
@@ -85,7 +54,7 @@
 
                 {{-- Bottom Navigation Links --}}
                 <div class="flex gap-6">
-                    <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
+                    <a href="{{ route('home') }}" class="text-[14px] font-semibold hover:underline transition-all">
                         Home
                     </a>
                     <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
@@ -94,8 +63,8 @@
                     <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
                         Chat
                     </a>
-                    <a href="#" class="text-[14px] font-semibold hover:underline transition-all">
-                        About US
+                    <a href="{{ route('landing') }}" class="text-[14px] font-semibold hover:underline transition-all">
+                        About Us
                     </a>
                 </div>
             </div>

@@ -22,14 +22,14 @@
                 <p
                     class="font-normal text-sm md:text-base lg:text-[16px] leading-relaxed lg:leading-[20px] tracking-[0.03em] text-[#000000] mb-8">
                     Explore the latest food hotspots in your city through curated videos by top influencers and
-                    bloggers.
+                    vloggers.
                     Bite Hub brings all the buzz from social media directly to your fingertips!
                 </p>
 
                 <!-- CTA Buttons -->
                 <div class="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6">
                     <!-- About Us Button -->
-                    <a href="/login">
+                    <a href="/register">
                         <button
                             class="flex items-center justify-center gap-2 w-[140px] md:w-[159px] h-[48px] bg-[#F9443D] rounded-full shadow-md hover:bg-[#d93a34] transition-colors">
                             <span class="font-semibold text-sm md:text-base text-white">Register Now</span>

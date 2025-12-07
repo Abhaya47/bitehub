@@ -13,12 +13,13 @@
             class="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 text-sm">
     </div>
     @if ($search !== '')
-        <div class="flex flex-col items-center  rounded-lg px-6 py-4 shadow-sm hover:shadow-md transition-shadow">
-            @foreach ($responses as $response)
-                <div class="m-2">
-                    <button>{{ $response->name }}</button>
-                </div>
-            @endforeach
-        </div>
+    <div class="absolute top-full left-0 w-full mt-2 flex flex-col rounded-xl bg-white/60 backdrop-blur-lg border border-white/40 shadow-2xl overflow-hidden z-50">
+        @foreach ($responses as $response)
+        <a href="{{ route('description', $response->restaurant_id) }}"
+            class="block w-full px-6 py-3 text-left text-gray-800 hover:bg-white/50 transition-colors font-medium">
+            {{ $response->name }}
+        </a>
+        @endforeach
+    </div>
     @endif
 </div>
