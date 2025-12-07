@@ -13,7 +13,7 @@ class HomeTags extends Component
 
     public function mount()
     {
-        $this->tags=RestaurantTag::with('tag','restaurant')->get();
+        $this->tags=Tag::query()->get();
     }
 
     public function render()

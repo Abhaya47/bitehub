@@ -13,6 +13,7 @@ use App\Livewire\Profile;
 use App\Livewire\ProfileSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Livewire\Tags;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Landing::class)->name('landing');
@@ -20,7 +21,6 @@ Route::middleware(['web'])->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/register', Register::class)->name('register');
 });
-
 Route::get('/forgot-password', ForgotPassword::class)
     ->middleware('guest')
     ->name('password.email');
@@ -48,4 +48,9 @@ Route::get('/profile-settings', ProfileSettings::class)->name('profile.settings'
 
 Route::get('/home', HomePage::class)->name('home');
 
+Route::get('/tags/{tag}', Tags::class)->name('tags');
+
+
+
+//Route::get('/location', [LocationController::class, 'index']);
 Route::get('/location', [LocationController::class, 'index']);
