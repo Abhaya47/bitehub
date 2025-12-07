@@ -46,12 +46,12 @@
                 </p>
 
                 {{-- Review Images --}}
-                @if($review->file_path && is_array($review->file_path))
+                @if($review['file_path'] && is_array($review['file_path']))
                 <div class="flex items-center gap-2 mt-3">
                     @php
-                    $imageUrls = array_map(fn($p) => asset('storage/'.$p), $review->file_path);
+                    $imageUrls = array_map(fn($p) => asset('storage/'.$p), $review['file_path']);
                     @endphp
-                    @foreach($review->file_path as $index => $image)
+                    @foreach($review['file_path'] as $index => $image)
                     <button onclick="openReviewModal({{ json_encode($imageUrls) }}, {{ $index }})"
                         class="w-[70px] h-[61px] rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
                         <img src="{{ asset('storage/' . $image) }}" alt="Review Image"
@@ -232,12 +232,12 @@
                 </p>
 
                 {{-- Review Images --}}
-                @if($review->file_path && is_array($review->file_path))
+                @if($review['file_path'] && is_array($review['file_path']))
                 <div class="flex items-center gap-2 mt-3">
                     @php
-                    $imageUrls = array_map(fn($p) => asset('storage/'.$p), $review->file_path);
+                    $imageUrls = array_map(fn($p) => asset('storage/'.$p), $review['file_path']);
                     @endphp
-                    @foreach($review->file_path as $index => $image)
+                    @foreach($review['file_path'] as $index => $image)
                     <button onclick="openReviewModal({{ json_encode($imageUrls) }}, {{ $index }})"
                         class="w-[70px] h-[61px] rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
                         <img src="{{ asset('storage/' . $image) }}" alt="Review Image"

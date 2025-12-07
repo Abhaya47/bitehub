@@ -17,7 +17,7 @@ use App\Livewire\Tags;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Landing::class)->name('landing');
-Route::middleware(['web'])->group(function () {
+Route::middleware(['web','guest'])->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/register', Register::class)->name('register');
 });

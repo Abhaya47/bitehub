@@ -46,7 +46,10 @@ class ProfileSettings extends Component
         $user->bio = $this->bio;
 
         if ($this->photo) {
-            // Delete old photo if exists and it's not the default one (optional check)
+            /*
+             * php artisan storage:link to make this work
+             */
+            // Delete old photo if exists, and it's not the default one (optional check)
             if ($user->file_path) {
                 Storage::disk('public')->delete($user->file_path);
             }
@@ -57,8 +60,8 @@ class ProfileSettings extends Component
 
         $user->save();
 
-        // Update existing photo to show the new one immediately if needed, 
-        // though the redirect or refresh might handle it. 
+        // Update existing photo to show the new one immediately if needed,
+        // though the redirect or refresh might handle it.
         // For now, let's just re-assign.
         if ($this->photo) {
             $this->existingPhoto = $user->file_path;
