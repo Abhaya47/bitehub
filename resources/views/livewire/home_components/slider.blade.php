@@ -1,4 +1,4 @@
-<section class="px-5 max-w-full lg:px-20 py-20">
+<section class="px-4 sm:px-5 md:px-8 lg:px-16 xl:px-20 2xl:px-24 max-w-full py-12 sm:py-16 md:py-20">
     {{-- Card Slider Component --}}
     <div class="select-none relative group">
         {{-- Left Arrow Button --}}
@@ -45,11 +45,11 @@
     <div class="select-none relative">
         {{-- Scrollable Container --}}
         <div id="featured-slider"
-            class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[156px] md:h-[176px] lg:h-[196px] scroll-smooth"
+            class="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 overflow-x-auto overflow-y-hidden h-[156px] sm:h-[165px] md:h-[176px] lg:h-[196px] xl:h-[210px] 2xl:h-[220px] scroll-smooth"
             style="scrollbar-width: none; -ms-overflow-style: none; ">
 
             @foreach ($restaurants as $restaurant)
-            <x-restaurant-card :restaurant="$restaurant" />
+                <x-restaurant-card :restaurant="$restaurant" />
             @endforeach
         </div>
     </div>
@@ -164,5 +164,4 @@
             font-family: 'Raleway', sans-serif;
         }
     </style>
-
 </section>
