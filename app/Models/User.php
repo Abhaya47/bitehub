@@ -75,6 +75,12 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany('App\Models\Restaurant', 'owner_id');
     }
 
+    public function favoriteRestaurants()
+    {
+        return $this->belongsToMany(Restaurant::class, 'favorites', 'user_id', 'restaurant_id')
+            ->withTimestamps();
+    }
+
     public function review()
     {
         return $this->hasMany('App\Models\Review');

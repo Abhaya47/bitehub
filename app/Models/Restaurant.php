@@ -72,6 +72,28 @@ class Restaurant extends Model
         return $this->hasMany(Offer::class, 'restaurant_id');
     }
 
+    public function ratingInfo()
+    {
+        return $this->hasOne(Rating::class, 'restaurant_id');
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        // Check if rating attribute exists (from join)
+        if (isset($this->attributes['rating'])) {
+            return $this->attributes['rating'];
+        }
+
+        // Otherwise return from relationship or default
+        return $this->ratingInfo ? $this->ratingInfo->rating : 'N/A';
+    }
+
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'restaurant_id', 'user_id')
+            ->withTimestamps();
+    }
+
 
     //serialize data
     /**
