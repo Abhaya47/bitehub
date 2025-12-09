@@ -69,11 +69,11 @@
             $maxDiscount = $restaurant->offers->max('discount_value');
         @endphp
         @if ($maxDiscount)
-            <div
-                class="absolute bottom-[22px] md:bottom-[26px] lg:bottom-[30px] left-[146px] md:left-[168px] lg:left-[192px]">
+            <div class="absolute bottom-[22px] md:bottom-[26px] lg:bottom-[30px] right-3 md:right-4">
                 <span
-                    class="font-medium text-[13px] md:text-[14px] lg:text-[15px] leading-4 tracking-wider text-[#252B5C]">Up
-                    to {{ intval($maxDiscount) }}% Off</span>
+                    class="font-medium text-[13px] md:text-[14px] lg:text-[15px] leading-4 tracking-wider text-[#252B5C] bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
+                    Up to {{ intval($maxDiscount) }}% Off
+                </span>
             </div>
         @endif
     </div>

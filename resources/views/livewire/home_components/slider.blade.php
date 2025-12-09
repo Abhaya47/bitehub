@@ -1,6 +1,6 @@
 <section class="px-4 sm:px-5 md:px-8 lg:px-16 xl:px-20 2xl:px-24 max-w-full py-12 sm:py-16 md:py-20">
     {{-- Card Slider Component --}}
-    <div class="select-none relative group">
+    <div class="select-none relative group overflow-hidden">
         {{-- Left Arrow Button --}}
         <button
             class="carousel-btn-prev absolute left-[30.23px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -22,12 +22,11 @@
         </button>
 
         {{-- Scrollable Container --}}
-
-        @livewire('home.home-tags')
-
-
-        {{-- Non-Veg Food Items Card --}}
-
+        <div id="card-slider"
+            class="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 overflow-x-auto overflow-y-hidden h-auto scroll-smooth"
+            style="scrollbar-width: none; -ms-overflow-style: none;">
+            @livewire('home.home-tags')
+        </div>
     </div>
 
     {{-- Header Section --}}
@@ -42,11 +41,11 @@
     </div>
 
     {{-- Card Slider Component --}}
-    <div class="select-none relative">
+    <div class="select-none relative overflow-hidden">
         {{-- Scrollable Container --}}
         <div id="featured-slider"
             class="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 overflow-x-auto overflow-y-hidden h-[156px] sm:h-[165px] md:h-[176px] lg:h-[196px] xl:h-[210px] 2xl:h-[220px] scroll-smooth"
-            style="scrollbar-width: none; -ms-overflow-style: none; ">
+            style="scrollbar-width: none; -ms-overflow-style: none;">
 
             @foreach ($restaurants as $restaurant)
                 <x-restaurant-card :restaurant="$restaurant" />
@@ -65,9 +64,15 @@
                 let startX = 0;
                 let scrollLeft = 0;
 
+                // Prevent default drag behavior on images and links
+                slider.addEventListener('dragstart', (e) => {
+                    e.preventDefault();
+                });
+
                 slider.addEventListener('mousedown', (e) => {
                     isDown = true;
                     slider.style.cursor = 'grabbing';
+                    slider.style.userSelect = 'none';
                     startX = e.pageX - slider.offsetLeft;
                     scrollLeft = slider.scrollLeft;
                 });
@@ -75,18 +80,20 @@
                 slider.addEventListener('mouseleave', () => {
                     isDown = false;
                     slider.style.cursor = 'grab';
+                    slider.style.userSelect = 'auto';
                 });
 
                 slider.addEventListener('mouseup', () => {
                     isDown = false;
                     slider.style.cursor = 'grab';
+                    slider.style.userSelect = 'auto';
                 });
 
                 slider.addEventListener('mousemove', (e) => {
                     if (!isDown) return;
                     e.preventDefault();
                     const x = e.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 4;
+                    const walk = (x - startX) * 2.5;
                     slider.scrollLeft = scrollLeft - walk;
                 });
 
@@ -108,7 +115,7 @@
                     if (!isDown) return;
                     const touch = e.touches[0];
                     const x = touch.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 4;
+                    const walk = (x - startX) * 2.5;
                     slider.scrollLeft = scrollLeft - walk;
                 }, {
                     passive: true
@@ -131,14 +138,16 @@
             const cardSlider = document.getElementById('card-slider');
 
             if (prevBtn && nextBtn && cardSlider) {
-                prevBtn.addEventListener('click', () => {
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     cardSlider.scrollBy({
                         left: -350,
                         behavior: 'smooth'
                     });
                 });
 
-                nextBtn.addEventListener('click', () => {
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     cardSlider.scrollBy({
                         left: 350,
                         behavior: 'smooth'
@@ -150,15 +159,16 @@
 
     {{-- Custom CSS for hiding scrollbar --}}
     <style>
-        .scrollbar-hide::-webkit-scrollbar {
+        #card-slider::-webkit-scrollbar,
+        #featured-slider::-webkit-scrollbar {
             display: none;
         }
 
-        .scrollbar-hide {
+        #card-slider,
+        #featured-slider {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
 
         .font-raleway {
             font-family: 'Raleway', sans-serif;

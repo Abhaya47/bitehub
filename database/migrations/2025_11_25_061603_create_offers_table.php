@@ -20,15 +20,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
 
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
-
             $table->dateTime('start_at');
             $table->dateTime('end_at');
 
             $table->enum('discount_type', ['percentage', 'fixed'])->default('percentage');
             $table->decimal('discount_value', 8, 2)->default(0.00); // Value of the discount
-            $table->integer('availed_count')->default(0); // Tracks how many times the offer has been availed
 
             $table->timestamps();
         });
