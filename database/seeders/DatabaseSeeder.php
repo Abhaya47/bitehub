@@ -22,6 +22,23 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        // Create admin user for testing
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'role' => 'admin',
+        ]);
+
+        // Create owner user for testing
+        User::factory()->create([
+            'name' => 'Owner User',
+            'email' => 'owner@example.com',
+            'role' => 'owner',
+        ]);
+
+        // Call NoticeSeeder
+        $this->call(NoticeSeeder::class);
+
         // Create sample restaurants
         \App\Models\Restaurant::create([
             'name' => 'Aambo Momo',

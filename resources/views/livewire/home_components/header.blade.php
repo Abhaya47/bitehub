@@ -62,9 +62,7 @@
             </div>
 
             {{-- Notification button --}}
-            <button class="relative p-3 border border-gray-300 rounded-full hover:shadow-lg transition-all">
-                <img src="{{ asset('images/bell_notification.png') }}" alt="Notifications" class="w-6 h-6">
-            </button>
+            @livewire('notification-panel')
 
             <div class="relative z-10 group">
                 {{-- Profile button --}}

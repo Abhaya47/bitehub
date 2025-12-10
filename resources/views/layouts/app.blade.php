@@ -16,6 +16,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    <script src="{{ asset('js/notifications.js') }}" defer></script>
 
     <style>
         html,

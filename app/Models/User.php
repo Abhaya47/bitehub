@@ -91,6 +91,26 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany('App\Models\Message');
     }
 
+    public function notificationReads()
+    {
+        return $this->hasMany('App\Models\NotificationRead');
+    }
+
+    public function notifications()
+    {
+        return $this->notificationReads()->with('notice')->orderBy('created_at', 'desc');
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->notificationReads()->unread()->with('notice');
+    }
+
+    public function createdNotices()
+    {
+        return $this->hasMany('App\Models\Notice', 'created_by');
+    }
+
     public static function isAdmin(): bool
     {
         $user = Auth::user();
