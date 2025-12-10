@@ -28,10 +28,7 @@ class Notice extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function notifications(): HasMany
-    {
-        return $this->hasMany(Notification::class);
-    }
+    
 
     public function notificationReads(): HasMany
     {

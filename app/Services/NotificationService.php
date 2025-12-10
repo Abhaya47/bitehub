@@ -40,11 +40,18 @@ class NotificationService
         $users = $this->getUsersByRole($notice->target_role);
         
         foreach ($users as $user) {
-            NotificationRead::create([
-                'user_id' => $user->id,
-                'notice_id' => $notice->id,
-                'is_read' => false,
-            ]);
+            // Check if notification read already exists to avoid duplicates
+            $existingRead = NotificationRead::where('user_id', $user->id)
+                ->where('notice_id', $notice->id)
+                ->first();
+                
+            if (!$existingRead) {
+                NotificationRead::create([
+                    'user_id' => $user->id,
+                    'notice_id' => $notice->id,
+                    'is_read' => false,
+                ]);
+            }
         }
     }
 
