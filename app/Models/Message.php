@@ -23,6 +23,8 @@ class Message extends Model
         'message',
         'user_id',
         'restaurant_id',
+        'to',
+        'from',
         'created_at',
         'updated_at',
     ];

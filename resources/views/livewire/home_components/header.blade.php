@@ -31,7 +31,7 @@
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Home</a>
             <a href="#"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Reels</a>
-            <a href="#"
+            <a href="/chat"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Chat</a>
             <a href="#"
                 class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">About us</a>

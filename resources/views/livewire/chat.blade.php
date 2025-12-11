@@ -1,3 +1,3 @@
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+    {!! file_get_contents(base_path('messaging/index.html')) !!}
 </div>

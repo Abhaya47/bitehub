@@ -1,10 +1,12 @@
 <?php
 
 //use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ChatController;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Chat;
 use App\Livewire\Description\Description;
 use App\Livewire\Home\HomePage;
 use App\Livewire\Landing;
@@ -15,6 +17,15 @@ Route::get('/', Landing::class)->name('landing');
 Route::middleware(['web'])->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/register', Register::class)->name('register');
+    Route::get('/description/{restaurant}', Description::class)
+        ->name('description');
+
+
+    Route::get('/home', HomePage::class)->name('home');
+
+    Route::get('/tags/{tag}', Tags::class)->name('tags');
+
+    Route::get('/chat', fn() => redirect('http://localhost:3000'));
 });
 Route::get('/forgot-password', ForgotPassword::class)
     ->middleware('guest')
@@ -23,13 +34,10 @@ Route::get('/reset-password/{token}', ResetPassword::class)
     ->middleware('guest')
     ->name('password.reset');
 
-Route::get('/description/{restaurant}', Description::class)
-    ->name('description');
-
-
-Route::get('/home', HomePage::class)->name('home');
-
-Route::get('/tags/{tag}', Tags::class)->name('tags');
+Route::get('/key', function () {
+    $decoded = base64_decode(substr(env('APP_KEY'), 7));
+    return bin2hex($decoded);
+});
 
 
 

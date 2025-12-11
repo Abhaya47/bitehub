@@ -4,7 +4,12 @@
     "description": "my first socket.io app",
     "type": "module",
     "dependencies": {
+        "dotenv": "^17.2.3",
         "express": "^4.21.2",
         "socket.io": "^4.8.1"
-    }
+    },
+    "main": "index.js",
+    "scripts": {},
+    "author": "",
+    "license": "ISC"
 }
