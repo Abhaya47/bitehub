@@ -48,4 +48,6 @@ Route::get('/profile-settings', ProfileSettings::class)->name('profile.settings'
 
 Route::get('/home', HomePage::class)->name('home');
 
+
+
 Route::get('/location', [LocationController::class, 'index']);

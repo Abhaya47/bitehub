@@ -19,7 +19,7 @@
 
     <!-- Notification Panel -->
     <div id="notification-panel"
-        class="absolute right-0 mt-5.5 w-96 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-hidden hidden">
+        class="absolute right-0 mt-5.5 w-96 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-hidden hidden flex flex-col">
         <!-- Header -->
         <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
             <h3 class="font-semibold text-gray-900">Notifications</h3>
@@ -40,8 +40,8 @@
         </div>
 
         <!-- Notifications List -->
-        <div class="max-h-80 overflow-y-auto">
-            @if (count($notifications) > 0)
+        <div class="flex-1 overflow-y-auto">
+            @if ($notifications->count() > 0)
                 @foreach ($notifications as $notificationRead)
                     <div
                         class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 {{ !$notificationRead->is_read ? 'bg-blue-50' : '' }} transition-colors">
@@ -98,79 +98,81 @@
         </div>
 
         <!-- Footer -->
-        @if (count($notifications) > 0)
+        @if ($totalNotifications > 5)
             <div class="bg-gray-50 px-4 py-2 border-t border-gray-200 text-center">
-                <button class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
-                    View all notifications
-                </button>
+                <a href="{{ route('profile', ['tab' => 'notifications']) }}" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+                    View all notifications ({{ $totalNotifications }})
+                </a>
             </div>
         @endif
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const notificationContainer = document.getElementById('notification-container');
-        const notificationBell = document.getElementById('notification-bell');
-        const notificationPanel = document.getElementById('notification-panel');
-        const closePanelBtn = document.getElementById('close-notification-panel');
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const notificationContainer = document.getElementById('notification-container');
+                const notificationBell = document.getElementById('notification-bell');
+                const notificationPanel = document.getElementById('notification-panel');
+                const closePanelBtn = document.getElementById('close-notification-panel');
 
-        let isOpen = @json($isOpen);
-        let hideTimeout;
+                let isOpen = @json($isOpen);
+                let hideTimeout;
 
-        function showPanel() {
-            clearTimeout(hideTimeout);
-            notificationPanel.classList.remove('hidden');
-            notificationPanel.style.opacity = '0';
-            notificationPanel.style.transform = 'scale(0.95)';
+                function showPanel() {
+                    clearTimeout(hideTimeout);
+                    notificationPanel.classList.remove('hidden');
+                    notificationPanel.style.opacity = '0';
+                    notificationPanel.style.transform = 'scale(0.95)';
 
-            requestAnimationFrame(() => {
-                notificationPanel.style.transition = 'all 0.2s ease-out';
-                notificationPanel.style.opacity = '1';
-                notificationPanel.style.transform = 'scale(1)';
+                    requestAnimationFrame(() => {
+                        notificationPanel.style.transition = 'all 0.2s ease-out';
+                        notificationPanel.style.opacity = '1';
+                        notificationPanel.style.transform = 'scale(1)';
+                    });
+
+                    isOpen = true;
+                }
+
+                function hidePanel() {
+                    notificationPanel.style.transition = 'all 0.15s ease-in';
+                    notificationPanel.style.opacity = '0';
+                    notificationPanel.style.transform = 'scale(0.95)';
+
+                    setTimeout(() => {
+                        notificationPanel.classList.add('hidden');
+                    }, 150);
+
+                    isOpen = false;
+                }
+
+                function togglePanel() {
+                    if (isOpen) {
+                        hidePanel();
+                    } else {
+                        showPanel();
+                        // Trigger Livewire togglePanel method
+                        @this.togglePanel();
+                    }
+                }
+
+                // Event listeners
+                notificationBell.addEventListener('click', togglePanel);
+                notificationBell.addEventListener('mouseenter', showPanel);
+
+                closePanelBtn.addEventListener('click', hidePanel);
+
+                notificationPanel.addEventListener('mouseenter', () => {
+                    clearTimeout(hideTimeout);
+                });
+
+                notificationPanel.addEventListener('mouseleave', () => {
+                    hideTimeout = setTimeout(hidePanel, 300);
+                });
+
+                notificationContainer.addEventListener('mouseleave', () => {
+                    hideTimeout = setTimeout(hidePanel, 300);
+                });
             });
-
-            isOpen = true;
-        }
-
-        function hidePanel() {
-            notificationPanel.style.transition = 'all 0.15s ease-in';
-            notificationPanel.style.opacity = '0';
-            notificationPanel.style.transform = 'scale(0.95)';
-
-            setTimeout(() => {
-                notificationPanel.classList.add('hidden');
-            }, 150);
-
-            isOpen = false;
-        }
-
-        function togglePanel() {
-            if (isOpen) {
-                hidePanel();
-            } else {
-                showPanel();
-                // Trigger Livewire togglePanel method
-                @this.togglePanel();
-            }
-        }
-
-        // Event listeners
-        notificationBell.addEventListener('click', togglePanel);
-        notificationBell.addEventListener('mouseenter', showPanel);
-
-        closePanelBtn.addEventListener('click', hidePanel);
-
-        notificationPanel.addEventListener('mouseenter', () => {
-            clearTimeout(hideTimeout);
-        });
-
-        notificationPanel.addEventListener('mouseleave', () => {
-            hideTimeout = setTimeout(hidePanel, 300);
-        });
-
-        notificationContainer.addEventListener('mouseleave', () => {
-            hideTimeout = setTimeout(hidePanel, 300);
-        });
-    });
-</script>
+        </script>
+    @endpush
+</div>

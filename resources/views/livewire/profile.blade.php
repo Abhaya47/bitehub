@@ -49,12 +49,16 @@
         <div class="w-full max-w-[430px] mx-auto px-[22px] mt-[15px]">
             <div class="bg-[#F5F4F8] rounded-full p-1 flex items-center justify-center gap-[7px]">
                 <button wire:click="setActiveTab('reviews')"
-                    class="w-1/2 py-2.5 rounded-full text-[12px] font-semibold font-lato transition-all duration-300 {{ $activeTab === 'reviews' ? 'bg-white text-[#252B5C] shadow-sm' : 'text-[#A1A5C1] hover:text-[#252B5C]' }}">
+                    class="w-1/3 py-2.5 rounded-full text-[12px] font-semibold font-lato transition-all duration-300 {{ $activeTab === 'reviews' ? 'bg-white text-[#252B5C] shadow-sm' : 'text-[#A1A5C1] hover:text-[#252B5C]' }}">
                     Reviews
                 </button>
                 <button wire:click="setActiveTab('favorites')"
-                    class="w-1/2 py-2.5 rounded-full text-[12px] font-semibold font-lato transition-all duration-300 {{ $activeTab === 'favorites' ? 'bg-white text-[#252B5C] shadow-sm' : 'text-[#A1A5C1] hover:text-[#252B5C]' }}">
+                    class="w-1/3 py-2.5 rounded-full text-[12px] font-semibold font-lato transition-all duration-300 {{ $activeTab === 'favorites' ? 'bg-white text-[#252B5C] shadow-sm' : 'text-[#A1A5C1] hover:text-[#252B5C]' }}">
                     Favorites
+                </button>
+                <button wire:click="setActiveTab('notifications')"
+                    class="w-1/3 py-2.5 rounded-full text-[12px] font-semibold font-lato transition-all duration-300 {{ $activeTab === 'notifications' ? 'bg-white text-[#252B5C] shadow-sm' : 'text-[#A1A5C1] hover:text-[#252B5C]' }}">
+                    Notifications
                 </button>
             </div>
         </div>
@@ -403,6 +407,139 @@
                                 </svg>
                             </div>
                             <p class="text-[#A1A5C1] font-lato">No favorites yet</p>
+                        </div>
+                    @endif
+                </div>
+            @endif
+
+            @if ($activeTab === 'notifications')
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-[15px]">
+                        <div class="flex items-center gap-[5px]">
+                            <span
+                                class="text-lg font-bold font-lato tracking-wider text-[#252B5C]">{{ $notifications->total() }}</span>
+                            <span class="text-lg font-medium font-lato tracking-wider text-[#252B5C]">Notifications</span>
+                        </div>
+                        @if ($notifications->count() > 0)
+                            <button wire:click="markAllAsRead"
+                                class="text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                Mark all as read
+                            </button>
+                        @endif
+                    </div>
+
+                    @if ($notifications->count() > 0)
+                        <div class="space-y-3">
+                            @foreach ($notifications as $notificationRead)
+                                <div
+                                    class="bg-white rounded-[18px] p-4 border border-[#ECEDF3] hover:shadow-lg transition-all duration-300 {{ !$notificationRead->is_read ? 'bg-blue-50 border-blue-200' : '' }}">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <h4
+                                                    class="text-sm font-bold font-lato text-[#252B5C] {{ !$notificationRead->is_read ? 'font-bold' : '' }}">
+                                                    {{ $notificationRead->notice->title }}
+                                                </h4>
+                                                @if (!$notificationRead->is_read)
+                                                    <span class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">New</span>
+                                                @endif
+                                            </div>
+                                            <p class="text-xs font-raleway text-[#53587A] mb-3 line-clamp-3">
+                                                {{ $notificationRead->notice->message }}
+                                            </p>
+                                            <p class="text-xs font-raleway text-[#A1A5C1]">
+                                                {{ $notificationRead->created_at->diffForHumans() }}
+                                            </p>
+                                        </div>
+
+                                        <!-- Action Buttons -->
+                                        <div class="flex flex-col gap-1.5 ml-3">
+                                            @if (!$notificationRead->is_read)
+                                                <button wire:click="markAsRead({{ $notificationRead->id }})"
+                                                    class="w-[32px] h-[32px] bg-[#F5F4F8] rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 group"
+                                                    title="Mark as read">
+                                                    <svg class="w-4 h-4 text-[#252B5C] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                </button>
+                                            @endif
+                                            <button wire:click="deleteNotification({{ $notificationRead->id }})"
+                                                wire:confirm="Are you sure you want to delete this notification?"
+                                                class="w-[32px] h-[32px] bg-[#F5F4F8] rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300 group"
+                                                title="Delete">
+                                                <svg class="w-4 h-4 text-[#252B5C] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Pagination for Notifications -->
+                        @if ($notifications->hasPages())
+                            <div class="mt-6 flex items-center justify-center gap-2">
+                                {{-- Previous Button --}}
+                                @if ($notifications->onFirstPage())
+                                    <span class="w-9 h-9 rounded-full bg-[#F5F4F8] flex items-center justify-center text-[#A1A5C1] cursor-not-allowed">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                        </svg>
+                                    </span>
+                                @else
+                                    <button wire:click="setPage({{ $notifications->currentPage() - 1 }}, 'notifications')"
+                                        class="w-9 h-9 rounded-full bg-white border border-[#ECEDF3] flex items-center justify-center text-[#252B5C] hover:bg-[#F9443D] hover:text-white hover:border-[#F9443D] transition-all duration-300">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                        </svg>
+                                    </button>
+                                @endif
+
+                                {{-- Page Numbers --}}
+                                @foreach (range(1, $notifications->lastPage()) as $page)
+                                    @if ($page == $notifications->currentPage())
+                                        <span class="w-9 h-9 rounded-full bg-[#F9443D] flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <button wire:click="setPage({{ $page }}, 'notifications')"
+                                            class="w-9 h-9 rounded-full bg-white border border-[#ECEDF3] flex items-center justify-center text-[#252B5C] hover:bg-[#F9443D] hover:text-white hover:border-[#F9443D] transition-all duration-300 font-medium text-sm">
+                                            {{ $page }}
+                                        </button>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Button --}}
+                                @if ($notifications->hasMorePages())
+                                    <button wire:click="setPage({{ $notifications->currentPage() + 1 }}, 'notifications')"
+                                        class="w-9 h-9 rounded-full bg-white border border-[#ECEDF3] flex items-center justify-center text-[#252B5C] hover:bg-[#F9443D] hover:text-white hover:border-[#F9443D] transition-all duration-300">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                @else
+                                    <span class="w-9 h-9 rounded-full bg-[#F5F4F8] flex items-center justify-center text-[#A1A5C1] cursor-not-allowed">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </span>
+                                @endif
+                            </div>
+                        @endif
+                    @else
+                        <div class="text-center py-10">
+                            <div class="bg-[#F5F4F8] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-[#A1A5C1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                                    </path>
+                                </svg>
+                            </div>
+                            <p class="text-[#A1A5C1] font-lato">No notifications yet</p>
                         </div>
                     @endif
                 </div>
