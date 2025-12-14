@@ -94,10 +94,12 @@
 
     async function setupWS(){
         const tokenData = await getToken();
+        const receiverID = window.location.pathname.split('/').pop();
         const socket = io("http://localhost:3000",{
             auth:{
                 user_id: tokenData.id,
-                signature: tokenData.signature
+                signature: tokenData.signature,
+                receiver_id: receiverID
             }
         });
 

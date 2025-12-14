@@ -25,7 +25,9 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('/tags/{tag}', Tags::class)->name('tags');
 
-    Route::get('/chat', fn() => redirect('http://localhost:3000'));
+//    Route::get('/chat/{uid}', fn($uid) => redirect('http://localhost:3000'."/chat/".$uid));
+    Route::get('/chat', fn() => redirect('http://localhost:3000/chat/1'));
+
 });
 Route::get('/forgot-password', ForgotPassword::class)
     ->middleware('guest')

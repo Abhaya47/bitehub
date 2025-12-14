@@ -19,26 +19,24 @@ const io = new Server(server, {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
-app.get('/', (req, res) => {
+app.get('/chat/:uid', (req, res) => {
+    const receiverID= req.params.uid;
     res.sendFile(join(__dirname, 'index.html'));
 });
 
 io.use((socket, next) => {
-    const {user_id, signature} = socket.handshake.auth;
+    const {user_id, signature,receiver_id} = socket.handshake.auth;
     const expected = crypto
         .createHmac("sha256", process.env.LARAVEL_APP_KEY)
         .update(String(user_id))
         .digest("hex");
 
     if (signature !== expected) {
-        console.log("sig",signature);
-        console.log("expe",expected);
-        console.log("Failing");
-
         return next(new Error("Unauthorized"));
     }
 
     socket.user_id = user_id;
+    socket.receiver_id=receiver_id;
     console.log("Running");
 
     next();
@@ -46,10 +44,35 @@ io.use((socket, next) => {
 
 
 io.on('connection', (socket) => {
-    console.log(socket.user_id);
-    socket.on('chat message', async (msg) => {
+     const roomId = [socket.user_id, socket.receiver_id]
+            .sort()
+            .join("_");
+
+        socket.join(roomId);
+
+        console.log(`User ${socket.user_id} joined room ${roomId}`);
+
+        async function fillChat(){
             try {
-                console.log("msg");
+                const response = await fetch("http://localhost:8000/api/receiveMessage", {
+                    method: "GET",
+                    mode:"cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "user_id": socket.user_id,
+
+                    })
+                });
+            }
+            catch (e) {
+
+            }
+        }
+
+        socket.on('chat message', async (msg) => {
+            try {
                 const response = await fetch("http://localhost:8000/api/sendMessage", {
                     method: "POST",
                     mode:"cors",
@@ -58,7 +81,8 @@ io.on('connection', (socket) => {
                     },
                     body: JSON.stringify({
                         "message": msg,
-                        "user_id": socket.user_id
+                        "user_id": socket.user_id,
+                        "receiver_id": socket.receiver_id,
                     })
                 });
                 const data = await response.json();
@@ -67,14 +91,14 @@ io.on('connection', (socket) => {
                 console.error('Error :', error.message);
             }
 
-        io.emit('chat message', msg);
-    });
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    })
+            io.to(roomId).emit('chat message', msg);
+        });
+        socket.on('disconnect', () => {
+            console.log(`user ${socket.user_id} disconnected`);
+        });
 });
 
 
 server.listen(3000, () => {
-    console.log('server running at http://localhost:3000');
+    console.log('server running at http://localhost:3000/');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Livewire\Chat;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,30 +11,32 @@ class ChatController extends Controller
 {
     //
     public function sendMessage(Request $request){
-        $response= [
-            'message' => $request['message'],
-            'user_id' => $request['user_id'],
-            "status" => "success",
+        $validatedData = $request->validate([
+            'message' => 'required',
+            'user_id' => 'required',
+            'receiver_id' => 'required'
+        ]);
+        $parameters=[
+            'message' => $request->message,
+            'user_id' => $request->user_id,
+            'restaurant_id' => $request->receiver_id,
+            'to' => $request->receiver_id,
+            'from' => $request->user_id,
         ];
-        return json_encode(["message"=>"message send successfully",
-            "data"=>$response
-            ]);
+
+        $query = Message::query()->create($parameters);
+
+        return json_encode(["message"=>"message send successfully"]);
     }
 
     public function receiveMessage(Request $request){
-        $validated_data=request()->validate([
-            'id'=>'required',
+        $validatedData=request()->validate([
+            'user_id'=>'required',
             'to'=>'required',
             'from'=>'required',
         ]);
-
+        $response = Message::query()->select('*')->where('user_id',$validatedData['user_id'])->where('restaurant_id',$validatedData['restaurant_id'])->orderBy('updated_at', 'desc')->get();
+        return json_encode($response);
     }
 
-    public function receiveAllMessages(Request $request){
-
-    }
-
-    public function getRestaurant(Request $request){
-
-    }
 }
