@@ -32,10 +32,9 @@ class ChatController extends Controller
     public function receiveMessage(Request $request){
         $validatedData=request()->validate([
             'user_id'=>'required',
-            'to'=>'required',
-            'from'=>'required',
+            'restaurant_id'=>'required',
         ]);
-        $response = Message::query()->select('*')->where('user_id',$validatedData['user_id'])->where('restaurant_id',$validatedData['restaurant_id'])->orderBy('updated_at', 'desc')->get();
+        $response = Message::query()->select('*')->where('user_id',$validatedData['user_id'])->where('restaurant_id',$validatedData['restaurant_id'])->orderBy('updated_at')->get();
         return json_encode($response);
     }
 

@@ -18,4 +18,4 @@ Route::middleware(['web'])->get('/getUserData', function () {
     return response()->json($data);
 });
 Route::post('/sendMessage', [ChatController::class, 'sendMessage']);
-
+Route::post('/receiveMessage', [ChatController::class, 'receiveMessage']);

@@ -43,7 +43,7 @@ io.use((socket, next) => {
 });
 
 
-io.on('connection', (socket) => {
+io.on('connection', async(socket) => {
      const roomId = [socket.user_id, socket.receiver_id]
             .sort()
             .join("_");
@@ -55,22 +55,26 @@ io.on('connection', (socket) => {
         async function fillChat(){
             try {
                 const response = await fetch("http://localhost:8000/api/receiveMessage", {
-                    method: "GET",
+                    method: "POST",
                     mode:"cors",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         "user_id": socket.user_id,
-
+                        'restaurant_id': socket.receiver_id
                     })
-                });
+                })
+                const messages= await response.json();
+                messages.forEach(msg=>{
+                    io.to(roomId).emit('chat message', msg.message);
+                })
             }
-            catch (e) {
-
+            catch (error) {
+                console.error('Error :', error.message);
             }
         }
-
+        await fillChat();
         socket.on('chat message', async (msg) => {
             try {
                 const response = await fetch("http://localhost:8000/api/sendMessage", {
