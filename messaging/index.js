@@ -67,7 +67,8 @@ io.on('connection', async(socket) => {
                 })
                 const messages= await response.json();
                 messages.forEach(msg=>{
-                    io.to(roomId).emit('chat message', msg.message);
+                    socket.emit('chat message', msg.message);
+                    // io.to(roomId).emit('chat message', msg.message);
                 })
             }
             catch (error) {
