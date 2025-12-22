@@ -33,6 +33,7 @@ class ReviewForm extends Component
     public $successMessage = '';
     public $errorMessage = '';
     public $imagePreviews = [];
+    public $attempt = 0;
 
     public function mount($restaurant_id = null)
     {
@@ -56,6 +57,7 @@ class ReviewForm extends Component
 
     public function submit()
     {
+        $this->attempt++;
         // Check if user is authenticated
         if (!Auth::check()) {
             $this->errorMessage = 'You must be logged in to submit a review.';

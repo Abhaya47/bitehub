@@ -38,13 +38,13 @@
 
         <!-- Success and Error Messages -->
         @if($successMessage)
-        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl">
+        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl transition-opacity duration-500">
             {{ $successMessage }}
         </div>
         @endif
 
         @if($errorMessage)
-        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl">
+        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl transition-opacity duration-500">
             {{ $errorMessage }}
         </div>
         @endif
@@ -52,32 +52,50 @@
         <form wire:submit="submit" class="space-y-8">
             <input type="hidden" wire:model="rating" id="ratingInput" value="{{ $rating }}">
 
-            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors">
+            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors" x-data="{ showHeadlineError: false }">
                 <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Headline</label>
                 <input
                     type="text"
                     id="headlineInput"
                     wire:model="headline"
                     maxlength="50"
+
+                    @input="showHeadlineError = false"
+
                     class="w-full border-none focus:ring-0 text-gray-800 text-lg bg-transparent"
                     placeholder="Enter your headline">
                 @error('headline')
-                <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                <span
+                    wire:key="headline_error_{{ $attempt }}"
+                    x-init="showHeadlineError = true; setTimeout(() => showHeadlineError = false, 5000)"
+                    x-show="showHeadlineError"
+                    class="text-red-500 text-xs mt-1 transition-opacity duration-500">
+                    {{ $message }}
+                </span>
                 @enderror
                 <div class="absolute bottom-2 right-4 text-[10px] font-bold text-gray-400" id="headlineCounter">0/50</div>
             </div>
 
-            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors">
+            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors" x-data="{ showReviewError: false }">
                 <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Review</label>
                 <textarea
                     id="reviewTextarea"
                     wire:model="review"
                     rows="6"
                     maxlength="255"
+
+                    @input="showReviewError = false"
+
                     class="w-full border-none focus:ring-0 text-gray-700 leading-relaxed bg-transparent resize-none"
                     placeholder="Write your review here..."></textarea>
                 @error('review')
-                <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                <span
+                    wire:key="review_error_{{ $attempt }}"
+                    x-init="showReviewError = true; setTimeout(() => showReviewError = false, 5000)"
+                    x-show="showReviewError"
+                    class="text-red-500 text-xs mt-1 transition-opacity duration-500">
+                    {{ $message }}
+                </span>
                 @enderror
                 <div class="absolute bottom-2 right-4 flex items-center space-x-2">
                     <span id="charCounter" class="text-xs font-bold text-gray-400">0/255</span>
@@ -94,15 +112,24 @@
                 <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Restaurant Images (Optional - Max 5 images)</label>
 
                 <!-- File Input -->
-                <div class="mb-4">
+                <div class="mb-4" x-data="{ showImageError: false }">
                     <input
                         type="file"
                         wire:model="images"
                         multiple
                         accept="image/*"
+
+                        @change="showImageError = false"
+
                         class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#F9423C] file:text-white hover:file:bg-[#E83A32] cursor-pointer">
                     @error('images.*')
-                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    <span
+                        wire:key="image_error_{{ $attempt }}"
+                        x-init="showImageError = true; setTimeout(() => showImageError = false, 5000)"
+                        x-show="showImageError"
+                        class="text-red-500 text-xs mt-1 transition-opacity duration-500">
+                        {{ $message }}
+                    </span>
                     @enderror
                     <p class="text-xs text-gray-500 mt-2">Supported formats: JPEG, PNG, JPG, GIF (Max 2MB per image)</p>
                 </div>
