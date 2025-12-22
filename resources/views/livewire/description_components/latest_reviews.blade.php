@@ -422,187 +422,273 @@
 
     @push('scripts')
     <script>
-        let currentReviewImages = [];
-        let currentReviewIndex = 0;
-        let reviewScale = 1;
-        let reviewPointX = 0;
-        let reviewPointY = 0;
-        let isReviewDragging = false;
-        let reviewStartX = 0;
-        let reviewStartY = 0;
+        (function() {
+            // State
+            let currentReviewImages = [];
+            let currentReviewIndex = 0;
+            let reviewScale = 1;
+            let reviewPointX = 0;
+            let reviewPointY = 0;
+            let isReviewDragging = false;
+            let reviewStartX = 0;
+            let reviewStartY = 0;
 
-        const reviewModal = document.getElementById('reviewModal');
-        const reviewImage = document.getElementById('reviewImage');
-        const reviewImageContainer = document.getElementById('reviewImageContainer');
-        const reviewCounter = document.getElementById('reviewCounter');
-        const reviewPrevBtn = document.getElementById('reviewPrevBtn');
-        const reviewNextBtn = document.getElementById('reviewNextBtn');
+            // Element helpers
+            function getElements() {
+                return {
+                    modal: document.getElementById('reviewModal'),
+                    image: document.getElementById('reviewImage'),
+                    container: document.getElementById('reviewImageContainer'),
+                    counter: document.getElementById('reviewCounter'),
+                    prevBtn: document.getElementById('reviewPrevBtn'),
+                    nextBtn: document.getElementById('reviewNextBtn')
+                };
+            }
 
-        function openReviewModal(images, index) {
-            currentReviewImages = images;
-            currentReviewIndex = index;
-            updateReviewModalContent();
-            reviewModal.classList.add('flex', 'flex-col');
-            reviewModal.classList.remove('hidden');
-            setTimeout(() => {
-                reviewModal.classList.remove('opacity-0');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-            resetReviewZoom();
-        }
+            // Global functions for inline onclicks
+            window.openReviewModal = function(images, index) {
+                const els = getElements();
+                if (!els.modal) return;
 
-        function closeReviewModal() {
-            reviewModal.classList.add('opacity-0');
-            setTimeout(() => {
-                reviewModal.classList.add('hidden');
-                reviewModal.classList.remove('flex', 'flex-col');
-            }, 300);
-            document.body.style.overflow = '';
-        }
+                currentReviewImages = images;
+                currentReviewIndex = index;
+                updateReviewModalContent();
 
-        function updateReviewModalContent() {
-            if (currentReviewImages.length === 0) return;
-            reviewImage.src = currentReviewImages[currentReviewIndex];
-            reviewCounter.textContent = `${currentReviewIndex + 1} / ${currentReviewImages.length}`;
+                els.modal.classList.add('flex', 'flex-col');
+                els.modal.classList.remove('hidden');
+                setTimeout(() => {
+                    els.modal.classList.remove('opacity-0');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+                resetReviewZoom();
+            };
 
-            reviewPrevBtn.style.display = currentReviewImages.length > 1 ? 'block' : 'none';
-            reviewNextBtn.style.display = currentReviewImages.length > 1 ? 'block' : 'none';
-        }
+            window.closeReviewModal = function() {
+                const els = getElements();
+                if (!els.modal) return;
 
-        function nextReviewImage() {
-            currentReviewIndex = (currentReviewIndex + 1) % currentReviewImages.length;
-            updateReviewModalContent();
-            resetReviewZoom();
-        }
+                els.modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    els.modal.classList.add('hidden');
+                    els.modal.classList.remove('flex', 'flex-col');
+                }, 300);
+                document.body.style.overflow = '';
+            };
 
-        function prevReviewImage() {
-            currentReviewIndex = (currentReviewIndex - 1 + currentReviewImages.length) % currentReviewImages.length;
-            updateReviewModalContent();
-            resetReviewZoom();
-        }
+            window.nextReviewImage = function() {
+                if (currentReviewImages.length === 0) return;
+                currentReviewIndex = (currentReviewIndex + 1) % currentReviewImages.length;
+                updateReviewModalContent();
+                resetReviewZoom();
+            };
 
-        function resetReviewZoom() {
-            reviewScale = 1;
-            reviewPointX = 0;
-            reviewPointY = 0;
-            updateReviewTransform();
-        }
+            window.prevReviewImage = function() {
+                if (currentReviewImages.length === 0) return;
+                currentReviewIndex = (currentReviewIndex - 1 + currentReviewImages.length) % currentReviewImages.length;
+                updateReviewModalContent();
+                resetReviewZoom();
+            };
 
-        function updateReviewTransform() {
-            reviewImage.style.transform = `translate(${reviewPointX}px, ${reviewPointY}px) scale(${reviewScale})`;
-        }
+            function updateReviewModalContent() {
+                const els = getElements();
+                if (!els.image || currentReviewImages.length === 0) return;
 
-        reviewImageContainer.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            const rect = reviewImageContainer.getBoundingClientRect();
-            const containerCenterX = rect.width / 2;
-            const containerCenterY = rect.height / 2;
+                els.image.src = currentReviewImages[currentReviewIndex];
+                if (els.counter) els.counter.textContent = `${currentReviewIndex + 1} / ${currentReviewImages.length}`;
 
-            const mouseX = e.clientX - rect.left - containerCenterX;
-            const mouseY = e.clientY - rect.top - containerCenterY;
+                if (els.prevBtn) els.prevBtn.style.display = currentReviewImages.length > 1 ? 'block' : 'none';
+                if (els.nextBtn) els.nextBtn.style.display = currentReviewImages.length > 1 ? 'block' : 'none';
+            }
 
-            const delta = e.deltaY > 0 ? -0.1 : 0.1;
-            const newScale = Math.min(Math.max(1, reviewScale + delta), 4);
-
-            if (newScale === 1) {
+            function resetReviewZoom() {
+                reviewScale = 1;
                 reviewPointX = 0;
                 reviewPointY = 0;
-            } else {
-                const ratio = newScale / reviewScale;
-                reviewPointX = mouseX * (1 - ratio) + reviewPointX * ratio;
-                reviewPointY = mouseY * (1 - ratio) + reviewPointY * ratio;
+                updateReviewTransform();
             }
 
-            reviewScale = newScale;
-            updateReviewTransform();
-        });
+            function updateReviewTransform() {
+                const els = getElements();
+                if (!els.image) return;
+                els.image.style.transform = `translate(${reviewPointX}px, ${reviewPointY}px) scale(${reviewScale})`;
+            }
 
-        reviewImageContainer.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            isReviewDragging = true;
-            reviewStartX = e.clientX - reviewPointX;
-            reviewStartY = e.clientY - reviewPointY;
-            reviewImageContainer.style.cursor = 'grabbing';
-        });
+            // Event Handlers
+            function handleWheel(e) {
+                e.preventDefault();
+                const els = getElements();
+                if (!els.container) return;
 
-        window.addEventListener('mousemove', (e) => {
-            if (!isReviewDragging) return;
-            e.preventDefault();
-            reviewPointX = e.clientX - reviewStartX;
-            reviewPointY = e.clientY - reviewStartY;
-            updateReviewTransform();
-        });
+                const rect = els.container.getBoundingClientRect();
+                const containerCenterX = rect.width / 2;
+                const containerCenterY = rect.height / 2;
 
-        window.addEventListener('mouseup', (e) => {
-            if (!isReviewDragging) return;
-            isReviewDragging = false;
-            reviewImageContainer.style.cursor = 'grab';
+                const mouseX = e.clientX - rect.left - containerCenterX;
+                const mouseY = e.clientY - rect.top - containerCenterY;
 
-            if (reviewScale === 1) {
-                if (Math.abs(reviewPointX) > 50) {
-                    if (reviewPointX > 0) {
-                        prevReviewImage();
-                    } else {
-                        nextReviewImage();
-                    }
-                } else {
+                const delta = e.deltaY > 0 ? -0.1 : 0.1;
+                const newScale = Math.min(Math.max(1, reviewScale + delta), 4);
+
+                if (newScale === 1) {
                     reviewPointX = 0;
                     reviewPointY = 0;
-                    updateReviewTransform();
+                } else {
+                    const ratio = newScale / reviewScale;
+                    reviewPointX = mouseX * (1 - ratio) + reviewPointX * ratio;
+                    reviewPointY = mouseY * (1 - ratio) + reviewPointY * ratio;
                 }
-            }
-        });
 
-        reviewImageContainer.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
+                reviewScale = newScale;
+                updateReviewTransform();
+            }
+
+            function handleMouseDown(e) {
+                e.preventDefault();
                 isReviewDragging = true;
-                reviewStartX = e.touches[0].clientX - reviewPointX;
-                reviewStartY = e.touches[0].clientY - reviewPointY;
+                reviewStartX = e.clientX - reviewPointX;
+                reviewStartY = e.clientY - reviewPointY;
+                const els = getElements();
+                if (els.container) els.container.style.cursor = 'grabbing';
             }
-        });
 
-        window.addEventListener('touchmove', (e) => {
-            if (!isReviewDragging) return;
-            if (reviewScale > 1 || Math.abs(reviewPointX) > 10) e.preventDefault();
+            function handleMouseMove(e) {
+                if (!isReviewDragging) return;
+                e.preventDefault();
+                reviewPointX = e.clientX - reviewStartX;
+                reviewPointY = e.clientY - reviewStartY;
+                updateReviewTransform();
+            }
 
-            reviewPointX = e.touches[0].clientX - reviewStartX;
-            reviewPointY = e.touches[0].clientY - reviewStartY;
-            updateReviewTransform();
-        }, {
-            passive: false
-        });
+            function handleMouseUp(e) {
+                if (!isReviewDragging) return;
+                isReviewDragging = false;
+                const els = getElements();
+                if (els.container) els.container.style.cursor = 'grab';
 
-        window.addEventListener('touchend', () => {
-            if (!isReviewDragging) return;
-            isReviewDragging = false;
-
-            if (reviewScale === 1) {
-                if (Math.abs(reviewPointX) > 50) {
-                    if (reviewPointX > 0) {
-                        prevReviewImage();
+                if (reviewScale === 1) {
+                    if (Math.abs(reviewPointX) > 50) {
+                        if (reviewPointX > 0) {
+                            window.prevReviewImage();
+                        } else {
+                            window.nextReviewImage();
+                        }
                     } else {
-                        nextReviewImage();
+                        reviewPointX = 0;
+                        reviewPointY = 0;
+                        updateReviewTransform();
                     }
-                } else {
-                    reviewPointX = 0;
-                    reviewPointY = 0;
-                    updateReviewTransform();
                 }
             }
-        });
 
-        window.addEventListener('keydown', (e) => {
-            if (reviewModal.classList.contains('hidden')) return;
-            if (e.key === 'Escape') closeReviewModal();
-            if (e.key === 'ArrowRight') nextReviewImage();
-            if (e.key === 'ArrowLeft') prevReviewImage();
-        });
-
-        reviewModal.addEventListener('click', (e) => {
-            if (e.target === reviewModal || e.target === reviewImageContainer) {
-                closeReviewModal();
+            function handleTouchStart(e) {
+                if (e.touches.length === 1) {
+                    isReviewDragging = true;
+                    reviewStartX = e.touches[0].clientX - reviewPointX;
+                    reviewStartY = e.touches[0].clientY - reviewPointY;
+                }
             }
-        });
+
+            function handleTouchMove(e) {
+                if (!isReviewDragging) return;
+                if (reviewScale > 1 || Math.abs(reviewPointX) > 10) e.preventDefault();
+
+                reviewPointX = e.touches[0].clientX - reviewStartX;
+                reviewPointY = e.touches[0].clientY - reviewStartY;
+                updateReviewTransform();
+            }
+
+            function handleTouchEnd() {
+                if (!isReviewDragging) return;
+                isReviewDragging = false;
+
+                if (reviewScale === 1) {
+                    if (Math.abs(reviewPointX) > 50) {
+                        if (reviewPointX > 0) {
+                            window.prevReviewImage();
+                        } else {
+                            window.nextReviewImage();
+                        }
+                    } else {
+                        reviewPointX = 0;
+                        reviewPointY = 0;
+                        updateReviewTransform();
+                    }
+                }
+            }
+
+            function handleKeyDown(e) {
+                const els = getElements();
+                if (!els.modal || els.modal.classList.contains('hidden')) return;
+                if (e.key === 'Escape') window.closeReviewModal();
+                if (e.key === 'ArrowRight') window.nextReviewImage();
+                if (e.key === 'ArrowLeft') window.prevReviewImage();
+            }
+
+            function handleModalClick(e) {
+                const els = getElements();
+                if (e.target === els.modal || e.target === els.container) {
+                    window.closeReviewModal();
+                }
+            }
+
+            // Implementation of initialization
+            function initReviewGallery() {
+                const els = getElements();
+
+                // If container doesn't exist, skip
+                if (!els.container) return;
+
+                // Check if already listeners attached to THIS specific DOM element
+                if (els.container.dataset.listenersAttached === 'true') return;
+
+                // Attach listeners
+                els.container.addEventListener('wheel', handleWheel);
+                els.container.addEventListener('mousedown', handleMouseDown);
+                els.container.addEventListener('touchstart', handleTouchStart);
+                els.container.addEventListener('touchend', handleTouchEnd);
+
+                // For modal click (background close)
+                if (els.modal) {
+                    els.modal.addEventListener('click', handleModalClick);
+                }
+
+                els.container.dataset.listenersAttached = 'true';
+            }
+
+            // Global listeners
+            if (!window.reviewGalleryGlobalListenersAttached) {
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mouseup', handleMouseUp);
+                window.addEventListener('touchmove', handleTouchMove, {
+                    passive: false
+                });
+                window.addEventListener('touchend', handleTouchEnd);
+                window.addEventListener('keydown', handleKeyDown);
+                window.reviewGalleryGlobalListenersAttached = true;
+            }
+
+            // Init on load
+            initReviewGallery();
+
+            // Init on Livewire updates - robust registration
+            const registerHooks = () => {
+                Livewire.hook('morph.updated', ({
+                    el,
+                    component
+                }) => {
+                    initReviewGallery();
+                });
+            };
+
+            if (window.Livewire) {
+                registerHooks();
+            } else {
+                document.addEventListener('livewire:initialized', registerHooks);
+            }
+
+            // Also for legacy or diverse setups
+            document.addEventListener('livewire:navigated', initReviewGallery);
+        })();
     </script>
     @endpush
 </div>
