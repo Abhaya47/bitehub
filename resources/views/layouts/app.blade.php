@@ -61,6 +61,7 @@
             @vite('resources/js/app.js')
             @livewireScripts
         </main>
+        @include('livewire.description_components.footer')
     </div>
 
     <!-- Toast Notification Container -->

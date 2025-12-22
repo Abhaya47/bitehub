@@ -14,6 +14,8 @@ use App\Livewire\ProfileSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\ReviewForm;
+
 
 Route::get('/', Landing::class)->name('landing');
 Route::middleware(['web', 'guest'])->group(function () {
@@ -48,6 +50,6 @@ Route::get('/profile-settings', ProfileSettings::class)->name('profile.settings'
 
 Route::get('/home', HomePage::class)->name('home');
 
-
-
 Route::get('/location', [LocationController::class, 'index']);
+
+Route::get('/review', ReviewForm::class)->name('review');

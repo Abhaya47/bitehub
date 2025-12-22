@@ -7,7 +7,7 @@
 
         <!-- Hero Section Component -->
         @include('livewire.landing_components.hero')
-
+        
         <!-- About Us Section Component -->
         @include('livewire.landing_components.aboutus')
 

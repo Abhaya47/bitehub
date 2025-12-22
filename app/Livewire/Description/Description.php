@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 #[Layout('layouts.app')]
 class Description extends Component
@@ -56,6 +57,26 @@ class Description extends Component
 
         $ip = $request->ip();
         $this->position = LocationService::getLocationFromIP($ip);
+    }
+
+    #[On('reviewSubmitted')]
+    public function refreshReviews()
+    {
+        // Refresh the restaurant data with updated reviews
+        $this->restaurant = $this->restaurant->fresh([
+            'reviews' => function ($query) {
+                $query->with('user')->latest()->take(4);
+            }
+        ]);
+        
+        // Update reviews and counts
+        $this->reviews = $this->restaurant->reviews;
+        $this->count = $this->reviews->count();
+        $this->five = $this->reviews->where('rating', 5)->count();
+        $this->four = $this->reviews->where('rating', 4)->count();
+        $this->three = $this->reviews->where('rating', 3)->count();
+        $this->two = $this->reviews->where('rating', 2)->count();
+        $this->one = $this->reviews->where('rating', 1)->count();
     }
 
     public function render()

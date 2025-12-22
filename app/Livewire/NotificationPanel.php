@@ -79,7 +79,7 @@ class NotificationPanel extends Component
     public function togglePanel(): void
     {
         $this->isOpen = !$this->isOpen;
-        
+
         if ($this->isOpen) {
             $this->loadNotifications();
         }
@@ -95,7 +95,7 @@ class NotificationPanel extends Component
         $this->loadNotifications();
     }
 
-public function getNotificationsProperty()
+    public function getNotificationsProperty()
     {
         $user = Auth::user();
         if (!$user) {

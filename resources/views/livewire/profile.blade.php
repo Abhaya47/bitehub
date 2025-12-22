@@ -418,7 +418,8 @@
                         <div class="flex items-center gap-[5px]">
                             <span
                                 class="text-lg font-bold font-lato tracking-wider text-[#252B5C]">{{ $notifications->total() }}</span>
-                            <span class="text-lg font-medium font-lato tracking-wider text-[#252B5C]">Notifications</span>
+                            <span
+                                class="text-lg font-medium font-lato tracking-wider text-[#252B5C]">Notifications</span>
                         </div>
                         @if ($notifications->count() > 0)
                             <button wire:click="markAllAsRead"
@@ -441,7 +442,8 @@
                                                     {{ $notificationRead->notice->title }}
                                                 </h4>
                                                 @if (!$notificationRead->is_read)
-                                                    <span class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">New</span>
+                                                    <span
+                                                        class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">New</span>
                                                 @endif
                                             </div>
                                             <p class="text-xs font-raleway text-[#53587A] mb-3 line-clamp-3">
@@ -458,9 +460,10 @@
                                                 <button wire:click="markAsRead({{ $notificationRead->id }})"
                                                     class="w-[32px] h-[32px] bg-[#F5F4F8] rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 group"
                                                     title="Mark as read">
-                                                    <svg class="w-4 h-4 text-[#252B5C] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M5 13l4 4L19 7"></path>
+                                                    <svg class="w-4 h-4 text-[#252B5C] group-hover:text-white transition-colors"
+                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M5 13l4 4L19 7"></path>
                                                     </svg>
                                                 </button>
                                             @endif
@@ -468,8 +471,10 @@
                                                 wire:confirm="Are you sure you want to delete this notification?"
                                                 class="w-[32px] h-[32px] bg-[#F5F4F8] rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300 group"
                                                 title="Delete">
-                                                <svg class="w-4 h-4 text-[#252B5C] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                <svg class="w-4 h-4 text-[#252B5C] group-hover:text-white transition-colors"
+                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
                                                     </path>
                                                 </svg>
@@ -485,16 +490,22 @@
                             <div class="mt-6 flex items-center justify-center gap-2">
                                 {{-- Previous Button --}}
                                 @if ($notifications->onFirstPage())
-                                    <span class="w-9 h-9 rounded-full bg-[#F5F4F8] flex items-center justify-center text-[#A1A5C1] cursor-not-allowed">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                    <span
+                                        class="w-9 h-9 rounded-full bg-[#F5F4F8] flex items-center justify-center text-[#A1A5C1] cursor-not-allowed">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 19l-7-7 7-7"></path>
                                         </svg>
                                     </span>
                                 @else
-                                    <button wire:click="setPage({{ $notifications->currentPage() - 1 }}, 'notifications')"
+                                    <button
+                                        wire:click="setPage({{ $notifications->currentPage() - 1 }}, 'notifications')"
                                         class="w-9 h-9 rounded-full bg-white border border-[#ECEDF3] flex items-center justify-center text-[#252B5C] hover:bg-[#F9443D] hover:text-white hover:border-[#F9443D] transition-all duration-300">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 19l-7-7 7-7"></path>
                                         </svg>
                                     </button>
                                 @endif
@@ -502,7 +513,8 @@
                                 {{-- Page Numbers --}}
                                 @foreach (range(1, $notifications->lastPage()) as $page)
                                     @if ($page == $notifications->currentPage())
-                                        <span class="w-9 h-9 rounded-full bg-[#F9443D] flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                                        <span
+                                            class="w-9 h-9 rounded-full bg-[#F9443D] flex items-center justify-center text-white font-semibold text-sm shadow-md">
                                             {{ $page }}
                                         </span>
                                     @else
@@ -515,16 +527,22 @@
 
                                 {{-- Next Button --}}
                                 @if ($notifications->hasMorePages())
-                                    <button wire:click="setPage({{ $notifications->currentPage() + 1 }}, 'notifications')"
+                                    <button
+                                        wire:click="setPage({{ $notifications->currentPage() + 1 }}, 'notifications')"
                                         class="w-9 h-9 rounded-full bg-white border border-[#ECEDF3] flex items-center justify-center text-[#252B5C] hover:bg-[#F9443D] hover:text-white hover:border-[#F9443D] transition-all duration-300">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </button>
                                 @else
-                                    <span class="w-9 h-9 rounded-full bg-[#F5F4F8] flex items-center justify-center text-[#A1A5C1] cursor-not-allowed">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    <span
+                                        class="w-9 h-9 rounded-full bg-[#F5F4F8] flex items-center justify-center text-[#A1A5C1] cursor-not-allowed">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </span>
                                 @endif
@@ -532,8 +550,10 @@
                         @endif
                     @else
                         <div class="text-center py-10">
-                            <div class="bg-[#F5F4F8] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-[#A1A5C1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div
+                                class="bg-[#F5F4F8] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-[#A1A5C1]" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
                                     </path>

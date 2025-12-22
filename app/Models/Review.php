@@ -19,6 +19,7 @@ class Review extends Model
         'id',
         'user_id',
         'restaurant_id',
+        'headline',
         'review',
         'rating',
         'file_path',
@@ -29,6 +30,7 @@ class Review extends Model
     protected $casts = [
         'user_id' => 'integer',
         'restaurant_id' => 'integer',
+        'headline' => 'string',
         'review' => 'string',
         'rating' => 'float',
         'file_path' => 'array',
