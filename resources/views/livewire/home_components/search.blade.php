@@ -1,4 +1,4 @@
-<div class="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-sm">
+<div class="relative w-full max-w-2xl  sm:max-w-2xl md:max-w-4xl lg:max-w-2xl xl:max-w-sm">
     <div
         class="flex items-center bg-gray-100 rounded-lg px-4 py-3 sm:px-6 sm:py-4 shadow-sm hover:shadow-md transition-shadow">
 
