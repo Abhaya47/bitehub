@@ -1,5 +1,5 @@
 <div>
-    <section class="min-h-screen flex items-center justify-center relative bg-gray-50 overflow-hidden">
+    <section class="min-h-screen flex items-center justify-center relative bg-gray-50 overflow-hidden px-4 sm:px-6">
 
         <!-- background image -->
         <img 
@@ -9,7 +9,7 @@
         >
 
         <!-- glass card -->
-        <div class="relative w-full max-w-md backdrop-blur-md bg-white/40 shadow-lg border border-white/30 rounded-xl p-8">
+        <div class="relative w-full max-w-md backdrop-blur-md bg-white/40 shadow-lg border border-white/30 rounded-xl p-6 sm:p-8">
             <a href="/" class="block text-center mb-6">
                 <img src="{{ asset('images/bitehublogo.png') }}" alt="BiteHUB Logo" class="h-16 w-auto mx-auto drop-shadow-md transition-transform duration-300 hover:scale-105">
             </a>

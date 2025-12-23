@@ -3,9 +3,9 @@
     <div class="select-none relative group overflow-hidden">
         {{-- Left Arrow Button --}}
         <button
-            class="carousel-btn-prev absolute left-[30.23px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            class="carousel-btn-prev absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300"
             data-slider="card-slider">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 13.28L5.65333 8.93333C5.14 8.42 5.14 7.58 5.65333 7.06667L10 2.72" stroke="#004225"
                     stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -13,9 +13,9 @@
 
         {{-- Right Arrow Button --}}
         <button
-            class="carousel-btn-next absolute right-[36.56px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            class="carousel-btn-next absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300"
             data-slider="card-slider">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 2.72L10.3467 7.06667C10.86 7.58 10.86 8.42 10.3467 8.93333L6 13.28" stroke="#004225"
                     stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -48,7 +48,7 @@
             style="scrollbar-width: none; -ms-overflow-style: none;">
 
             @foreach ($restaurants as $restaurant)
-                <x-restaurant-card :restaurant="$restaurant" />
+            <x-restaurant-card :restaurant="$restaurant" />
             @endforeach
         </div>
     </div>

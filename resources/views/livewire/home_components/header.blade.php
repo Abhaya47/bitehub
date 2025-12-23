@@ -1,5 +1,5 @@
-<header class="fixed top-2 left-6 right-6  bg-black/5 backdrop-blur-md shadow-md rounded-full z-50">
-    <div class="flex items-center justify-between h-[90px] px-5">
+<header class="fixed top-2 left-2 sm:left-4 lg:left-6 right-2 sm:right-4 lg:right-6 bg-black/5 backdrop-blur-md shadow-md rounded-full z-50">
+    <div class="flex items-center justify-between h-[70px] sm:h-[80px] lg:h-[90px] px-3 sm:px-4 lg:px-5">
 
         {{-- Mobile menu button (left side on mobile) --}}
         <div class="md:hidden z-10">
@@ -21,7 +21,7 @@
         </div>
 
         {{-- Logo (centered on mobile, left on desktop) --}}
-        <div class="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 w-[96px] h-[90px] z-10">
+        <div class="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[96px] lg:h-[90px] z-10">
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/bitehublogo.png') }}" alt="BiteHub Logo"
                     class="w-full h-full object-contain">
@@ -29,23 +29,23 @@
         </div>
 
         {{-- Navigation links centered (desktop only) --}}
-        <nav class="hidden md:flex gap-10 absolute left-1/2 -translate-x-1/2">
+        <nav class="hidden md:flex gap-6 lg:gap-10 absolute left-1/2 -translate-x-1/2">
             <a href="{{ url('home') }}"
-                class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Home</a>
+                class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Home</a>
             <a href="#"
-                class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Reels</a>
+                class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Reels</a>
             <a href="#"
-                class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Chat</a>
+                class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Chat</a>
             <a href="#"
-                class="font-inter text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">About us</a>
+                class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">About us</a>
         </nav>
 
         {{-- Right section (location, notification & profile) --}}
-        <div class="flex items-center gap-4 z-10">
+        <div class="flex items-center gap-2 sm:gap-3 lg:gap-4 z-10">
 
             {{-- Location dropdown (hidden on mobile) --}}
             <div
-                class="hidden md:flex items-center gap-2 text-gray-700 border-2 border-gray-300 rounded-full px-4 py-4 hover:shadow-lg cursor-pointer transition-all">
+                class="hidden md:flex items-center gap-2 text-gray-700 border-2 border-gray-300 rounded-full px-3 lg:px-4 py-2 lg:py-3 hover:shadow-lg cursor-pointer transition-all text-sm lg:text-base">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20"
                     fill="currentColor">
                     <path fill-rule="evenodd"
@@ -68,7 +68,7 @@
                 {{-- Profile button --}}
                 <button
                     class="
-            w-12 h-12 rounded-full overflow-hidden
+            w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden
             border-2 border-transparent hover:border-[#F9423C]
             shadow-md hover:shadow-xl
             ring-2 ring-gray-200
@@ -139,7 +139,7 @@
 
 {{-- Mobile menu overlay (separate from header to prevent breaking the rounded design) --}}
 <div id="mobile-menu"
-    class="hidden fixed top-32 left-6 right-6 bg-black/5 backdrop-blur-md shadow-md rounded-3xl z-40 md:hidden">
+    class="hidden fixed top-24 left-4 right-4 sm:left-6 sm:right-6 bg-black/5 backdrop-blur-md shadow-md rounded-2xl sm:rounded-3xl z-40 md:hidden">
     <div class="py-4 px-6">
         <div class="space-y-2">
             <a href="{{ url('home') }}"
@@ -173,3 +173,33 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOpenIcon = document.getElementById('menu-open-icon');
+        const menuCloseIcon = document.getElementById('menu-close-icon');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                // Toggle menu visibility
+                mobileMenu.classList.toggle('hidden');
+
+                // Toggle icons
+                menuOpenIcon.classList.toggle('hidden');
+                menuCloseIcon.classList.toggle('hidden');
+            });
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuOpenIcon.classList.remove('hidden');
+                    menuCloseIcon.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>

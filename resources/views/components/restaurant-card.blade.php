@@ -1,13 +1,13 @@
 @props(['restaurant'])
 
 <a href="{{ route('description', ['restaurant' => $restaurant->id]) }}" class="block">
-    <div
-        class="relative flex-none w-[268px] sm:w-[300px] md:w-[320px] lg:w-[380px] xl:w-[420px] 2xl:w-[450px] h-[156px] sm:h-[165px] md:h-[176px] lg:h-[196px] xl:h-[210px] 2xl:h-[220px] bg-[#F5F4F8] rounded-[25px] cursor-pointer transition-transform duration-300 hover:shadow-md">
+<div
+        class="relative flex-none w-[280px] sm:w-[300px] md:w-[320px] lg:w-[380px] xl:w-[420px] 2xl:w-[450px] h-[140px] sm:h-[156px] md:h-[176px] lg:h-[196px] xl:h-[210px] 2xl:h-[220px] bg-[#F5F4F8] rounded-[20px] sm:rounded-[25px] cursor-pointer transition-transform duration-300 hover:shadow-md">
         {{-- Image Section --}}
-        <div
-            class="absolute left-2 top-2 w-[130px] sm:w-[140px] md:w-[150px] lg:w-[170px] xl:w-[190px] 2xl:w-[200px] h-[140px] sm:h-[150px] md:h-[160px] lg:h-[180px] xl:h-[195px] 2xl:h-[205px] object-cover">
-            <img src="{{ $restaurant->file_path ? asset('storage/' . $restaurant->file_path) : asset('images/image_not_found.png') }}"
-                alt="{{ $restaurant->name }}" class="w-full h-full object-cover rounded-[25px]" draggable="false" />
+<div
+            class="absolute left-2 top-2 w-[110px] sm:w-[130px] md:w-[150px] lg:w-[170px] xl:w-[190px] 2xl:w-[200px] h-[120px] sm:h-[140px] md:h-[160px] lg:h-[180px] xl:h-[195px] 2xl:h-[205px] object-cover">
+<img src="{{ $restaurant->file_path ? asset('storage/' . $restaurant->file_path) : asset('images/image_not_found.png') }}"
+                alt="{{ $restaurant->name }}" class="w-full h-full object-cover rounded-[20px] sm:rounded-[25px]" draggable="false" />
 
             {{-- Favorite Button --}}
             <div class="absolute top-2 left-2 z-20">
@@ -15,8 +15,8 @@
             </div>
 
             {{-- Restaurant Badge --}}
-            <div
-                class="flex items-center absolute bottom-0 right-0 px-1 sm:px-1.5 md:px-1.5 lg:px-2 py-2.5 sm:py-3 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-xl">
+<div
+                class="flex items-center absolute bottom-0 right-0 px-1 sm:px-1.5 md:px-1.5 lg:px-2 py-2 sm:py-2.5 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-lg sm:rounded-xl">
                 <span
                     class="font-medium text-[8px] md:text-[9px] lg:text-[10px] leading-[9px] md:leading-[10px] lg:leading-[11px] tracking-wider text-white">Restaurant</span>
             </div>

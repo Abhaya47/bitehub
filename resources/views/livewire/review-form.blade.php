@@ -1,5 +1,5 @@
 <div class="w-full">
-    <div class="w-full bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+    <div class="w-full bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-sm border border-gray-100">
         {{-- Section Title --}}
         <h2 class="text-[22px] font-normal leading-[28px] text-[#004225] mb-5">
             Write a Review
@@ -8,7 +8,7 @@
         {{-- Divider --}}
         <hr class="border-t border-[rgba(197,197,197,0.5)] mb-8">
 
-        <div class="relative flex justify-between items-center mb-12 px-4">
+        <div class="relative flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-12 px-2 sm:px-4 gap-4 sm:gap-0">
             <div class="absolute top-6 left-10 right-10 h-[1px] bg-gray-200 -z-0"></div>
             @php
                 $ratings = [
@@ -24,14 +24,14 @@
                 <div class="rating-item relative z-10 flex flex-col items-center group cursor-pointer"
                     data-rating="{{ $index }}">
                     <div
-                        class="star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 border border-gray-300 bg-white text-gray-400">
+                        class="star-box w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl sm:rounded-2xl transition-all duration-200 border border-gray-300 bg-white text-gray-400">
                         <svg class="star-svg w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                     </div>
-                    <div class="mt-3 text-center">
-                        <p class="rating-label text-gray-400 font-medium text-xs md:text-sm">
+                    <div class="mt-2 sm:mt-3 text-center">
+                        <p class="rating-label text-gray-400 font-medium text-xs sm:text-xs md:text-sm">
                             {{ $data['label'] }} <span class="whitespace-nowrap">{{ $data['val'] }}</span>
                         </p>
                     </div>
