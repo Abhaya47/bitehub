@@ -11,91 +11,82 @@
         <div class="relative flex justify-between items-center mb-12 px-4">
             <div class="absolute top-6 left-10 right-10 h-[1px] bg-gray-200 -z-0"></div>
             @php
-            $ratings = [
-            1 => ['label' => 'Bad', 'val' => '(1/5)'],
-            2 => ['label' => 'So-so', 'val' => '(2/5)'],
-            3 => ['label' => 'Ok', 'val' => '(3/5)'],
-            4 => ['label' => 'Good', 'val' => '(4/5)'],
-            5 => ['label' => 'Great', 'val' => '(5/5)'],
-            ];
+                $ratings = [
+                    1 => ['label' => 'Bad', 'val' => '(1/5)'],
+                    2 => ['label' => 'So-so', 'val' => '(2/5)'],
+                    3 => ['label' => 'Ok', 'val' => '(3/5)'],
+                    4 => ['label' => 'Good', 'val' => '(4/5)'],
+                    5 => ['label' => 'Great', 'val' => '(5/5)'],
+                ];
             @endphp
 
-            @foreach($ratings as $index => $data)
-            <div class="rating-item relative z-10 flex flex-col items-center group cursor-pointer" data-rating="{{ $index }}">
-                <div class="star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 border border-gray-300 bg-white text-gray-400">
-                    <svg class="star-svg w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
+            @foreach ($ratings as $index => $data)
+                <div class="rating-item relative z-10 flex flex-col items-center group cursor-pointer"
+                    data-rating="{{ $index }}">
+                    <div
+                        class="star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 border border-gray-300 bg-white text-gray-400">
+                        <svg class="star-svg w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="rating-label text-gray-400 font-medium text-xs md:text-sm">
+                            {{ $data['label'] }} <span class="whitespace-nowrap">{{ $data['val'] }}</span>
+                        </p>
+                    </div>
                 </div>
-                <div class="mt-3 text-center">
-                    <p class="rating-label text-gray-400 font-medium text-xs md:text-sm">
-                        {{ $data['label'] }} <span class="whitespace-nowrap">{{ $data['val'] }}</span>
-                    </p>
-                </div>
-            </div>
             @endforeach
         </div>
 
         <!-- Success and Error Messages -->
-        @if($successMessage)
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl transition-opacity duration-500">
-            {{ $successMessage }}
-        </div>
+        @if ($successMessage)
+            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+                class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl transition-opacity duration-500">
+                {{ $successMessage }}
+            </div>
         @endif
 
-        @if($errorMessage)
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl transition-opacity duration-500">
-            {{ $errorMessage }}
-        </div>
+        @if ($errorMessage)
+            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl transition-opacity duration-500">
+                {{ $errorMessage }}
+            </div>
         @endif
 
         <form wire:submit="submit" class="space-y-8">
             <input type="hidden" wire:model="rating" id="ratingInput" value="{{ $rating }}">
 
-            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors" x-data="{ showHeadlineError: false }">
+            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors"
+                x-data="{ showHeadlineError: false }">
                 <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Headline</label>
-                <input
-                    type="text"
-                    id="headlineInput"
-                    wire:model="headline"
-                    maxlength="50"
-
+                <input type="text" id="headlineInput" wire:model="headline" maxlength="50"
                     @input="showHeadlineError = false"
-
                     class="w-full border-none focus:ring-0 text-gray-800 text-lg bg-transparent"
                     placeholder="Enter your headline">
                 @error('headline')
-                <span
-                    wire:key="headline_error_{{ $attempt }}"
-                    x-init="showHeadlineError = true; setTimeout(() => showHeadlineError = false, 5000)"
-                    x-show="showHeadlineError"
-                    class="text-red-500 text-xs mt-1 transition-opacity duration-500">
-                    {{ $message }}
-                </span>
+                    <span wire:key="headline_error_{{ $attempt }}" x-init="showHeadlineError = true;
+                    setTimeout(() => showHeadlineError = false, 5000)" x-show="showHeadlineError"
+                        class="text-red-500 text-xs mt-1 transition-opacity duration-500">
+                        {{ $message }}
+                    </span>
                 @enderror
-                <div class="absolute bottom-2 right-4 text-[10px] font-bold text-gray-400" id="headlineCounter">0/50</div>
+                <div class="absolute bottom-2 right-4 text-[10px] font-bold text-gray-400" id="headlineCounter">0/50
+                </div>
             </div>
 
-            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors" x-data="{ showReviewError: false }">
+            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors"
+                x-data="{ showReviewError: false }">
                 <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Review</label>
-                <textarea
-                    id="reviewTextarea"
-                    wire:model="review"
-                    rows="6"
-                    maxlength="255"
-
-                    @input="showReviewError = false"
-
+                <textarea id="reviewTextarea" wire:model="review" rows="6" maxlength="255" @input="showReviewError = false"
                     class="w-full border-none focus:ring-0 text-gray-700 leading-relaxed bg-transparent resize-none"
                     placeholder="Write your review here..."></textarea>
                 @error('review')
-                <span
-                    wire:key="review_error_{{ $attempt }}"
-                    x-init="showReviewError = true; setTimeout(() => showReviewError = false, 5000)"
-                    x-show="showReviewError"
-                    class="text-red-500 text-xs mt-1 transition-opacity duration-500">
-                    {{ $message }}
-                </span>
+                    <span wire:key="review_error_{{ $attempt }}" x-init="showReviewError = true;
+                    setTimeout(() => showReviewError = false, 5000)" x-show="showReviewError"
+                        class="text-red-500 text-xs mt-1 transition-opacity duration-500">
+                        {{ $message }}
+                    </span>
                 @enderror
                 <div class="absolute bottom-2 right-4 flex items-center space-x-2">
                     <span id="charCounter" class="text-xs font-bold text-gray-400">0/255</span>
@@ -108,65 +99,66 @@
             </div>
 
             <!-- Image Upload Section -->
-            <div class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors">
-                <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Restaurant Images (Optional - Max 5 images)</label>
+            <div
+                class="relative border border-gray-300 rounded-2xl p-4 focus-within:border-[#F9423C] transition-colors">
+                <label class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-gray-500">Restaurant Images
+                    (Optional - Max 5 images)</label>
 
                 <!-- File Input -->
                 <div class="mb-4" x-data="{ showImageError: false }">
-                    <input
-                        type="file"
-                        wire:model="images"
-                        multiple
-                        accept="image/*"
-
-                        @change="showImageError = false"
-
+                    <input type="file" wire:model="images" multiple accept="image/*" @change="showImageError = false"
                         class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#F9423C] file:text-white hover:file:bg-[#E83A32] cursor-pointer">
                     @error('images.*')
-                    <span
-                        wire:key="image_error_{{ $attempt }}"
-                        x-init="showImageError = true; setTimeout(() => showImageError = false, 5000)"
-                        x-show="showImageError"
-                        class="text-red-500 text-xs mt-1 transition-opacity duration-500">
-                        {{ $message }}
-                    </span>
+                        <span wire:key="image_error_{{ $attempt }}" x-init="showImageError = true;
+                        setTimeout(() => showImageError = false, 5000)" x-show="showImageError"
+                            class="text-red-500 text-xs mt-1 transition-opacity duration-500">
+                            {{ $message }}
+                        </span>
                     @enderror
                     <p class="text-xs text-gray-500 mt-2">Supported formats: JPEG, PNG, JPG, GIF (Max 2MB per image)</p>
                 </div>
 
                 <!-- Image Preview Grid -->
-                @if(!empty($imagePreviews))
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    @foreach($imagePreviews as $index => $preview)
-                    <div class="relative group">
-                        <img src="{{ $preview }}" alt="Preview {{ $index + 1 }}" class="w-full h-24 object-cover rounded-lg border border-gray-200">
-                        <button
-                            type="button"
-                            wire:click="removeImage({{ $index }})"
-                            class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                        <div class="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
-                            {{ $index + 1 }}
-                        </div>
+                @if (!empty($imagePreviews))
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        @foreach ($imagePreviews as $index => $preview)
+                            <div class="relative group">
+                                <img src="{{ $preview }}" alt="Preview {{ $index + 1 }}"
+                                    class="w-full h-24 object-cover rounded-lg border border-gray-200">
+                                <button type="button" wire:click="removeImage({{ $index }})"
+                                    class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                                <div
+                                    class="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                                    {{ $index + 1 }}
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
                 @endif
             </div>
-
-            <button type="submit" class="w-full bg-[#F9423C] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#F9423C]/20 hover:opacity-90 active:scale-[0.98] transition-all" wire:target="submit" wire:loading.attr="disabled">
-                <span wire:loading.remove wire:target="submit">Submit Review</span>
-                <span wire:loading wire:target="submit">
-                    <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Submitting...
-                </span>
-            </button>
+            <div class="flex justify-center mt-4">
+                <button type="submit"
+                    class="w-[155px] bg-[#F9423C] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#F9423C]/20 hover:opacity-90 active:scale-[0.98] transition-all "
+                    wire:target="submit" wire:loading.attr="disabled">
+                    <span wire:loading.remove wire:target="submit">Submit Review</span>
+                    <span wire:loading wire:target="submit">
+                        <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        Submitting...
+                    </span>
+                </button>
+            </div>
         </form>
     </div>
 
@@ -190,11 +182,15 @@
                     const box = item.querySelector('.star-box');
                     const label = item.querySelector('.rating-label');
                     if (val == selectedRating) {
-                        box.className = `star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 bg-[#F9423C] shadow-lg shadow-[#F9423C]/20 ring-4 ring-[#F9423C]/10 text-white`;
-                        label.className = `rating-label mt-3 text-center text-[#F9423C] font-bold text-xs md:text-sm`;
+                        box.className =
+                            `star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 bg-[#F9423C] shadow-lg shadow-[#F9423C]/20 ring-4 ring-[#F9423C]/10 text-white`;
+                        label.className =
+                            `rating-label mt-3 text-center text-[#F9423C] font-bold text-xs md:text-sm`;
                     } else {
-                        box.className = 'star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 border border-gray-300 bg-white text-gray-400';
-                        label.className = 'rating-label mt-3 text-center text-gray-400 font-medium text-xs md:text-sm';
+                        box.className =
+                            'star-box w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 border border-gray-300 bg-white text-gray-400';
+                        label.className =
+                            'rating-label mt-3 text-center text-gray-400 font-medium text-xs md:text-sm';
                     }
                 });
             }

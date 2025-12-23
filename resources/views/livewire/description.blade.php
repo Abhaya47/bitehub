@@ -1,4 +1,12 @@
 <div>
+    @push('styles')
+    <style>
+        body {
+            background-image: none !important;
+            background-color: #ffffff !important;
+        }
+    </style>
+    @endpush
     <div class="bg-[#ffffff]">
         @include('livewire.home_components.header')
         @include('livewire.description_components.hero')
