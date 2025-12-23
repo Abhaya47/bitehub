@@ -8,7 +8,8 @@
         {{-- Divider --}}
         <hr class="border-t border-[rgba(197,197,197,0.5)] mb-8">
 
-        <div class="relative flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-12 px-2 sm:px-4 gap-4 sm:gap-0">
+        <div
+            class="relative flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-12 px-2 sm:px-4 gap-4 sm:gap-0">
             <div class="absolute top-6 left-10 right-10 h-[1px] bg-gray-200 -z-0"></div>
             @php
                 $ratings = [

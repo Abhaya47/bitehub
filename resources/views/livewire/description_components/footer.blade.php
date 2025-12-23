@@ -34,8 +34,10 @@
                 <div class="relative">
                     <input type="email" placeholder="Your Email"
                         class="w-full py-2.5 sm:py-3 px-4 sm:px-5 pr-12 sm:pr-14 rounded-full bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm sm:text-[14px]" />
-                    <button class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 hover:opacity-75 transition-all">
-                        <img src="{{ asset('images/email_vector.png') }}" alt="Send" class="h-4 w-4 sm:h-5 sm:w-5" />
+                    <button
+                        class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 hover:opacity-75 transition-all">
+                        <img src="{{ asset('images/email_vector.png') }}" alt="Send"
+                            class="h-4 w-4 sm:h-5 sm:w-5" />
                     </button>
                 </div>
             </div>
@@ -54,7 +56,8 @@
 
                 {{-- Bottom Navigation Links --}}
                 <div class="flex gap-4 sm:gap-6">
-                    <a href="{{ route('home') }}" class="text-sm sm:text-[14px] font-semibold hover:underline transition-all">
+                    <a href="{{ route('home') }}"
+                        class="text-sm sm:text-[14px] font-semibold hover:underline transition-all">
                         Home
                     </a>
                     <a href="#" class="text-sm sm:text-[14px] font-semibold hover:underline transition-all">
@@ -63,7 +66,8 @@
                     <a href="#" class="text-sm sm:text-[14px] font-semibold hover:underline transition-all">
                         Chat
                     </a>
-                    <a href="{{ route('landing') }}" class="text-sm sm:text-[14px] font-semibold hover:underline transition-all">
+                    <a href="{{ route('landing') }}"
+                        class="text-sm sm:text-[14px] font-semibold hover:underline transition-all">
                         About Us
                     </a>
                 </div>

@@ -48,7 +48,7 @@
             style="scrollbar-width: none; -ms-overflow-style: none;">
 
             @foreach ($restaurants as $restaurant)
-            <x-restaurant-card :restaurant="$restaurant" />
+                <x-restaurant-card :restaurant="$restaurant" />
             @endforeach
         </div>
     </div>

@@ -1,4 +1,5 @@
-<header class="fixed top-2 left-2 sm:left-4 lg:left-6 right-2 sm:right-4 lg:right-6 bg-black/5 backdrop-blur-md shadow-md rounded-full z-50">
+<header
+    class="fixed top-2 left-2 sm:left-4 lg:left-6 right-2 sm:right-4 lg:right-6 bg-black/5 backdrop-blur-md shadow-md rounded-full z-50">
     <div class="flex items-center justify-between h-[70px] sm:h-[80px] lg:h-[90px] px-3 sm:px-4 lg:px-5">
 
         {{-- Mobile menu button (left side on mobile) --}}
@@ -21,7 +22,8 @@
         </div>
 
         {{-- Logo (centered on mobile, left on desktop) --}}
-        <div class="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[96px] lg:h-[90px] z-10">
+        <div
+            class="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[96px] lg:h-[90px] z-10">
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/bitehublogo.png') }}" alt="BiteHub Logo"
                     class="w-full h-full object-contain">
@@ -37,7 +39,8 @@
             <a href="#"
                 class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">Chat</a>
             <a href="#"
-                class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">About us</a>
+                class="font-inter text-sm lg:text-md text-[#234F68] hover:text-[#F9423C] transition-colors font-bold">About
+                us</a>
         </nav>
 
         {{-- Right section (location, notification & profile) --}}
@@ -76,8 +79,8 @@
             focus:outline-none focus:ring-4 focus:ring-[#F9423C]
         "
                     aria-label="User Profile Menu">
-                    <img src="{{ Auth::user()->file_path ? Storage::url(Auth::user()->file_path) : asset('images/profile_pic.png') }}" alt="User Profile Picture"
-                        class="w-full h-full object-cover">
+                    <img src="{{ Auth::user()->file_path ? Storage::url(Auth::user()->file_path) : asset('images/profile_pic.png') }}"
+                        alt="User Profile Picture" class="w-full h-full object-cover">
                 </button>
 
                 {{-- Dropdown menu --}}
