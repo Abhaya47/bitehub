@@ -30,11 +30,11 @@
                             @if($galleryImages->isNotEmpty())
                                 <img src="{{ asset('storage/' . $image) }}" 
                                      alt="{{ $restaurant->name }} - Gallery Image {{ $index + 1 }}"
-                                     class="w-full h-full object-cover" draggable="false">
+                                     class="w-full h-full object-contain" draggable="false">
                             @else
                                 <img src="{{ asset($image) }}" 
                                      alt="{{ $restaurant->name }} - View {{ $index + 1 }}"
-                                     class="w-full h-full object-cover" draggable="false">
+                                     class="w-full h-full object-contain" draggable="false">
                             @endif
                         </div>
                     @endforeach
