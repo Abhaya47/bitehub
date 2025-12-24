@@ -41,6 +41,9 @@ class Description extends Component
                 'menus' => function ($query) {
                     $query->orderBy('order', 'asc');
                 },
+                'galleryImages' => function ($query) {
+                    $query->orderBy('sort_order', 'asc');
+                },
             ]);
         $this->totalReviews = $restaurant->reviews_count;
         $this->reviews = $this->restaurant->reviews;
@@ -66,7 +69,10 @@ class Description extends Component
         $this->restaurant = $this->restaurant->fresh([
             'reviews' => function ($query) {
                 $query->with('user')->latest()->take(4);
-            }
+            },
+            'galleryImages' => function ($query) {
+                $query->orderBy('sort_order', 'asc');
+            },
         ]);
         
         // Update reviews and counts

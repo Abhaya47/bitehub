@@ -9,6 +9,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 
 class RestaurantForm
 {
@@ -58,6 +59,39 @@ class RestaurantForm
                     ->openable()
                     ->deletable(true)
                     ->helperText('This logo is used in the homepage slider.'),
+
+                Repeater::make('galleryImages')
+                    ->label('Restaurant Gallery Images')
+                    ->relationship()
+                    ->schema([
+                        FileUpload::make('image_path')
+                            ->label('Gallery Image')
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                                '2:1',
+                            ])
+                            ->disk('public')
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                            ])
+                            ->directory('restaurant-gallery')
+                            ->visibility('public')
+                            ->downloadable()
+                            ->openable()
+                            ->deletable(true)
+                            ->helperText('Upload images for your restaurant gallery. These will appear in the carousel on your restaurant page.'),
+                    ])
+                    ->collapsible()
+                    ->collapsed()
+                    ->itemLabel(fn(array $state): ?string => $state['image_path'] ?? null)
+                    ->addActionLabel('Add Gallery Image')
+                    ->reorderableWithButtons()
+                    ->collapsible()
+                    ->columnSpanFull(),
             ]);
     }
 }

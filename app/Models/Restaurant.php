@@ -94,6 +94,11 @@ class Restaurant extends Model
             ->withTimestamps();
     }
 
+    public function galleryImages(): HasMany
+    {
+        return $this->hasMany(RestaurantGallery::class)->orderBy('sort_order');
+    }
+
 
     //serialize data
     /**

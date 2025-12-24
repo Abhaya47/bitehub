@@ -5,32 +5,39 @@
             {{-- Carousel Images --}}
             <div class="carousel-container relative w-full h-full overflow-hidden rounded-[20px]">
                 <div class="carousel-track flex transition-transform duration-500 ease-in-out h-full">
-                    {{-- Add your images here --}}
-                    <div class="carousel-slide min-w-full h-full">
-                        <img src="{{ asset('images/restaurant1.jpg') }}" alt="Hotel Restaurant View 1"
-                            class="w-full h-full object-cover" draggable="false">
-                    </div>
-                    <div class="carousel-slide min-w-full h-full">
-                        <img src="{{ asset('images/restaurant2.jpg') }}" alt="Hotel Restaurant View 2"
-                            class="w-full h-full object-cover" draggable="false">
-                    </div>
-                    <div class="carousel-slide min-w-full h-full">
-                        <img src="{{ asset('images/restaurant3.jpg') }}" alt="Hotel Restaurant View 3"
-                            class="w-full h-full object-cover" draggable="false">
-                    </div>
-                    {{-- Duplicate slides for infinite loop --}}
-                    <div class="carousel-slide min-w-full h-full">
-                        <img src="{{ asset('images/restaurant1.jpg') }}" alt="Hotel Restaurant View 1"
-                            class="w-full h-full object-cover" draggable="false">
-                    </div>
-                    <div class="carousel-slide min-w-full h-full">
-                        <img src="{{ asset('images/restaurant2.jpg') }}" alt="Hotel Restaurant View 2"
-                            class="w-full h-full object-cover" draggable="false">
-                    </div>
-                    <div class="carousel-slide min-w-full h-full">
-                        <img src="{{ asset('images/restaurant3.jpg') }}" alt="Hotel Restaurant View 3"
-                            class="w-full h-full object-cover" draggable="false">
-                    </div>
+                    {{-- Dynamic carousel slides --}}
+                    @php
+                        // Get gallery images or use fallback images
+                        $galleryImages = $restaurant->galleryImages ?? collect();
+                        
+                        // Define fallback images if no gallery images exist
+                        $fallbackImages = [
+                            'images/restaurant1.jpg',
+                            'images/restaurant2.jpg', 
+                            'images/restaurant3.jpg'
+                        ];
+                        
+                        // Use gallery images if available, otherwise use fallbacks
+                        $displayImages = $galleryImages->isNotEmpty() 
+                            ? $galleryImages->pluck('image_path')->toArray()
+                            : $fallbackImages;
+                        
+                        $imageCount = count($displayImages);
+                    @endphp
+                    
+                    @foreach($displayImages as $index => $image)
+                        <div class="carousel-slide min-w-full h-full" data-index="{{ $index }}">
+                            @if($galleryImages->isNotEmpty())
+                                <img src="{{ asset('storage/' . $image) }}" 
+                                     alt="{{ $restaurant->name }} - Gallery Image {{ $index + 1 }}"
+                                     class="w-full h-full object-cover" draggable="false">
+                            @else
+                                <img src="{{ asset($image) }}" 
+                                     alt="{{ $restaurant->name }} - View {{ $index + 1 }}"
+                                     class="w-full h-full object-cover" draggable="false">
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -143,4 +150,116 @@
                 </div>
             </div>
         </div>
+
+        {{-- JavaScript for Carousel --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const carouselTrack = document.querySelector('.carousel-track');
+                const prevBtn = document.querySelector('.carousel-btn-prev');
+                const nextBtn = document.querySelector('.carousel-btn-next');
+                
+                if (!carouselTrack || !prevBtn || !nextBtn) return;
+                
+                const slides = carouselTrack.querySelectorAll('.carousel-slide');
+                console.log('Hero carousel initialized with', slides.length, 'slides');
+                if (slides.length === 0) return;
+                
+                let currentIndex = 0;
+                let autoPlayInterval;
+                let isTransitioning = false;
+                
+                function updateCarousel() {
+                    if (isTransitioning) return;
+                    isTransitioning = true;
+                    
+                    const slideWidth = 100; // percentage
+                    carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                    
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 500);
+                }
+                
+                function goToNextSlide() {
+                    if (isTransitioning) return;
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    updateCarousel();
+                }
+                
+                function goToPrevSlide() {
+                    if (isTransitioning) return;
+                    currentIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
+                    updateCarousel();
+                }
+                
+                function startAutoPlay() {
+                    stopAutoPlay();
+                    autoPlayInterval = setInterval(goToNextSlide, 4000);
+                }
+                
+                function stopAutoPlay() {
+                    if (autoPlayInterval) {
+                        clearInterval(autoPlayInterval);
+                    }
+                }
+                
+                // Event listeners
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    stopAutoPlay();
+                    goToPrevSlide();
+                    startAutoPlay();
+                });
+                
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    stopAutoPlay();
+                    goToNextSlide();
+                    startAutoPlay();
+                });
+                
+                // Start autoplay
+                startAutoPlay();
+                
+                // Pause autoplay on hover
+                carouselTrack.addEventListener('mouseenter', stopAutoPlay);
+                carouselTrack.addEventListener('mouseleave', startAutoPlay);
+                
+                // Touch/swipe support
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                carouselTrack.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                carouselTrack.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }, { passive: true });
+                
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    const diff = touchStartX - touchEndX;
+                    
+                    if (Math.abs(diff) > swipeThreshold && !isTransitioning) {
+                        stopAutoPlay();
+                        if (diff > 0) {
+                            goToNextSlide(); // Swipe left, go to next
+                        } else {
+                            goToPrevSlide(); // Swipe right, go to previous
+                        }
+                        startAutoPlay();
+                    }
+                }
+                
+                // Prevent image dragging
+                slides.forEach(slide => {
+                    const img = slide.querySelector('img');
+                    if (img) {
+                        img.addEventListener('dragstart', (e) => e.preventDefault());
+                    }
+                });
+            });
+        </script>
     </div>
