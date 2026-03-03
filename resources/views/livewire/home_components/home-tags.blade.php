@@ -1,4 +1,4 @@
-<div id="card-slider"
+<div id="tags-slider"
     class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[180px] md:h-[200px] lg:h-[220px] scroll-smooth scrollbar-hide"
     style="scrollbar-width: none; -ms-overflow-style: none;">
     @foreach ($tags as $tag)

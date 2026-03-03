@@ -135,7 +135,7 @@
             // Carousel button functionality
             const prevBtn = document.querySelector('.carousel-btn-prev');
             const nextBtn = document.querySelector('.carousel-btn-next');
-            const cardSlider = document.getElementById('card-slider');
+            const cardSlider = document.getElementById('tags-slider');
 
             if (prevBtn && nextBtn && cardSlider) {
                 prevBtn.addEventListener('click', (e) => {

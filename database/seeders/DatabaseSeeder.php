@@ -39,6 +39,9 @@ class DatabaseSeeder extends Seeder
         // Call NoticeSeeder
         $this->call(NoticeSeeder::class);
 
+        // Call TagSeeder
+        $this->call(TagSeeder::class);
+
         // Create sample restaurants
         \App\Models\Restaurant::create([
             'name' => 'Aambo Momo',

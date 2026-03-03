@@ -24,6 +24,7 @@ class OwnerPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandName('BiteHub')
             ->id('owner')
             ->path('owner')
             ->login()

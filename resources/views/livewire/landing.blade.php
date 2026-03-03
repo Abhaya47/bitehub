@@ -19,8 +19,5 @@
 
         <!-- Latest Blog Section Component -->
         @include('livewire.landing_components.latestblog')
-
-        <!-- Footer Section Component -->
-        @include('livewire.landing_components.footer')
     </div>
 
