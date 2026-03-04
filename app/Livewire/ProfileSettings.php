@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\WithFileUploads;
+use App\Services\LocationService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
-use App\Services\LocationService;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('layouts.app')]
 
@@ -17,9 +17,13 @@ class ProfileSettings extends Component
     use WithFileUploads;
 
     public $name;
+
     public $bio;
+
     public $photo;
+
     public $existingPhoto;
+
     public $position;
 
     public function mount(Request $request)
@@ -60,13 +64,13 @@ class ProfileSettings extends Component
 
         $user->save();
 
-        // Update existing photo to show the new one immediately if needed,
-        // though the redirect or refresh might handle it.
-        // For now, let's just re-assign.
         if ($this->photo) {
             $this->existingPhoto = $user->file_path;
-            $this->photo = null; // Reset upload input
+            $this->photo = null;
         }
+
+        // Refresh the authenticated user in the session
+        Auth::setUser($user->fresh());
 
         session()->flash('message', 'Profile updated successfully.');
         $this->dispatch('refresh-header');

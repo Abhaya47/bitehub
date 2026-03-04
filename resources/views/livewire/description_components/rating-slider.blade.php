@@ -79,7 +79,7 @@
                     {{-- Progress Bar --}}
                     <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{($five/$count)*100}}%">
+                             style="width: {{$count > 0 ? ($five/$count)*100 : 0}}%">
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@
                     <div
                         class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{($four/$count)*100}}%;">
+                             style="width: {{$count > 0 ? ($four/$count)*100 : 0}}%;">
                         </div>
                     </div>
 
@@ -145,7 +145,7 @@
                     <div
                         class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{($three/$count)*100}}%;">
+                             style="width: {{$count > 0 ? ($three/$count)*100 : 0}}%;">
                         </div>
                     </div>
 
@@ -179,7 +179,7 @@
                     <div
                         class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{($two/$count)*100}}%;">
+                             style="width: {{$count > 0 ? ($two/$count)*100 : 0}}%;">
                         </div>
                     </div>
 
@@ -212,7 +212,7 @@
                     <div
                         class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
                         <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{($one/$count)*100}}%;">
+                             style="width: {{$count > 0 ? ($one/$count)*100 : 0}}%;">
                         </div>
                     </div>
 
