@@ -51,7 +51,7 @@
     @stack('styles')
 </head>
 
-<body class="bg-[url('/images/background_pattern.png')] bg-cover bg-center overflow-x-hidden min-h-screen flex flex-col"
+<body class="bg-[url('/images/Background_Pattern.png')] bg-cover bg-center overflow-x-hidden min-h-screen flex flex-col"
     style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
 
     <div id="app" class="flex-1 flex flex-col">
