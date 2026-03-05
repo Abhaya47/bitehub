@@ -1,249 +1,172 @@
-<section class="px-5 max-w-full lg:px-20 py-20">
-    {{-- Card Slider Component --}}
-    <div class="select-none relative group">
-        {{-- Left Arrow Button --}}
-        <button
-            class="carousel-btn-prev absolute left-[30.23px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            data-slider="card-slider">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 13.28L5.65333 8.93333C5.14 8.42 5.14 7.58 5.65333 7.06667L10 2.72" stroke="#004225"
-                    stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </button>
-
-        {{-- Right Arrow Button --}}
-        <button
-            class="carousel-btn-next absolute right-[36.56px] top-[150px] -translate-y-1/2 w-[60.93px] h-[40px] bg-white rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            data-slider="card-slider">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 2.72L10.3467 7.06667C10.86 7.58 10.86 8.42 10.3467 8.93333L6 13.28" stroke="#004225"
-                    stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </button>
-
-        {{-- Scrollable Container --}}
-
-        @livewire('home.home-tags')
-
-
-        {{-- Non-Veg Food Items Card --}}
-
-    </div>
-
-    {{-- Header Section --}}
-    <div class="flex justify-between items-center mb-5 mt-8 md:mt-10 lg:mt-12">
-        <h2
-            class="font-bold text-xl md:text-2xl lg:text-3xl leading-6 md:leading-7 lg:leading-8 py-5 tracking-wider text-[#252B5C]">
-            Featured Places
-        </h2>
-        <a href="#" class="font-semibold text-sm md:text-base lg:text-lg tracking-wider text-[#234F68]">
-            view all
-        </a>
-    </div>
-
-    {{-- Card Slider Component --}}
-    <div class="select-none relative">
-        {{-- Scrollable Container --}}
-        <div id="featured-slider"
-            class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[156px] md:h-[176px] lg:h-[196px] scroll-smooth"
-            style="scrollbar-width: none; -ms-overflow-style: none; ">
-
-            @foreach ($restaurants as $restaurant)
-                <a href="{{ route('description', ['restaurant' => $restaurant->id]) }}" class="block">
-                    <div
-                        class="relative flex-none w-[268px] md:w-[320px] lg:w-[380px] h-[156px] md:h-[176px] lg:h-[196px] bg-[#F5F4F8] rounded-[25px] cursor-pointer transition-transform duration-300">
-                        {{-- Image Section --}}
-                        <div
-                            class="absolute left-2 top-2 w-[130px] md:w-[150px] lg:w-[170px] h-[140px] md:h-[160px] lg:h-[180px] object-cover">
-                            <img src="{{ $restaurant->file_path ? asset('storage/' . $restaurant->file_path) : asset('images/image_not_found.png') }}"
-                                alt="{{ $restaurant->name }}" class="w-full h-full object-cover rounded-[25px]"
-                                draggable="false" />
-
-                            {{-- Favorite Button --}}
-                            <div
-                                class="group absolute top-2 left-2 w-[25px] md:w-[28px] lg:w-[32px] h-[25px] md:h-[28px] lg:h-[32px] bg-white rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-red-600">
-                                <svg class="w-[11px] md:w-[13px] lg:w-[15px] h-[10px] md:h-[12px] lg:h-[14px] transition-colors duration-200 fill-red-600 stroke-red-600 group-hover:fill-white group-hover:stroke-white"
-                                    viewBox="0 0 11 10">
-                                    <path
-                                        d="M5.5 9.5L1.5 5.5C0.5 4.5 0.5 2.5 1.5 1.5C2.5 0.5 4.5 0.5 5.5 1.5C6.5 0.5 8.5 0.5 9.5 1.5C10.5 2.5 10.5 4.5 9.5 5.5L5.5 9.5Z"
-                                        stroke-width="0.8" />
-                                </svg>
-                            </div>
-                            {{-- Restaurant Badge --}}
-                            <div
-                                class="flex items-center absolute bottom-0 left-[270px] px-1 md:px-1.5 lg:px-2 py-2.5 md:py-3 lg:py-3.5 bg-[#F9443D] shadow-lg rounded-xl">
-                                <span
-                                    class="font-medium text-[8px] md:text-[9px] lg:text-[10px] leading-[9px] md:leading-[10px] lg:leading-[11px] tracking-wider text-white">Restaurant</span>
-                            </div>
-                        </div>
-
-                        {{-- Content Section --}}
-                        <div
-                            class="absolute right-2.5 md:right-3 lg:right-4 top-4 md:top-5 lg:top-6 flex flex-col gap-2 w-[108px] md:w-[140px] lg:w-[170px]">
-                            {{-- Title --}}
-                            <h3
-                                class="font-bold text-sm md:text-base lg:text-lg leading-[18px] md:leading-[20px] lg:leading-[22px] tracking-wider text-[#252B5C]">
-                                {{ $restaurant->name }}
-                            </h3>
-
-                            {{-- Rating and Location --}}
-                            <div class="flex flex-col gap-2">
-                                {{-- Rating --}}
-                                <div class="flex items-center gap-0.5">
-                                    {{ $restaurant->rating }}
-                                    <svg class="w-[9px] md:w-[10px] lg:w-[11px] h-[9px] md:h-[10px] lg:h-[11px]"
-                                        viewBox="0 0 9 9" fill="none">
-                                        <path
-                                            d="M4.5 0.75L5.5 3.5H8.25L6 5.25L6.75 8L4.5 6.25L2.25 8L3 5.25L0.75 3.5H3.5L4.5 0.75Z"
-                                            fill="#FFC42D" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-[8px] md:text-[9px] lg:text-[10px] leading-2 text-[#53587A]">{{ $restaurant->averageRating }}</span>
-                                </div>
-
-                                {{-- Location --}}
-                                <div class="flex items-center gap-0.5">
-                                    <svg class="w-[9px] md:w-[10px] lg:w-[11px] h-[9px] md:h-[10px] lg:h-[11px]"
-                                        viewBox="0 0 9 9" fill="none">
-                                        <path
-                                            d="M4.5 0.75C2.5 0.75 0.75 2.5 0.75 4.5C0.75 6.5 4.5 8.25 4.5 8.25C4.5 8.25 8.25 6.5 8.25 4.5C8.25 2.5 6.5 0.75 4.5 0.75Z"
-                                            fill="#234F68" />
-                                        <circle cx="4.5" cy="4.5" r="0.75" fill="white" stroke="white"
-                                            stroke-width="1.25" />
-                                    </svg>
-                                    <span
-                                        class="font-normal text-[10px] md:text-[11px] lg:text-[12px] leading-3 text-[#53587A]">{{ $restaurant->address }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Discount Badge --}}
-                        @php
-                            $maxDiscount = $restaurant->offers->max('discount_value');
-                        @endphp
-                        @if ($maxDiscount)
-                            <div
-                                class="absolute bottom-[22px] md:bottom-[26px] lg:bottom-[30px] left-[146px] md:left-[168px] lg:left-[192px]">
-                                <span
-                                    class="font-medium text-[13px] md:text-[14px] lg:text-[15px] leading-4 tracking-wider text-[#252B5C]">Up
-                                    to {{ intval($maxDiscount) }}% Off</span>
-                            </div>
-                        @endif
-                    </div>
-                </a>
-            @endforeach
+<div>
+    {{-- Tags / Filter Section --}}
+    <section class="px-6 lg:px-10 py-12 max-w-7xl mx-auto overflow-hidden">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <div class="inline-flex px-3 py-1 rounded-full bg-[#F9443D]/10 text-[#F9443D] text-[10px] font-black uppercase tracking-widest mb-4">Cravings</div>
+                <h2 class="font-lato text-3xl md:text-4xl font-black text-[#0f172a] tracking-tight">What's on your mind?</h2>
+            </div>
+            {{-- Navigation Controls for Tag Slider --}}
+            <div class="flex space-x-2">
+                <button type="button" onclick="event.stopPropagation(); document.getElementById('card-slider').scrollBy({left: -400, behavior: 'smooth'})" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#0f172a] hover:bg-[#0f172a] hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button type="button" onclick="event.stopPropagation(); document.getElementById('card-slider').scrollBy({left: 400, behavior: 'smooth'})" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#0f172a] hover:bg-[#0f172a] hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
         </div>
-    </div>
+        
+        <div class="relative group overflow-hidden">
+            {{-- Tag Slider --}}
+            @livewire('home.home-tags')
+        </div>
+    </section>
 
-    {{-- JavaScript for Mouse Drag & Scroll Wheel --}}
+    {{-- Featured Places Section --}}
+    <section class="px-6 lg:px-10 py-16 max-w-7xl mx-auto overflow-hidden relative z-10">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <div class="inline-flex px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-4">Top Rated</div>
+                <h2 class="font-lato text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight">Featured Places</h2>
+            </div>
+            {{-- Navigation Controls for Featured Slider --}}
+            <div class="flex space-x-2 relative z-20">
+                <button type="button" wire:ignore onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('featured-slider').scrollBy({left: -400, behavior: 'smooth'}); return false;" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#0f172a] hover:bg-[#0f172a] hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button type="button" wire:ignore onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('featured-slider').scrollBy({left: 400, behavior: 'smooth'}); return false;" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#0f172a] hover:bg-[#0f172a] hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="relative group">
+            {{-- Scrollable Container --}}
+            <div id="featured-slider" class="flex gap-6 overflow-x-auto pb-10 scroll-smooth no-scrollbar pointer-events-none">
+                @foreach ($restaurants as $restaurant)
+                    <div 
+                       class="flex-none w-[340px] md:w-[420px] lg:w-[480px] group relative pointer-events-auto">
+                        <div class="flex items-center h-[180px] md:h-[200px] lg:h-[220px] p-4 bg-white/60 backdrop-blur-md border border-white/40 rounded-[2rem] shadow-lg transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-1">
+                            
+                            {{-- Image Section (Left) --}}
+                            <div class="relative w-[130px] md:w-[160px] lg:w-[180px] h-full rounded-2xl overflow-hidden flex-shrink-0">
+                                <img src="{{ $restaurant->file_path ? asset('storage/' . $restaurant->file_path) : asset('images/image_not_found.png') }}"
+                                     alt="{{ $restaurant->name }}" 
+                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                                     draggable="false" />
+                                
+                                {{-- Discount Badge --}}
+                                @php $maxDiscount = $restaurant->offers->max('discount_value'); @endphp
+                                @if ($maxDiscount)
+                                    <div class="absolute top-2 left-2 px-2 py-1 bg-[#F9443D] text-white text-[9px] font-black uppercase tracking-widest rounded-lg">
+                                        {{ intval($maxDiscount) }}% OFF
+                                    </div>
+                                @endif
+                            </div>
+
+                            {{-- Content Section (Right) --}}
+                            <div class="ml-6 flex-1 flex flex-col justify-between py-2">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <a href="{{ route('description', ['restaurant' => $restaurant->id]) }}" class="hover:underline truncate leading-tight block">
+                                            <h3 class="text-lg md:text-xl font-black text-[#0f172a] tracking-tight truncate leading-tight">{{ $restaurant->name }}</h3>
+                                        </a>
+                                        <div class="flex items-center bg-yellow-400 text-black px-2 py-0.5 rounded-lg text-[10px] font-black">
+                                            {{ $restaurant->rating ?? '4.5' }}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center text-gray-500 text-xs font-medium mb-4">
+                                        <svg class="w-3.5 h-3.5 mr-1 text-[#F9443D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                        <span class="truncate">{{ $restaurant->address }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-black text-[#0f172a]/40 uppercase tracking-widest">Featured</span>
+                                    <a href="{{ route('description', ['restaurant' => $restaurant->id]) }}" class="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center text-gray-300 group-hover:bg-[#0f172a] group-hover:text-white group-hover:border-[#0f172a] transition-all">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .slider-container img, .slider-container a {
+            -webkit-user-drag: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .slider-active {
+            cursor: grabbing !important;
+        }
+    </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sliders = document.querySelectorAll('#card-slider, #featured-slider');
-            if (!sliders || sliders.length === 0) return;
+            const sliders = [document.getElementById('featured-slider'), document.getElementById('card-slider')];
+            
+            sliders.forEach(slider => {
+                if (!slider) return;
 
-            sliders.forEach((slider) => {
                 let isDown = false;
-                let startX = 0;
-                let scrollLeft = 0;
+                let startX;
+                let scrollLeft;
+                let moved = false;
+                let startPos = { x: 0, y: 0 };
+
+                slider.classList.add('slider-container');
 
                 slider.addEventListener('mousedown', (e) => {
                     isDown = true;
-                    slider.style.cursor = 'grabbing';
+                    moved = false;
+                    slider.classList.add('slider-active');
                     startX = e.pageX - slider.offsetLeft;
                     scrollLeft = slider.scrollLeft;
+                    startPos = { x: e.pageX, y: e.pageY };
                 });
 
                 slider.addEventListener('mouseleave', () => {
                     isDown = false;
-                    slider.style.cursor = 'grab';
+                    slider.classList.remove('slider-active');
                 });
 
                 slider.addEventListener('mouseup', () => {
                     isDown = false;
-                    slider.style.cursor = 'grab';
+                    slider.classList.remove('slider-active');
                 });
 
                 slider.addEventListener('mousemove', (e) => {
                     if (!isDown) return;
-                    e.preventDefault();
+                    
                     const x = e.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 4;
-                    slider.scrollLeft = scrollLeft - walk;
+                    const walk = (x - startX) * 2;
+                    
+                    // Check if mouse actually moved enough to be considered a drag
+                    if (Math.abs(e.pageX - startPos.x) > 5) {
+                        moved = true;
+                        slider.scrollLeft = scrollLeft - walk;
+                    }
                 });
 
-                slider.addEventListener('touchstart', (e) => {
-                    if (e.touches.length !== 1) return;
-                    isDown = true;
-                    const touch = e.touches[0];
-                    startX = touch.pageX - slider.offsetLeft;
-                    scrollLeft = slider.scrollLeft;
-                }, {
-                    passive: true
-                });
-
-                slider.addEventListener('touchend', () => {
-                    isDown = false;
-                });
-
-                slider.addEventListener('touchmove', (e) => {
-                    if (!isDown) return;
-                    const touch = e.touches[0];
-                    const x = touch.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 4;
-                    slider.scrollLeft = scrollLeft - walk;
-                }, {
-                    passive: true
-                });
-
-                slider.addEventListener('wheel', (e) => {
-                    if (e.shiftKey) return;
-                    e.preventDefault();
-                    slider.scrollLeft += e.deltaY;
-                }, {
-                    passive: false
-                });
-
-                slider.style.cursor = 'grab';
+                // Prevent click if we were dragging
+                slider.addEventListener('click', (e) => {
+                    if (moved) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                }, true);
             });
-
-            // Carousel button functionality
-            const prevBtn = document.querySelector('.carousel-btn-prev');
-            const nextBtn = document.querySelector('.carousel-btn-next');
-            const cardSlider = document.getElementById('card-slider');
-
-            if (prevBtn && nextBtn && cardSlider) {
-                prevBtn.addEventListener('click', () => {
-                    cardSlider.scrollBy({
-                        left: -350,
-                        behavior: 'smooth'
-                    });
-                });
-
-                nextBtn.addEventListener('click', () => {
-                    cardSlider.scrollBy({
-                        left: 350,
-                        behavior: 'smooth' 
-                    });
-                });
-            }
         });
     </script>
-
-    {{-- Custom CSS for hiding scrollbar --}}
-    <style>
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-
-        .font-raleway {
-            font-family: 'Raleway', sans-serif;
-        }
-    </style>
-
-</section>
+</div>

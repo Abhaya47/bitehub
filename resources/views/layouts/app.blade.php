@@ -51,17 +51,15 @@
     @stack('styles')
 </head>
 
-<body class="bg-[url('/images/Background_Pattern.png')] bg-cover bg-center overflow-x-hidden min-h-screen flex flex-col"
-    style="padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);">
+<body class="bg-[url('/images/Background_Pattern.png')] bg-cover bg-fixed overflow-x-hidden min-h-screen flex flex-col text-[#0f172a] selection:bg-[#F9443D]/30">
 
     <div id="app" class="flex-1 flex flex-col">
         <main class="flex-1 w-full">
             {{ $slot }}
-            @vite('resources/js/app.js')
-            @livewireScripts
         </main>
     </div>
 
+    @livewireScripts
     @stack('scripts')
 </body>
 

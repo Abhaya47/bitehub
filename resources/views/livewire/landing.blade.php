@@ -1,309 +1,182 @@
-<div class="bg-gray-50 text-[#012e34] font-raleway min-h-screen">
-    <!-- Navbar -->
-    <nav x-data="{ open: false }" class="w-full bg-white/80 backdrop-blur-md fixed top-0 z-50 shadow-sm transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center space-x-2">
-                    <img src="{{ asset('images/bitehublogo.png') }}" alt="Bitehub Logo" class="w-12 h-12 object-contain" />
-                    <span class="font-lato font-bold text-2xl tracking-tight text-[#012e34]">Bitehub</span>
-                </div>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#how-it-works" class="text-sm font-medium text-[#012e34]/70 hover:text-[#F9443D] transition-colors">How it works</a>
-                    <a href="#features" class="text-sm font-medium text-[#012e34]/70 hover:text-[#F9443D] transition-colors">Features</a>
-                    <a href="{{ route('login') }}" class="text-sm font-medium text-[#012e34] hover:text-[#F9443D] transition-colors">Log in</a>
-                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#012e34] hover:bg-[#F9443D] rounded-full transition-all shadow-md">
-                        Get Started
+<div class="bg-white text-[#0f172a] font-raleway min-h-screen selection:bg-[#F9443D]/30 selection:text-[#0f172a]">
+    <!-- Navigation -->
+    <nav x-data="{ 
+            atTop: true, 
+            mobileMenuOpen: false 
+         }" 
+         x-init="atTop = window.pageYOffset > 20 ? false : true"
+         @scroll.window="atTop = window.pageYOffset > 20 ? false : true"
+         :class="{ 'bg-white/80 backdrop-blur-xl shadow-sm py-4': !atTop, 'bg-transparent py-6': atTop }"
+         class="fixed top-0 w-full z-[100] transition-all duration-500 ease-in-out">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 group cursor-pointer">
+                    <a href="/" class="flex items-center">
+                        <div class="w-12 h-12 flex items-center justify-center transition-transform group-hover:scale-105">
+                            <img src="{{ asset('images/bitehublogo.png') }}" alt="Bitehub Logo" class="w-full h-full object-contain" />
+                        </div>
+                        <span class="font-lato font-black text-2xl tracking-tighter text-[#0f172a] ml-2">Bitehub</span>
                     </a>
                 </div>
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-[#012e34] hover:text-[#F9443D] focus:outline-none">
-                        <svg :class="{'hidden': open, 'block': !open }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                        <svg :class="{'hidden': !open, 'block': open }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="md:hidden absolute top-0 inset-x-0 p-2 transition transform origin-top-right">
-            <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-                <div class="pt-5 pb-6 px-5">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                           <img src="{{ asset('images/bitehublogo.png') }}" alt="Bitehub Logo" class="w-10 h-10 object-contain" />
-                           <span class="font-lato font-bold text-xl tracking-tight text-[#012e34]">Bitehub</span>
-                        </div>
-                        <div class="-mr-2">
-                            <button @click="open = false" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-[#F9443D] hover:bg-gray-100 focus:outline-none">
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-10">
+                    <div class="flex items-center space-x-8">
+                        <a href="#how-it-works" class="text-sm font-semibold text-[#0f172a]/60 hover:text-[#F9443D] transition-colors duration-300">How it works</a>
+                        <a href="#features" class="text-sm font-semibold text-[#0f172a]/60 hover:text-[#F9443D] transition-colors duration-300">Features</a>
                     </div>
-                    <div class="mt-6">
-                        <nav class="grid gap-y-8">
-                            <a href="#how-it-works" @click="open = false" class="p-3 flex items-center rounded-md hover:bg-gray-50">How it works</a>
-                            <a href="#features" @click="open = false" class="p-3 flex items-center rounded-md hover:bg-gray-50">Features</a>
-                            <a href="{{ route('login') }}" @click="open = false" class="p-3 flex items-center rounded-md hover:bg-gray-50">Log in</a>
-                        </nav>
-                    </div>
-                </div>
-                <div class="py-6 px-5 space-y-6">
-                    <div>
-                        <a href="{{ route('register') }}" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-base font-medium text-white bg-[#012e34] hover:bg-[#F9443D]">
+                    <div class="h-4 w-[1px] bg-gray-200"></div>
+                    <div class="flex items-center space-x-6">
+                        <a href="{{ route('login') }}" class="text-sm font-bold text-[#0f172a] hover:opacity-70 transition-opacity">Sign In</a>
+                        <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-[#0f172a] rounded-full transition-all duration-300 shadow-lg shadow-gray-200 hover:shadow-xl hover:shadow-[#F9443D]/20 hover:bg-[#F9443D] hover:-translate-y-0.5 active:translate-y-0">
                             Get Started
                         </a>
                     </div>
                 </div>
+
+                <!-- Mobile Toggle -->
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-[#0f172a]">
+                        <svg x-show="!mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        <svg x-show="mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="md:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-2xl p-6 space-y-4">
+            <a href="#how-it-works" @click="mobileMenuOpen = false" class="block text-lg font-bold text-[#0f172a]">How it works</a>
+            <a href="#features" @click="mobileMenuOpen = false" class="block text-lg font-bold text-[#0f172a]">Features</a>
+            <div class="pt-4 border-t border-gray-100 flex flex-col space-y-3">
+                <a href="{{ route('login') }}" class="block text-center py-3 font-bold text-[#0f172a] bg-gray-50 rounded-2xl">Sign In</a>
+                <a href="{{ route('register') }}" class="block text-center py-4 font-bold text-white bg-[#F9443D] rounded-2xl shadow-lg shadow-[#F9443D]/20">Get Started</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gray-50">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#F9443D]/10 via-gray-50 to-gray-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-[#F9443D]/10 border border-[#F9443D]/20 text-[#F9443D] text-xs font-semibold uppercase tracking-wider mb-6">
-                    <span class="flex w-2 h-2 rounded-full bg-[#F9443D] mr-2 animate-pulse"></span>
-                    Discover the culinary world
+    <section class="relative pt-40 pb-20 lg:pt-56 lg:pb-40 overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[800px] h-[800px] bg-[#F9443D]/5 rounded-full blur-[120px] -z-10 animate-pulse" style="animation-duration: 8s;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10 text-center">
+            <div x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 100)" 
+                 class="max-w-4xl mx-auto">
+                
+                <div x-show="shown" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+                     class="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-gray-100 shadow-sm mb-8">
+                    <span class="flex w-2 h-2 rounded-full bg-[#F9443D] mr-3 animate-ping"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-[#0f172a]/60">Your neighborhood, plated.</span>
                 </div>
-                <h1 class="font-lato text-4xl sm:text-5xl md:text-7xl font-black text-[#012e34] tracking-tight leading-tight mb-8">
-                    Find your next <span class="text-[#F9443D] drop-shadow-sm">favorite meal</span> near you.
+
+                <h1 x-show="shown" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0"
+                    class="font-lato text-5xl sm:text-7xl lg:text-8xl font-black text-[#0f172a] tracking-tight leading-[0.95] mb-10">
+                    Find your next <br/>
+                    <span class="relative inline-block text-[#F9443D]">
+                        favorite meal
+                        <svg class="absolute -bottom-2 left-0 w-full h-3 text-[#F9443D]/20" viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 10.5C50 3.5 150 1.5 299 10.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                    </span> 
+                    near you.
                 </h1>
-                <p class="text-lg sm:text-xl text-[#012e34]/70 md:text-2xl mb-12 font-light max-w-2xl mx-auto leading-relaxed">
-                    Bitehub uses your location to uncover hidden gems, local favorites, and top-rated restaurants right around the corner.
+
+                <p x-show="shown" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                   class="text-lg sm:text-xl text-[#0f172a]/50 md:text-2xl mb-14 font-medium max-w-2xl mx-auto leading-relaxed">
+                    Bitehub connects your cravings with local hidden gems using real-time location intelligence.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="{{ route('register') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-[#012e34] hover:bg-[#F9443D] rounded-full transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 group">
-                        Explore Nearby Restaurants
-                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+
+                <div x-show="shown" x-transition:enter="transition ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+                     class="flex flex-col sm:flex-row justify-center items-center gap-5">
+                    <a href="{{ route('register') }}" class="w-full sm:w-auto px-10 py-5 bg-[#0f172a] text-white rounded-2xl font-bold text-lg transition-all duration-300 shadow-2xl shadow-gray-300 hover:shadow-[#F9443D]/40 hover:bg-[#F9443D] hover:-translate-y-1 group">
+                        Start Exploring
+                        <svg class="inline-block w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
-                    <a href="#how-it-works" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-medium text-[#012e34] bg-white hover:bg-gray-50 border border-gray-200 rounded-full transition-all shadow-sm hover:shadow-md">
-                        See how it works
+                    <a href="#how-it-works" class="w-full sm:w-auto px-10 py-5 bg-white/60 backdrop-blur-md text-[#0f172a] border border-white/40 rounded-2xl font-bold text-lg transition-all duration-300 hover:bg-white hover:shadow-lg">
+                        Learn More
                     </a>
                 </div>
             </div>
-            
-            <!-- Hero Interface Preview -->
-            <div class="mt-20 relative mx-auto max-w-5xl">
-                <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#012e34] to-[#F9443D] opacity-20 blur-2xl"></div>
-                <div class="relative rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-2xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] flex items-center justify-center">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 p-4 sm:p-8 w-full h-full opacity-90">
-                        <div class="rounded-2xl overflow-hidden shadow-lg"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800" alt="Beautiful Modern Restaurant Interior" class="w-full h-full object-cover" /></div>
-                        <div class="rounded-2xl overflow-hidden shadow-lg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800" alt="Elegant Plated Food" class="w-full h-full object-cover" /></div>
-                        <div class="rounded-2xl overflow-hidden shadow-lg hidden md:block"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800" alt="Bustling Restaurant Scene" class="w-full h-full object-cover" /></div>
+
+            <!-- Floating UI Preview -->
+            <div class="mt-32 relative max-w-6xl mx-auto">
+                <div class="relative rounded-[2.5rem] bg-white/40 backdrop-blur-md border border-white/40 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden">
+                    <div class="aspect-video md:aspect-[21/9] bg-gray-50 flex items-center justify-center relative overflow-hidden">
+                         <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1600" class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-[10s] hover:scale-110" alt="Restaurant Interior" />
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                         
+                         <div class="absolute bottom-10 left-10 p-6 backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl text-white text-left hidden sm:block">
+                            <p class="text-xs font-bold uppercase tracking-widest opacity-60 mb-1">Trending Now</p>
+                            <h4 class="text-2xl font-black">The Rustic Kitchen</h4>
+                            <p class="text-sm font-medium opacity-80">0.4 miles away • 4.9 ★</p>
+                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How it works -->
-    <section id="how-it-works" class="py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="font-lato text-3xl md:text-4xl font-bold text-[#012e34] mb-4">Location-Based Magic</h2>
-                <p class="text-lg text-[#012e34]/70">No searching, no typing. Just open Bitehub and let your surroundings inspire your cravings.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-12 relative">
-                <!-- Abstract connecting line -->
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-[#F9443D]/10 via-[#F9443D]/40 to-[#F9443D]/10 -z-10 transform -translate-y-1/2"></div>
-                
-                <div class="relative flex flex-col items-center group">
-                    <div class="w-20 h-20 rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-8 h-8 text-[#F9443D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#012e34] mb-2 font-lato">1. Locate</h3>
-                    <p class="text-[#012e34]/60 text-center text-sm leading-relaxed">Share your location to instantly see the culinary landscape right where you stand.</p>
-                </div>
-                
-                <div class="relative flex flex-col items-center group">
-                    <div class="w-20 h-20 rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-8 h-8 text-[#F9443D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#012e34] mb-2 font-lato">2. Discover</h3>
-                    <p class="text-[#012e34]/60 text-center text-sm leading-relaxed">Browse beautifully curated profiles of nearby restaurants, cafes, and eateries.</p>
-                </div>
-                
-                <div class="relative flex flex-col items-center group">
-                    <div class="w-20 h-20 rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-8 h-8 text-[#F9443D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#012e34] mb-2 font-lato">3. Enjoy</h3>
-                    <p class="text-[#012e34]/60 text-center text-sm leading-relaxed">Find what you crave, head over, and immerse yourself in a new dining experience.</p>
+    <!-- How it Works -->
+    <section id="how-it-works" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-24 gap-8 text-left">
+                <div class="max-w-2xl">
+                    <h2 class="font-lato text-4xl md:text-6xl font-black text-[#0f172a] leading-tight mb-6">Discovery, simplified.</h2>
+                    <p class="text-xl text-gray-500 font-medium">We've stripped away the noise. No complex filters, no endless scrolling. Just your location and the best food it has to offer.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Detailed Features -->
-    <section id="features" class="py-24 lg:py-32 bg-white overflow-hidden relative">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-100/50 via-transparent to-transparent -z-0"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Section Header -->
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-[#F9443D]/10 text-[#F9443D] text-xs font-bold uppercase tracking-widest mb-6">
-                    Sensory Discovery
-                </div>
-                <h2 class="font-lato text-4xl md:text-6xl font-black text-[#012e34] mb-6 leading-[1.1]">
-                    Focus on the <span class="relative inline-block">
-                        <span class="relative z-10 text-[#F9443D]">Experience</span>
-                        <span class="absolute bottom-2 left-0 w-full h-3 bg-[#F9443D]/10 -z-10"></span>
-                    </span>
-                </h2>
-                <p class="text-xl text-[#012e34]/60 leading-relaxed font-light">
-                    We've eliminated the friction. No bookings, no waiting. Just a direct connection between your hunger and the city's finest flavors.
-                </p>
-            </div>
-            
-            <!-- Modern Bento Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                
-                <!-- Hero Featured Card (Spans 2x2) -->
-                <div class="sm:col-span-2 md:row-span-2 group relative rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl transition-all duration-500 ease-out hover:-translate-y-2 isolate transform-gpu min-h-[480px]">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 transform-gpu" alt="Modern Restaurant Interior" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#012e34] via-[#012e34]/40 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-80"></div>
-                    
-                    <div class="absolute top-6 left-6">
-                        <div class="backdrop-blur-md bg-white/20 border border-white/30 rounded-full px-3 py-1 flex items-center space-x-2 shadow-sm">
-                            <span class="flex w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                            <span class="text-white text-[10px] font-bold uppercase tracking-widest">Now Serving</span>
-                        </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="group p-10 rounded-[2.5rem] bg-white/60 backdrop-blur-md border border-white/40 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-2xl bg-[#F9443D]/10 flex items-center justify-center text-[#F9443D] mb-8">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </div>
-
-                    <div class="absolute inset-0 p-6 sm:p-10 flex flex-col justify-end">
-                        <h3 class="text-white font-black text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight transition-transform duration-500 group-hover:-translate-y-1">The Artisan Table</h3>
-                        <p class="text-white/80 text-base sm:text-lg font-light max-w-sm leading-snug transition-transform duration-500 delay-75 group-hover:-translate-y-1">Experience craft cocktails and seasonal small plates in an intimate setting.</p>
-                        <div class="mt-6 sm:mt-8 flex items-center space-x-4 transition-transform duration-500 delay-100 group-hover:-translate-y-1">
-                            <div class="flex -space-x-3">
-                                <img src="https://i.pravatar.cc/100?u=1" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#012e34] shadow-sm" alt="" />
-                                <img src="https://i.pravatar.cc/100?u=2" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#012e34] shadow-sm" alt="" />
-                                <img src="https://i.pravatar.cc/100?u=3" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#012e34] shadow-sm" alt="" />
-                            </div>
-                            <span class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]">+12 Visited</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Visual Menu Card (Horizontal) -->
-                <div class="sm:col-span-2 group relative rounded-[2rem] overflow-hidden bg-[#012e34] shadow-xl transition-all duration-500 ease-out hover:shadow-2xl isolate transform-gpu min-h-[320px]">
-                    <div class="h-full w-full bg-gradient-to-br from-[#012e34] to-[#02414a] p-6 sm:p-10 flex items-center justify-between relative">
-                        <div class="relative z-10 max-w-[60%] sm:max-w-[50%]">
-                            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-[#F9443D] rounded-2xl flex items-center justify-center text-white mb-6 rotate-3 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-lg shadow-[#F9443D]/30">
-                                <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <h4 class="text-white font-bold text-xl sm:text-2xl mb-2 tracking-tight">Visual Menus</h4>
-                            <p class="text-white/50 text-xs sm:text-sm font-light leading-relaxed">High-definition galleries for every dish.</p>
-                        </div>
-                        <div class="absolute -right-8 -bottom-8 w-48 h-48 sm:w-64 sm:h-64 bg-[#F9443D]/10 rounded-full blur-[80px] transition-all duration-700 group-hover:scale-125 group-hover:bg-[#F9443D]/20"></div>
-                        <div class="relative hidden sm:block z-20">
-                            <div class="flex items-center space-x-4 transform rotate-[8deg] translate-x-2 transition-transform duration-700 group-hover:rotate-0 group-hover:translate-x-[-20px]">
-                                <div class="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 transform-gpu shadow-2xl transition-all duration-500 group-hover:scale-105 bg-gray-900">
-                                    <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="Gourmet Pasta" />
-                                </div>
-                                <div class="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 mt-12 transform-gpu shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:mt-4 bg-gray-900">
-                                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="Plated Steak" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Real-time Proximity (Vertical) -->
-                <div class="group relative rounded-[2rem] overflow-hidden bg-white border border-gray-100 p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all duration-300 ease-out hover:shadow-2xl hover:border-[#F9443D]/20 hover:-translate-y-1 isolate transform-gpu min-h-[280px]">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-[#F9443D] mb-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-[#F9443D]/10">
-                        <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div>
-                        <h4 class="text-[#012e34] font-bold text-xl mb-1 tracking-tight">Near You</h4>
-                        <p class="text-[#012e34]/40 text-sm leading-tight">Hyper-local discovery.</p>
-                    </div>
-                    <div class="mt-6 pt-6 border-t border-gray-50">
-                        <div class="flex items-center text-[#F9443D] font-black text-[10px] uppercase tracking-[0.2em]">
-                            <span class="mr-2">Explore Now</span>
-                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                        </div>
-                    </div>
+                    <h3 class="text-2xl font-black text-[#0f172a] mb-4">Set Location</h3>
+                    <p class="text-gray-500 font-medium leading-relaxed">Share your current position with a single tap. We respect your privacy and only use it for discovery.</p>
                 </div>
 
-                <!-- Proximity Pulse Card -->
-                <div class="group relative rounded-[2rem] overflow-hidden bg-[#F9443D] p-6 sm:p-8 flex flex-col justify-center shadow-xl transition-all duration-300 ease-out hover:shadow-2xl hover:shadow-[#F9443D]/30 hover:-translate-y-1 isolate transform-gpu min-h-[280px]">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
-                    <h4 class="text-white font-bold text-xl mb-2 relative z-10 leading-tight tracking-tight">Real-time Proximity</h4>
-                    <p class="text-white/80 text-[10px] font-bold relative z-10 leading-relaxed uppercase tracking-widest">Live distance updates</p>
-                    <div class="mt-8 flex justify-center relative z-10">
-                        <div class="relative">
-                            <div class="absolute inset-0 bg-white/20 rounded-full animate-ping"></div>
-                            <div class="relative w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#F9443D] transition-transform duration-300 group-hover:scale-110 shadow-lg">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                            </div>
-                        </div>
+                <!-- Step 2 -->
+                <div class="group p-10 rounded-[2.5rem] bg-white/60 backdrop-blur-md border border-white/40 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-2xl bg-[#0f172a]/5 flex items-center justify-center text-[#0f172a] mb-8">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </div>
-                </div>
-                
-                <!-- Gallery Item 1 -->
-                <div class="sm:col-span-1 group relative rounded-[2rem] overflow-hidden shadow-lg transition-all duration-500 ease-out hover:shadow-2xl hover:-translate-y-1 isolate transform-gpu min-h-[280px]">
-                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 transform-gpu" alt="Gourmet Burger" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#012e34]/90 via-transparent to-transparent opacity-100 transition-opacity duration-500 group-hover:opacity-95"></div>
-                    <div class="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8">
-                        <div class="text-white font-bold text-lg sm:text-xl leading-tight transition-transform duration-500 group-hover:-translate-y-1 tracking-tight">Smash Bros</div>
-                        <div class="text-[#F9443D] text-[10px] font-black uppercase tracking-[0.25em] mt-2 transition-transform duration-500 delay-75 group-hover:-translate-y-1">1.2 miles away</div>
-                    </div>
-                </div>
-                
-                <!-- Gallery Item 2 -->
-                <div class="sm:col-span-1 group relative rounded-[2rem] overflow-hidden shadow-lg transition-all duration-500 ease-out hover:shadow-2xl hover:-translate-y-1 isolate transform-gpu min-h-[280px]">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 transform-gpu" alt="Artisanal Pizza" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#012e34]/90 via-transparent to-transparent opacity-100 transition-opacity duration-500 group-hover:opacity-95"></div>
-                    <div class="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8">
-                        <div class="text-white font-bold text-lg sm:text-xl leading-tight transition-transform duration-500 group-hover:-translate-y-1 tracking-tight">Luigi's Pizzeria</div>
-                        <div class="text-[#F9443D] text-[10px] font-black uppercase tracking-[0.25em] mt-2 transition-transform duration-500 delay-75 group-hover:-translate-y-1">0.5 miles away</div>
-                    </div>
+                    <h3 class="text-2xl font-black text-[#0f172a] mb-4">See What's Near</h3>
+                    <p class="text-gray-500 font-medium leading-relaxed">Instantly view a curated list of top-rated eateries within walking or short driving distance.</p>
                 </div>
 
-                <!-- Call to Action Card -->
-                <div class="sm:col-span-2 group relative rounded-[2rem] overflow-hidden bg-white border-2 border-dashed border-gray-200 p-6 sm:p-10 flex flex-col items-center justify-center text-center transition-all duration-300 ease-out hover:border-[#F9443D]/40 hover:shadow-2xl hover:-translate-y-1 isolate transform-gpu min-h-[280px]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-white opacity-50"></div>
-                    <div class="relative z-10">
-                        <h4 class="text-[#012e34] font-black text-xl sm:text-2xl mb-3 transition-transform duration-300 group-hover:-translate-y-1 tracking-tight">Ready to explore?</h4>
-                        <p class="text-[#012e34]/50 text-sm mb-8 max-w-xs transition-transform duration-300 delay-75 group-hover:-translate-y-1 font-light">Join thousands of foodies discovering the best local bites every day.</p>
-                        <a href="{{ route('register') }}" class="inline-flex items-center px-8 sm:px-10 py-3 sm:py-4 bg-[#012e34] text-white rounded-full font-bold text-sm transition-all duration-300 hover:bg-[#F9443D] hover:shadow-xl hover:shadow-[#F9443D]/25 transform hover:-translate-y-1 active:scale-95">
-                            Get Started for Free
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
+                <!-- Step 3 -->
+                <div class="group p-10 rounded-[2.5rem] bg-[#0f172a] text-white transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-[#F9443D] mb-8">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                     </div>
+                    <h3 class="text-2xl font-black mb-4">Enjoy the Vibe</h3>
+                    <p class="opacity-70 font-medium leading-relaxed">Head over, experience the atmosphere, and indulge in a meal that feels like a discovery.</p>
                 </div>
-                
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#012e34] pt-16 pb-8 border-t border-[#02414a]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 pb-8 border-b border-[#02414a]">
-                <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                    <img src="{{ asset('images/bitehublogo.png') }}" alt="Bitehub Logo" class="w-10 h-10 object-contain" />
-                    <span class="font-lato font-bold text-xl tracking-tight text-white">Bitehub</span>
+    <footer class="bg-white/80 backdrop-blur-xl pt-32 pb-16 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-gray-100 gap-6">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">&copy; {{ date('Y') }} Bitehub Labs. All rights reserved.</p>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-[#0f172a] hover:bg-[#0f172a] hover:text-white transition-all">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-[#0f172a] hover:bg-[#0f172a] hover:text-white transition-all">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.31s1.248 2.242 1.31 3.608c.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.31 3.608s-2.242 1.248-3.608 1.31c-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.31s-1.248-2.242-1.31-3.608c-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.336-2.633 1.31-3.608s2.242-1.248 3.608-1.31c1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.073 4.948.073s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-[#F9443D] transition-colors">About</a>
-                    <a href="#" class="text-gray-400 hover:text-[#F9443D] transition-colors">Privacy</a>
-                    <a href="#" class="text-gray-400 hover:text-[#F9443D] transition-colors">Terms</a>
-                    <a href="#" class="text-gray-400 hover:text-[#F9443D] transition-colors">Contact</a>
-                </div>
-            </div>
-            <div class="text-center text-sm text-gray-400">
-                &copy; {{ date('Y') }} Bitehub. Focus on discovery.
             </div>
         </div>
     </footer>
