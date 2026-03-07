@@ -7,15 +7,16 @@ use App\Services\LocationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 
 #[Layout('layouts.app')]
 class HomePage extends Component
 {
-    public $restaurants;
     public string $name;
     public $position;
+    public $selectedTagId = null;
 
     public function mount(Request $request)
     {
@@ -24,17 +25,13 @@ class HomePage extends Component
         }
         $this->name = Auth::user()->name;
         $ip = $request->ip();
-        $this->restaurants = Restaurant::query()
-            ->with(['offers' => function ($query) {
-                $query->active();
-            }])
-            ->join('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')
-            ->select('restaurants.*', 'ratings.rating')
-            ->orderBy('ratings.rating', 'desc')
-            ->limit(7)
-            ->get();
-
         $this->position = LocationService::getLocationFromIP($ip);
+    }
+
+    #[On('tag-selected')]
+    public function handleTagSelected($tagId)
+    {
+        $this->selectedTagId = ($this->selectedTagId == $tagId) ? null : $tagId;
     }
 
     public function logout()
@@ -45,6 +42,23 @@ class HomePage extends Component
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return view('livewire.home_components.home-page');
+        $restaurants = Restaurant::query()
+            ->with(['offers' => function ($query) {
+                $query->active();
+            }])
+            ->leftJoin('ratings', 'restaurants.id', '=', 'ratings.restaurant_id')
+            ->select('restaurants.*', 'ratings.rating')
+            ->when($this->selectedTagId, function ($query) {
+                $query->whereHas('tags', function ($q) {
+                    $q->where('tag_id', $this->selectedTagId);
+                });
+            })
+            ->orderBy('ratings.rating', 'desc')
+            ->limit(7)
+            ->get();
+
+        return view('livewire.home_components.home-page', [
+            'restaurants' => $restaurants
+        ]);
     }
 }

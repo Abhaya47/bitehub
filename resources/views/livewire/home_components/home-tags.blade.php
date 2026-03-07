@@ -1,30 +1,54 @@
-<div id="card-slider"
-     class="flex gap-[15px] overflow-x-auto overflow-y-hidden h-[180px] md:h-[200px] lg:h-[220px] scroll-smooth scrollbar-hide"
-     style="scrollbar-width: none; -ms-overflow-style: none;">
-    @foreach($tags as $tag)
-        <div
-            class="relative flex-none w-[270px] md:w-[320px] lg:w-[350px] h-[180px] md:h-[200px] lg:h-[220px] rounded-[25px] overflow-hidden group">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/20">
-                <img src="{{ asset('images/non_veg_items.png') }}" alt="Non-Veg Food"
-                     class="w-full h-full object-cover -scale-x-1000" draggable="false"/>
-            </div>
+<div>
+    <div id="card-slider"
+         class="flex gap-[20px] overflow-x-auto py-6 px-4 -mx-4 scroll-smooth scrollbar-hide"
+         style="scrollbar-width: none; -ms-overflow-style: none;">
+        @foreach($tags as $tag)
             <div
-                class="absolute top-[29px] md:top-[35px] lg:top-[40px] left-[19px] md:left-[24px] lg:left-[28px] flex flex-col items-start h-full">
-                <a href="{{ route('tags', ['tag' => $tag->id]) }}" class="block group/link">
-                    <h3
-                        class="font-raleway font-bold text-[22px] md:text-[26px] lg:text-[30px] leading-[26px] md:leading-[30px] lg:leading-[35px] tracking-[0.03em] text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] group-hover/link:underline">
-                        {{$tag->name}}
+                wire:key="tag-{{ $tag->id }}"
+                wire:click="selectTag({{ $tag->id }})"
+                class="relative flex-none w-[270px] md:w-[320px] lg:w-[350px] h-[180px] md:h-[200px] lg:h-[220px] rounded-[30px] overflow-hidden group cursor-pointer transition-all duration-300 {{ $selectedTagId == $tag->id ? 'border-4 border-[#F9443D]' : 'border-4 border-transparent hover:border-gray-100' }}">
+                
+                {{-- Background Image --}}
+                <div class="absolute inset-0">
+                    <img src="{{ asset('images/non_veg_items.png') }}" alt="{{ $tag->name }}"
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" draggable="false"/>
+                    {{-- Dynamic Overlay --}}
+                    <div class="absolute inset-0 transition-colors duration-300 {{ $selectedTagId == $tag->id ? 'bg-[#F9443D]/20' : 'bg-black/30 group-hover:bg-black/20' }}"></div>
+                </div>
+
+                {{-- Active Badge --}}
+                @if($selectedTagId == $tag->id)
+                    <div class="absolute top-4 right-4 z-20 animate-fade-in">
+                        <div class="px-3 py-1.5 rounded-full bg-[#F9443D] text-white text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-2">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            Selected
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Content --}}
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-10">
+                    <h3 class="font-lato font-black text-2xl md:text-3xl text-white tracking-tight drop-shadow-md">
+                        {{ $tag->name }}
                     </h3>
-                    <p
-                        class="font-raleway font-bold text-[13px] md:text-[15px] lg:text-[17px] leading-[15px] md:leading-[18px] lg:leading-[20px] text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] mt-[11px] md:mt-[13px] lg:mt-[15px]">
-                        All discount up to 60%
+                    <p class="font-medium text-sm text-white/80 mt-1 transition-opacity duration-300 {{ $selectedTagId == $tag->id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100' }}">
+                        Explore best {{ strtolower($tag->name) }} spots
                     </p>
-                </a>
-                <a href="{{ route('tags', ['tag' => $tag->id]) }}" 
-                   class="inline-flex mt-6 px-5 py-2.5 bg-white text-[#0f172a] text-xs font-black uppercase tracking-widest rounded-full transition-all duration-300 hover:bg-[#F9443D] hover:text-white shadow-lg hover:shadow-[#F9443D]/40 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-                    View Offers
-                </a>
+                </div>
+
+                {{-- Glassmorphic bottom shine --}}
+                <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
+
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
 </div>
