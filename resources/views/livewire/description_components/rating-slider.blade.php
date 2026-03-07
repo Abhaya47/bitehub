@@ -40,7 +40,7 @@
         <div class="md:pl-12 md:border-l border-gray-200 text-center md:text-left">
             <h5 class="text-lg font-black text-[#0f172a] mb-2">Had a meal here?</h5>
             <p class="text-sm text-gray-400 font-medium mb-6">Share your experience with the BiteHub community.</p>
-            <button class="px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#F9443D] transition-all shadow-xl shadow-gray-200">
+            <button wire:click="$dispatch('openReviewForm')" class="px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#F9443D] transition-all shadow-xl shadow-gray-200">
                 Write a Review
             </button>
         </div>

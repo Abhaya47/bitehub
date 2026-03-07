@@ -128,6 +128,8 @@
         </div>
     </footer>
 
+    <livewire:description.review-form :restaurantId="$restaurant->id" />
+
     {{-- Root Level Modal for Full-Screen View --}}
     <div id="menuModal" class="hidden fixed inset-0 z-[99999] bg-black/95 transition-all duration-300 opacity-0 overflow-hidden">
         <div class="relative w-full h-full flex flex-col">
