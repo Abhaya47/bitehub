@@ -1,69 +1,46 @@
-<!-- Available Offers Component -->
-<div class="w-full px-4 py-6">
-    <div class="bg-white rounded-xl p-6 sm:p-8 flex flex-col gap-5 w-full">
-        {{-- Header --}}
-        <h2 class="text-lg sm:text-xl md:text-2xl font-normal text-[#004225] leading-7 text-left">
-            Available Offers
-        </h2>
-
-        {{-- Offers List Container --}}
-        <div class="flex flex-col gap-3">
-            @if ($offers && $offers->count() > 0)
-                @foreach ($offers as $offer)
-                    {{-- Offer Card --}}
-                    <div
-                        class="offer-card border border-[rgba(0,66,37,0.5)] rounded-lg p-3 flex flex-col sm:flex-row items-center justify-between gap-3 bg-gradient-to-r from-[rgba(0,133,74,0.05)] via-[rgba(1,158,89,0.05)] to-[rgba(12,210,123,0.05)]">
-                        {{-- Time Section --}}
-                        <div class="flex items-center gap-2.5 min-w-fit">
-                            {{-- Info Icon --}}
-                            <div class="w-5 h-5 relative flex-shrink-0">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                    <circle cx="10" cy="10" r="8.33" stroke="#004225"
-                                        stroke-width="1.5" />
-                                    <line x1="10" y1="6.77" x2="10" y2="10.8" stroke="#004225"
-                                        stroke-width="1.5" stroke-linecap="round" />
-                                    <circle cx="10" cy="13.33" r="1" fill="#004225" />
-                                </svg>
-                            </div>
-
-                            {{-- Time Text --}}
-                            @php
-                                $start = \Carbon\Carbon::parse($offer->start_at);
-                                $end = \Carbon\Carbon::parse($offer->end_at);
-                            @endphp
-                            @if ($start->isSameDay($end))
-                                {{ $start->format('D, h:i A') }} - {{ $end->format('h:i A') }}
+<div class="space-y-4">
+    @if ($offers && $offers->count() > 0)
+        @foreach ($offers as $offer)
+            <div class="relative p-6 rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-100 shadow-sm hover:shadow-md transition-all group overflow-hidden">
+                {{-- Decorative element --}}
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#F9443D]/5 rounded-bl-full -mr-8 -mt-8 group-hover:bg-[#F9443D]/10 transition-colors"></div>
+                
+                <div class="relative z-10 flex flex-col gap-4">
+                    <div class="flex items-center justify-between">
+                        <div class="px-3 py-1 rounded-full bg-[#F9443D]/10 text-[#F9443D] text-[10px] font-black uppercase tracking-widest">
+                            Limited Time
+                        </div>
+                        <span class="text-[#F9443D] text-2xl font-black">
+                            @if ($offer->discount_type == 'percentage')
+                                {{ intval($offer->discount_value) }}% <span class="text-sm">OFF</span>
                             @else
-                                {{ $start->format('D h:i A') }} - {{ $end->format('D h:i A') }}
+                                <span class="text-sm">रु</span> {{ intval($offer->discount_value) }} <span class="text-sm uppercase">OFF</span>
                             @endif
-                            </span>
-                        </div>
-
-                        {{-- Description --}}
-                        <div class="flex-grow text-center sm:text-left sm:flex-grow-0 sm:ml-4">
-                            <span class="text-[#004225] text-sm sm:text-base font-normal tracking-[0.25px]">
-                                {{ $offer->description }}
-                            </span>
-                        </div>
-
-                        {{-- Discount Section --}}
-                        <div class="min-w-fit flex items-center justify-center">
-                            <span class="text-[#F6433F] text-lg sm:text-xl font-bold tracking-[0.5px]">
-                                @if ($offer->discount_type == 'percentage')
-                                    {{ intval($offer->discount_value) }}% OFF
-                                @else
-                                    Flat {{ intval($offer->discount_value) }} OFF
-                                @endif
-                            </span>
-                        </div>
+                        </span>
                     </div>
-                @endforeach
-            @else
-                <div class="text-center text-gray-500 py-4">
-                    No active offers available at the moment.
+                    
+                    <div>
+                        <h4 class="text-[#0f172a] font-black text-lg leading-tight mb-1">{{ $offer->title }}</h4>
+                        <p class="text-gray-400 text-sm font-medium leading-relaxed">
+                            {{ $offer->description }}
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex items-center gap-3 text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span class="text-[10px] font-bold uppercase tracking-widest">
+                            Valid until {{ \Carbon\Carbon::parse($offer->end_at)->format('M d, Y') }}
+                        </span>
+                    </div>
                 </div>
-            @endif
+            </div>
+        @endforeach
+    @else
+        <div class="text-center py-12 px-6 rounded-[2rem] border-2 border-dashed border-gray-100">
+            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" /></svg>
+            </div>
+            <p class="text-gray-400 font-bold text-sm uppercase tracking-widest">No active offers</p>
         </div>
-    </div>
+    @endif
 </div>

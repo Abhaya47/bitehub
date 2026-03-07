@@ -1,227 +1,48 @@
-{{-- Reviews and Ratings Section --}}
-<div class="w-full max-w-full mx-auto px-4 py-6">
-    <div class="bg-white rounded-xl p-8 shadow-sm">
-        {{-- Section Title --}}
-        <h2 class="text-[22px] font-normal leading-[28px] text-[#004225] mb-5">
-            Reviews and Ratings
-        </h2>
-
-        {{-- Divider --}}
-        <hr class="border-t border-[rgba(197,197,197,0.5)] mb-5">
-
-        {{-- Main Content --}}
-        <div class="flex flex-col lg:flex-row items-center justify-center gap-[60px]">
-            {{-- Left Side: Overall Rating --}}
-            <div class="flex flex-col items-center w-[262px]">
-                {{-- Label --}}
-                <p class="text-sm font-medium leading-4 text-[#5F5F5F] text-center mb-7">
-                    Overall Rating & Reviews
-                </p>
-
-                {{-- Large Rating Number --}}
-                <div class="text-[57px] font-normal leading-[67px] text-[#F6433F] text-center mb-3">
-                    {{$averageRating}}
-                </div>
-
-                {{-- Stars --}}
-                <div class="flex items-center gap-1 mb-6">
-                    {{-- Star 1 - Filled --}}
-                    @for($i=1;$i<=floor($averageRating);$i++)
-
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#DFB300"/>
-                        </svg>
-                    @endfor
-                    {{-- Star - Half Filled --}}
-
-                    @if(fmod($averageRating,1) != 0.00)
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                fill="#F2F2F2"/>
-                            <path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557V0Z"
-                                  fill="rgba(0, 126, 71, 0.2)"/>
-                        </svg>
-                    @endif
-                </div>
-
-                {{-- Review Count --}}
-                <p class="text-sm font-medium leading-4 text-[#5F5F5F] text-center">
-                    Based on {{$count}} reviews <a href="#" class="text-[#F6433F] hover:underline">Rate now</a>
-                </p>
+<div class="space-y-12">
+    {{-- Unified Review Header --}}
+    <div class="flex flex-col md:flex-row items-center gap-12 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 shadow-inner">
+        {{-- Big Rating --}}
+        <div class="text-center md:border-r border-gray-200 md:pr-12">
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">Average Rating</p>
+            <h4 class="text-8xl font-black text-[#0f172a] leading-none mb-4">{{ $averageRating }}</h4>
+            <div class="flex justify-center gap-1 mb-4">
+                @for($i=1; $i<=5; $i++)
+                    <svg class="w-6 h-6 {{ $i <= round($averageRating) ? 'text-yellow-400' : 'text-gray-200' }} fill-current" viewBox="0 0 20 20"><path d="M10 1l2.6 6.3 6.9.6-5.3 4.6 1.6 6.8-5.8-3.5-5.8 3.5 1.6-6.8-5.3-4.6 6.9-.6L10 1z"/></svg>
+                @endfor
             </div>
+            <p class="text-sm font-bold text-[#0f172a]">{{ $count }} Verified Reviews</p>
+        </div>
 
-            {{-- Right Side: Rating Bars --}}
-            <div class="flex flex-col justify-center gap-8 flex-1 max-w-[985px]">
-                {{-- Rating Row 1 --}}
-                <div class="flex items-center gap-3">
-                    {{-- Category Label --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#004225] w-[41px] text-center">
-                        5 stars
-                    </span>
-
-                    {{-- 5 Stars --}}
-                    <div class="flex items-center gap-1">
-                        @for($i=1;$i<=5;$i++)
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
-                            </svg>
-                        @endfor
+        {{-- Rating Bars --}}
+        <div class="flex-1 w-full space-y-4">
+            @php
+                $bars = [
+                    5 => ['count' => $five, 'label' => 'Excellent'],
+                    4 => ['count' => $four, 'label' => 'Very Good'],
+                    3 => ['count' => $three, 'label' => 'Average'],
+                    2 => ['count' => $two, 'label' => 'Poor'],
+                    1 => ['count' => $one, 'label' => 'Terrible']
+                ];
+            @endphp
+            @foreach($bars as $star => $data)
+                <div class="flex items-center gap-6 group">
+                    <span class="text-[10px] font-black text-[#0f172a] w-16 uppercase tracking-widest opacity-40 group-hover:opacity-100 transition-opacity">{{ $data['label'] }}</span>
+                    <div class="flex-1 h-3 bg-white rounded-full overflow-hidden shadow-sm border border-gray-100">
+                        @php $percentage = $count > 0 ? ($data['count'] / $count) * 100 : 0; @endphp
+                        <div class="h-full bg-gradient-to-r from-[#F9443D] to-orange-400 transition-all duration-1000 rounded-full" style="width: {{ $percentage }}%"></div>
                     </div>
-
-                    {{-- Progress Bar --}}
-                    <div class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{$count > 0 ? ($five/$count)*100 : 0}}%">
-                        </div>
-                    </div>
-
-                    {{-- Count --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$five}}
-                    </span>
+                    <span class="text-xs font-black text-[#0f172a] w-8 text-right opacity-40 group-hover:opacity-100">{{ $data['count'] }}</span>
                 </div>
+            @endforeach
+        </div>
 
-                {{-- Rating Row 4 --}}
-                <div class="flex items-center gap-3">
-                    {{-- Category Label --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#004225] w-[41px] text-center">
-                        4 stars
-                    </span>
-
-                    {{-- Stars --}}
-                    <div class="flex items-center gap-1">
-                        @for($i=1;$i<=4;$i++)
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
-                            </svg>
-                        @endfor
-                    </div>
-
-                    {{-- Progress Bar --}}
-                    <div
-                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{$count > 0 ? ($four/$count)*100 : 0}}%;">
-                        </div>
-                    </div>
-
-                    {{-- Count --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$four}}
-                    </span>
-                </div>
-
-                {{-- Rating Row 3 --}}
-                <div class="flex items-center gap-3">
-                    {{-- Category Label --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#004225] w-[41px] text-center">
-                        3 stars
-                    </span>
-
-                    {{-- Stars --}}
-                    <div class="flex items-center gap-1">
-                        @for($i=1;$i<=3;$i++)
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
-                            </svg>
-                        @endfor
-                    </div>
-
-                    {{-- Progress Bar --}}
-                    <div
-                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{$count > 0 ? ($three/$count)*100 : 0}}%;">
-                        </div>
-                    </div>
-
-                    {{-- Count --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$three}}
-                    </span>
-                </div>
-
-
-                {{-- Rating Row 2 --}}
-                <div class="flex items-center gap-3">
-                    {{-- Category Label --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#004225] w-[41px] text-center">
-                        2 stars
-                    </span>
-
-                    {{-- Stars --}}
-                    <div class="flex items-center gap-1">
-                        @for($i=1;$i<=2;$i++)
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
-                            </svg>
-                        @endfor
-                    </div>
-
-                    {{-- Progress Bar --}}
-                    <div
-                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{$count > 0 ? ($two/$count)*100 : 0}}%;">
-                        </div>
-                    </div>
-
-                    {{-- Count --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$two}}
-                    </span>
-                </div>
-
-                {{-- Rating Row 1 --}}
-                <div class="flex items-center gap-3">
-                    {{-- Category Label --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#004225] w-[41px] text-center">
-                        1 stars
-                    </span>
-
-                    {{-- Stars --}}
-                    <div class="flex items-center gap-1">
-                        @for($i=1;$i<=2;$i++)
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"
-                                    fill="#DFB300"/>
-                            </svg>
-                        @endfor
-                    </div>
-
-                    {{-- Progress Bar --}}
-                    <div
-                        class="relative flex-1 h-2.5 bg-[rgba(0,66,37,0.4)] rounded-[12px] overflow-hidden hidden md:block">
-                        <div class="absolute top-0 left-0 h-full bg-[#F6433F] rounded-[12px]"
-                             style="width: {{$count > 0 ? ($one/$count)*100 : 0}}%;">
-                        </div>
-                    </div>
-
-                    {{-- Count --}}
-                    <span class="text-xs font-normal leading-[14px] text-[#F6433F] w-[14px] text-center">
-                        {{$one}}
-                    </span>
-                </div>
-            </div>
+        {{-- Call to Action --}}
+        <div class="md:pl-12 md:border-l border-gray-200 text-center md:text-left">
+            <h5 class="text-lg font-black text-[#0f172a] mb-2">Had a meal here?</h5>
+            <p class="text-sm text-gray-400 font-medium mb-6">Share your experience with the BiteHub community.</p>
+            <button class="px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#F9443D] transition-all shadow-xl shadow-gray-200">
+                Write a Review
+            </button>
         </div>
     </div>
 </div>
