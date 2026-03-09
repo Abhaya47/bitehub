@@ -21,6 +21,8 @@ class Review extends Model
         'restaurant_id',
         'review',
         'rating',
+        'helpful_count',
+        'parent_id',
         'file_path',
         'created_at',
         'updated_at',
@@ -31,6 +33,8 @@ class Review extends Model
         'restaurant_id' => 'integer',
         'review' => 'string',
         'rating' => 'float',
+        'helpful_count' => 'integer',
+        'parent_id' => 'integer',
         'file_path' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -45,6 +49,16 @@ class Review extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Review::class, 'parent_id', 'id')->with('user')->latest();
+    }
+
+    public function helpfulUsers()
+    {
+        return $this->belongsToMany(User::class, 'review_helpful_user', 'review_id', 'user_id')->withTimestamps();
     }
 
     /*

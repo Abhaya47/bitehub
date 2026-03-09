@@ -1,4 +1,6 @@
-<div x-data="{ isOpen: @entangle('isOpen') }" 
+<div x-data="{ 
+    isOpen: @entangle('isOpen'),
+}" 
      x-show="isOpen" 
      class="fixed inset-0 z-[100001] flex items-center justify-center p-4" 
      style="display: none;"
@@ -62,11 +64,20 @@
                     <div class="flex flex-wrap gap-4">
                         {{-- Preview --}}
                         @if ($images)
-                            @foreach($images as $image)
+                            @php
+                                $galleryImages = collect($images)->map(function($img) {
+                                    return ['file_url' => $img->temporaryUrl(), 'title' => 'Review Photo'];
+                                })->toArray();
+                            @endphp
+                            @foreach($images as $index => $image)
                                 <div class="relative w-24 h-24 rounded-2xl overflow-hidden group border-2 border-white shadow-md">
                                     <img src="{{ $image->temporaryUrl() }}" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                        <button type="button" 
+                                                onclick="openGalleryModal({{ json_encode($galleryImages) }}, {{ $index }})" 
+                                                class="p-2 bg-white/20 backdrop-blur-md rounded-lg hover:bg-[#F9443D] transition-colors">
+                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                        </button>
                                     </div>
                                 </div>
                             @endforeach

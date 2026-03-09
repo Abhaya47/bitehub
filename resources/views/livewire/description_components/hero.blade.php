@@ -80,20 +80,25 @@
 <script>
     let currentSlide = 0;
     const track = document.querySelector('.carousel-track');
-    const badge = document.querySelector('.bottom-6.right-6 span');
+    const slides = track.querySelectorAll('.min-w-full');
+    const totalSlides = slides.length;
+    const badge = document.querySelector('.top-6.right-6 span');
 
     function updateCarousel() {
         track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        badge.innerText = `${currentSlide + 1} / 3 Photos`;
+        badge.innerText = `${currentSlide + 1} / ${totalSlides} Photos`;
     }
 
     function nextSlide() {
-        currentSlide = (currentSlide + 1) % 3;
+        currentSlide = (currentSlide + 1) % totalSlides;
         updateCarousel();
     }
 
     function prevSlide() {
-        currentSlide = (currentSlide - 1 + 3) % 3;
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
         updateCarousel();
     }
+
+    // Initialize the badge text in case it's different from hardcoded
+    updateCarousel();
 </script>

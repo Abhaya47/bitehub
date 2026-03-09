@@ -10,31 +10,35 @@ class RatingService
 {
     public function calculateRating(Review $review): void
     {
-         $column="";
-        $average = round(Review::query()->where('restaurant_id', $review->restaurant_id)->average('rating'), 1);
-        switch ($review->rating) {
-            case 1:
-                $column = "one_star";
-                break;
-            case 2:
-                $column = "two_star";
-                break;
-            case 3:
-                $column = "three_star";
-                break;
-            case 4:
-                $column = "four_star";
-                break;
-            case 5:
-                $column = "five_star";
-                break;
+        if ($review->parent_id !== null) {
+            return;
         }
-        $rating=Rating::query()->updateOrCreate(
-            ['restaurant_id' => $review->restaurant_id],
-            ['rating' => $average],
+
+        $restaurantId = $review->restaurant_id;
+        
+        // Get the average rating for top-level reviews (not replies)
+        $average = round(Review::where('restaurant_id', $restaurantId)
+            ->whereNull('parent_id')
+            ->average('rating'), 1);
+            
+        // Count each star type for top-level reviews
+        $counts = Review::where('restaurant_id', $restaurantId)
+            ->whereNull('parent_id')
+            ->selectRaw('rating, count(*) as count')
+            ->groupBy('rating')
+            ->pluck('count', 'rating');
+
+        Rating::updateOrCreate(
+            ['restaurant_id' => $restaurantId],
+            [
+                'rating' => $average ?: 0,
+                'one_star' => $counts->get(1, 0),
+                'two_star' => $counts->get(2, 0),
+                'three_star' => $counts->get(3, 0),
+                'four_star' => $counts->get(4, 0),
+                'five_star' => $counts->get(5, 0),
+            ]
         );
-        $rating->increment($column);
-        $rating->save();
     }
 
     public function createRating(Restaurant $restaurant): void

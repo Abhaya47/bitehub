@@ -130,15 +130,15 @@
 
     <livewire:description.review-form :restaurantId="$restaurant->id" />
 
-    {{-- Root Level Modal for Full-Screen View --}}
-    <div id="menuModal" class="hidden fixed inset-0 z-[99999] bg-black/95 transition-all duration-300 opacity-0 overflow-hidden">
+    {{-- Root Level Modal for Full-Screen View (Generic Gallery) --}}
+    <div id="galleryModal" class="hidden fixed inset-0 z-[99999] bg-black/95 transition-all duration-300 opacity-0 overflow-hidden">
         <div class="relative w-full h-full flex flex-col">
             {{-- Top Bar --}}
             <div class="flex justify-between items-center px-6 py-6 text-white w-full absolute top-0 left-0 z-[100000]">
                 <div class="text-sm font-black uppercase tracking-widest text-white/60">
-                    <span id="menuCounter">1 / 1</span>
+                    <span id="galleryCounter">1 / 1</span>
                 </div>
-                <button onclick="closeMenuModal()" class="w-12 h-12 rounded-full bg-white/10 hover:bg-[#F9443D] text-white transition-all flex items-center justify-center">
+                <button onclick="closeGalleryModal()" class="w-12 h-12 rounded-full bg-white/10 hover:bg-[#F9443D] text-white transition-all flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -148,7 +148,7 @@
 
             {{-- Main Content --}}
             <div class="flex-1 flex items-center justify-center p-4 relative w-full h-full">
-                <button id="prevBtn" onclick="prevMenu()"
+                <button id="prevGalleryBtn" onclick="prevGallery()"
                     class="absolute left-4 md:left-10 z-[100000] w-14 h-14 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#F9443D] hover:border-[#F9443D] transition-all flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -156,13 +156,13 @@
                     </svg>
                 </button>
 
-                <div id="imageContainer"
+                <div id="galleryImageContainer"
                     class="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing">
-                    <img id="menuImage" src="" alt="Menu" draggable="false"
+                    <img id="galleryImage" src="" alt="Gallery Image" draggable="false"
                         class="max-w-full max-h-screen object-contain shadow-2xl select-none transition-transform duration-100 ease-out origin-center">
                 </div>
 
-                <button id="nextBtn" onclick="nextMenu()"
+                <button id="nextGalleryBtn" onclick="nextGallery()"
                     class="absolute right-4 md:right-10 z-[100000] w-14 h-14 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#F9443D] hover:border-[#F9443D] transition-all flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -173,7 +173,7 @@
 
             {{-- Bottom Caption --}}
             <div class="absolute bottom-10 left-0 right-0 text-center text-white z-[100000] pointer-events-none">
-                <h3 id="menuTitle" class="text-xl font-black tracking-tight drop-shadow-lg"></h3>
+                <h3 id="galleryTitle" class="text-xl font-black tracking-tight drop-shadow-lg"></h3>
             </div>
         </div>
     </div>
@@ -184,25 +184,26 @@
                 return [
                     'file_url' => $menu->file_url,
                     'title' => $menu->title,
-                    'preview_url' => $menu->preview_url ?? asset('images/restaurant1.jpg'),
                 ];
             });
         @endphp
         <script>
             (function() {
-                const menus = @json($menuJson);
+                let currentGallery = [];
                 let currentIndex = 0;
+                const menus = @json($menuJson);
 
-                const modal = document.getElementById('menuModal');
-                const menuImage = document.getElementById('menuImage');
-                const menuCounter = document.getElementById('menuCounter');
-                const menuTitle = document.getElementById('menuTitle');
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
+                const modal = document.getElementById('galleryModal');
+                const galleryImage = document.getElementById('galleryImage');
+                const galleryCounter = document.getElementById('galleryCounter');
+                const galleryTitle = document.getElementById('galleryTitle');
+                const prevBtn = document.getElementById('prevGalleryBtn');
+                const nextBtn = document.getElementById('nextGalleryBtn');
 
-                window.openMenuModal = function(index) {
+                window.openGalleryModal = function(images, index = 0) {
+                    currentGallery = images;
                     currentIndex = index;
-                    updateModalContent();
+                    updateGalleryContent();
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
                     setTimeout(() => {
@@ -212,7 +213,11 @@
                     document.body.style.overflow = 'hidden';
                 }
 
-                window.closeMenuModal = function() {
+                window.openMenuModal = function(index) {
+                    window.openGalleryModal(menus, index);
+                }
+
+                window.closeGalleryModal = function() {
                     modal.classList.add('opacity-0');
                     modal.classList.remove('opacity-100');
                     setTimeout(() => {
@@ -222,32 +227,34 @@
                     document.body.style.overflow = '';
                 }
 
-                function updateModalContent() {
-                    if (menus.length === 0) return;
-                    const menu = menus[currentIndex];
-                    menuImage.src = menu.file_url;
-                    menuTitle.textContent = menu.title;
-                    menuCounter.textContent = `${currentIndex + 1} / ${menus.length}`;
+                function updateGalleryContent() {
+                    if (currentGallery.length === 0) return;
+                    const item = currentGallery[currentIndex];
+                    galleryImage.src = item.file_url;
+                    galleryTitle.textContent = item.title || '';
+                    galleryCounter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
 
-                    if(prevBtn) prevBtn.style.visibility = menus.length > 1 ? 'visible' : 'hidden';
-                    if(nextBtn) nextBtn.style.visibility = menus.length > 1 ? 'visible' : 'hidden';
+                    if(prevBtn) prevBtn.style.visibility = currentGallery.length > 1 ? 'visible' : 'hidden';
+                    if(nextBtn) nextBtn.style.visibility = currentGallery.length > 1 ? 'visible' : 'hidden';
                 }
 
-                window.nextMenu = function() {
-                    currentIndex = (currentIndex + 1) % menus.length;
-                    updateModalContent();
+                window.nextGallery = function() {
+                    if (currentGallery.length === 0) return;
+                    currentIndex = (currentIndex + 1) % currentGallery.length;
+                    updateGalleryContent();
                 }
 
-                window.prevMenu = function() {
-                    currentIndex = (currentIndex - 1 + menus.length) % menus.length;
-                    updateModalContent();
+                window.prevGallery = function() {
+                    if (currentGallery.length === 0) return;
+                    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                    updateGalleryContent();
                 }
 
                 window.addEventListener('keydown', (e) => {
                     if (modal && !modal.classList.contains('hidden')) {
-                        if (e.key === 'Escape') closeMenuModal();
-                        if (e.key === 'ArrowRight') nextMenu();
-                        if (e.key === 'ArrowLeft') prevMenu();
+                        if (e.key === 'Escape') closeGalleryModal();
+                        if (e.key === 'ArrowRight') nextGallery();
+                        if (e.key === 'ArrowLeft') prevGallery();
                     }
                 });
             })();
