@@ -13,10 +13,10 @@ class Tags extends Component
 
     public $restaurants;
 
-    public function mount(Request $request, $tag)
+    public function mount(Request $request, $tagId)
     {
-        $this->restaurants = RestaurantTag::with(['restaurant.rating'])->where('tag_id', $tag)->get();
-
+        $tag = \App\Models\Tag::findOrFail($tagId);
+        $this->restaurants = $tag->restaurants()->with('rating')->get();
     }
 
     public function render()

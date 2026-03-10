@@ -1,4 +1,19 @@
 <div>
+    @php
+        $tagImages = [
+            'Momo' => 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?q=80&w=800&auto=format&fit=crop',
+            'Sekuwa' => 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop',
+            'Nepali' => 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=800&auto=format&fit=crop',
+            'Chinese' => 'https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop',
+            'Fast Food' => 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=800&auto=format&fit=crop',
+            'Vegetarian' => 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800&auto=format&fit=crop',
+            'Pizza' => 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop',
+            'Burgers' => 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop',
+            'Coffee' => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop',
+            'Halal' => 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop',
+        ];
+        $defaultImage = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop';
+    @endphp
     <div id="card-slider"
          class="flex gap-[20px] overflow-x-auto py-6 px-4 -mx-4 scroll-smooth scrollbar-hide"
          style="scrollbar-width: none; -ms-overflow-style: none;">
@@ -10,7 +25,7 @@
                 
                 {{-- Background Image --}}
                 <div class="absolute inset-0">
-                    <img src="{{ asset('images/non_veg_items.png') }}" alt="{{ $tag->name }}"
+                    <img src="{{ $tagImages[$tag->name] ?? $defaultImage }}" alt="{{ $tag->name }}"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" draggable="false"/>
                     {{-- Dynamic Overlay --}}
                     <div class="absolute inset-0 transition-colors duration-300 {{ $selectedTagId == $tag->id ? 'bg-[#F9443D]/20' : 'bg-black/30 group-hover:bg-black/20' }}"></div>

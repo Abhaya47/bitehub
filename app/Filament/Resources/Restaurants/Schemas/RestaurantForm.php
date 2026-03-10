@@ -37,6 +37,12 @@ class RestaurantForm
                     ->default(fn() => Auth::user()->email)
                     ->searchable(),
 
+                Select::make('tags')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
+
                 FileUpload::make('file_path')
                     ->label('Restaurant Logo')
                     ->image()

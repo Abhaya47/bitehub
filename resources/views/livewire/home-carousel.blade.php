@@ -27,9 +27,9 @@
                         <p class="text-gray-500 text-sm mb-4 line-clamp-2 h-10">{{ $restaurant->address }}</p>
                         
                         <div class="flex flex-wrap gap-2 mb-6">
-                            @foreach($restaurant->tags->take(3) as $rtag)
+                            @foreach($restaurant->tags->take(3) as $tag)
                                 <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
-                                    {{ $rtag->tag->name }}
+                                    {{ $tag->name }}
                                 </span>
                             @endforeach
                         </div>

@@ -123,17 +123,22 @@ class DatabaseSeeder extends Seeder
             $createdTags[] = $tag;
         }
 
-        foreach ($createdRestaurants as $index => $restaurant) {
-            $numTags = rand(2, 4);
-            $shuffledTags = $createdTags;
-            shuffle($shuffledTags);
-            $selectedTags = array_slice($shuffledTags, 0, $numTags);
+        $tagMap = [
+            'Aambo Momo' => ['Momo', 'Nepali', 'Fast Food'],
+            'Jamuna Sekuwa' => ['Sekuwa', 'Nepali'],
+            'Bhotewadi Kitchen' => ['Nepali', 'Vegetarian'],
+            'Momo House' => ['Momo', 'Nepali', 'Fast Food'],
+            'Newa Chulo' => ['Nepali', 'Vegetarian'],
+        ];
 
-            foreach ($selectedTags as $tag) {
-                RestaurantTag::create([
-                    'tag_id' => $tag->id,
-                    'restaurant_id' => $restaurant->id,
-                ]);
+        foreach ($createdRestaurants as $index => $restaurant) {
+            $restaurantTags = $tagMap[$restaurant->name] ?? ['Nepali'];
+            
+            foreach ($restaurantTags as $tagName) {
+                $tag = collect($createdTags)->firstWhere('name', $tagName);
+                if ($tag) {
+                    $restaurant->tags()->attach($tag->id);
+                }
             }
 
             RestaurantMenu::create([

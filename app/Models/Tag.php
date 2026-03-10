@@ -25,7 +25,8 @@ class Tag extends Model
         'description' => 'string',
     ];
 
-    public function restaurantTags(){
-        return $this->hasMany('App\Models\RestaurantTag', 'tag_id');
+    public function restaurants(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class, 'restaurant_tags', 'tag_id', 'restaurant_id');
     }
 }

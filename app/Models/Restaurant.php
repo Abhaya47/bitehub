@@ -58,9 +58,9 @@ class Restaurant extends Model
         return $this->hasMany(Message::class,'restaurant_id');
     }
 
-    public function tags(): HasMany
+    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(RestaurantTag::class,'restaurant_id');
+        return $this->belongsToMany(Tag::class, 'restaurant_tags', 'restaurant_id', 'tag_id');
     }
 
     public function menus(): HasMany
