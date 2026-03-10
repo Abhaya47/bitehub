@@ -29,7 +29,7 @@ class User extends Authenticatable implements FilamentUser
         'role',
         'file_path',
         'bio',
-      
+
     ];
 
     /**
@@ -42,9 +42,9 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-//    protected $casts = [
-//        'role' => UserType::class,
-//    ];
+    //    protected $casts = [
+    //        'role' => UserType::class,
+    //    ];
 
     /**
      * Get the attributes that should be cast.
@@ -59,7 +59,6 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
@@ -69,10 +68,15 @@ class User extends Authenticatable implements FilamentUser
         };
     }
 
-
     public function restaurants()
     {
         return $this->hasMany('App\Models\Restaurant', 'owner_id');
+    }
+
+    public function favoriteRestaurants()
+    {
+        return $this->belongsToMany(Restaurant::class, 'favorites', 'user_id', 'restaurant_id')
+            ->withTimestamps();
     }
 
     public function review()
@@ -85,12 +89,33 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany('App\Models\Message');
     }
 
+    public function notificationReads()
+    {
+        return $this->hasMany('App\Models\NotificationRead');
+    }
+
+    public function notifications()
+    {
+        return $this->notificationReads()->with('notice')->orderBy('created_at', 'desc');
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->notificationReads()->unread()->with('notice');
+    }
+
+    public function createdNotices()
+    {
+        return $this->hasMany('App\Models\Notice', 'created_by');
+    }
+
     public static function isAdmin(): bool
     {
         $user = Auth::user();
         if (($user->role) === UserType::Admin->value) {
             return true;
         }
+
         return false;
     }
 
@@ -100,15 +125,17 @@ class User extends Authenticatable implements FilamentUser
         if (($user->role) === UserType::Owner->value) {
             return true;
         }
+
         return false;
     }
 
-    public static  function isUser(): bool
+    public static function isUser(): bool
     {
         $user = Auth::user();
         if (($user->role) === UserType::User->value) {
             return true;
         }
+
         return false;
     }
 }

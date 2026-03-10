@@ -23,6 +23,14 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@bitehub.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+            'email_verified_at' => now(),
+        ]);
+
         $owner = User::create([
             'name' => 'Restaurant Owner',
             'email' => 'owner@bitehub.com',

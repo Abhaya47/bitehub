@@ -2,47 +2,20 @@
 
 namespace App\Livewire;
 
-use App\Services\LocationService;
 use App\Services\NotificationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.app')]
-class Profile extends Component
+class Notifications extends Component
 {
     use WithPagination;
-
-    public $activeTab = 'reviews';
-
-    public $position;
-
-    protected $paginationTheme = 'tailwind';
 
     protected NotificationService $notificationService;
 
     public function boot(NotificationService $notificationService)
     {
         $this->notificationService = $notificationService;
-    }
-
-    public function mount(Request $request)
-    {
-        $ip = $request->ip();
-        $this->position = LocationService::getLocationFromIP($ip);
-
-        if ($request->has('tab') && in_array($request->get('tab'), ['reviews', 'notifications'])) {
-            $this->activeTab = $request->get('tab');
-        }
-    }
-
-    public function setActiveTab($tab)
-    {
-        $this->activeTab = $tab;
-        $this->resetPage('reviews');
-        $this->resetPage('notifications');
     }
 
     public function markAsRead($notificationId): void
@@ -81,35 +54,20 @@ class Profile extends Component
         }
     }
 
-    public function deleteReview($reviewId)
-    {
-        $user = Auth::user();
-        $review = $user->review()->find($reviewId);
-
-        if ($review) {
-            $review->delete();
-        }
-    }
-
     public function render()
     {
         $user = Auth::user();
-
-        $reviews = $user->review()
-            ->with('restaurant')
-            ->latest()
-            ->paginate(4, ['*'], 'reviews');
+        if (! $user) {
+            return view('livewire.notifications', ['notifications' => collect()]);
+        }
 
         $notifications = $user->notificationReads()
             ->with('notice')
             ->orderBy('created_at', 'desc')
-            ->paginate(5, ['*'], 'notifications');
+            ->paginate(20);
 
-        return view('livewire.profile', [
-            'user' => $user,
-            'reviews' => $reviews,
+        return view('livewire.notifications', [
             'notifications' => $notifications,
-            'position' => $this->position,
         ]);
     }
 }

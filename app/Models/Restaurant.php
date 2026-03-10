@@ -63,6 +63,17 @@ class Restaurant extends Model
         return $this->belongsToMany(Tag::class, 'restaurant_tags', 'restaurant_id', 'tag_id');
     }
 
+    public function ratingInfo()
+    {
+        return $this->hasOne(Rating::class, 'restaurant_id');
+    }
+
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'restaurant_id', 'user_id')
+            ->withTimestamps();
+    }
+
     public function menus(): HasMany
     {
         return $this->hasMany(RestaurantMenu::class);
